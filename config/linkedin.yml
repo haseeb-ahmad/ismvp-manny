@@ -1,0 +1,14 @@
+defaults: &defaults
+  app_id: '75o644cke65gv3'
+  app_secret: '8U6Z59NDNwc9qm84'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  app_id: '759cm4jaavj33q'
+  app_secret: '0u3SqJOhalTKotZX'
+

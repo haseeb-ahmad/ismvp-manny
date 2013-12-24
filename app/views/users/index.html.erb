@@ -1,0 +1,58 @@
+<br/>
+<div class = "container">
+	<%= link_to 'Sign out', destroy_user_session_path, :method => :delete, :class => "btn btn-danger pull-right" %>
+
+	<br/><br/><br/>
+
+	<div> <%= "Email: #{@user.email}"%> </div>
+	<div> <%= "Number of Conected Identities: #{@identities.count}" %> </div>
+
+	<br/>
+
+	<table class = "table">
+		<tr>
+			<th> Provider </th>
+			<th> UId </th>
+			<th> Connect/Disconnect </th>
+		</tr>
+
+		<tr>
+			<% facebook_identity = @identities.find{|identity| identity.provider == "facebook" } %>
+			<% if facebook_identity %>
+				<td> <%= facebook_identity.provider %> </td>
+				<td> <%= facebook_identity.uid %> </td>
+				<td> <%= link_to "Disconnect Facebook", users_disconnect_path(:identity => "facebook"), :class => "btn" %> </td>
+			<% else %>
+				<td>  </td>
+				<td>  </td>
+				<td> <%= link_to "Connect Facebook", user_omniauth_authorize_path(:facebook), :class => "btn btn-success" %> </td>
+			<% end %>
+		</tr>
+
+		<tr>
+			<% google_identity = @identities.find{|identity| identity.provider == "google" } %>
+			<% if google_identity %>
+				<td> <%= google_identity.provider %> </td>
+				<td> <%= google_identity.uid %> </td>
+				<td> <%= link_to "Disconnect Google", users_disconnect_path(:identity => "google"), :class => "btn" %> </td>
+			<% else %>
+				<td>  </td>
+				<td>  </td>
+				<td> <%= link_to "Connect Google", user_omniauth_authorize_path(:google), :class => "btn btn-success" %> </td>
+			<% end %>
+		</tr>
+
+		<tr>
+			<% linkedin_identity = @identities.find{|identity| identity.provider == "linkedin" } %>
+			<% if linkedin_identity %>
+				<td> <%= linkedin_identity.provider %> </td>
+				<td> <%= linkedin_identity.uid %> </td>
+				<td> <%= link_to "Disconnect LinkedIn", users_disconnect_path(:identity => "linkedin"), :class => "btn" %> </td>
+			<% else %>
+				<td>  </td>
+				<td>  </td>
+				<td> <%= link_to "Connect LinkedIn", user_omniauth_authorize_path(:linkedin), :class => "btn btn-success" %> </td>
+			<% end %>
+		</tr>
+	</table>
+</div>
