@@ -41,6 +41,8 @@ module FbService
     friends.each do |friend|
       array << friend.fetch
     end
+
+    array
   end
 
   def self.fb_logout_url(fb_api_key, fb_session_key, return_url)
