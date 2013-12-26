@@ -9,21 +9,19 @@ class Identity < ActiveRecord::Base
 
 	def self.find_or_create(auth, user)
 
-		identity = user.identities.find { |identity| identity.provider == auth.provider }
+		identity = where(auth.slice(:provider, :uid)).first_or_initialize
 
-		if identity.nil?
-			identity 				= Identity.new
-			identity.user_id		= user.id
-			identity.provider		= auth.provider
-			identity.uid			= auth.uid
-			identity.token			= auth.credentials.token
-			identity.secret			= auth.credentials.secret
-			identity.expires_at		= Time.at(auth.credentials.expires_at) if auth.provider == "facebook"
-			identity.refresh_token	= auth.credentials.refresh_token
+		identity.user_id		= user.id
+		identity.provider		= auth.provider
+		identity.uid			= auth.uid
+		identity.token			= auth.credentials.token
+		identity.secret			= auth.credentials.secret
+		identity.expires_at		= Time.at(auth.credentials.expires_at) if auth.provider == "facebook"
+		identity.refresh_token	= auth.credentials.refresh_token
 
-			identity.save!
-			user.identities << identity
-		end
+		identity.save!
+		user.identities << identity
+
 		identity
 	end
 end

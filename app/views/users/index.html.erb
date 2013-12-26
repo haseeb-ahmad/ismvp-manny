@@ -21,11 +21,11 @@
 			<% if facebook_identity %>
 				<td> <%= facebook_identity.provider %> </td>
 				<td> <%= facebook_identity.uid %> </td>
-				<td> <%= link_to "Disconnect Facebook", users_disconnect_path(:identity => "facebook"), :class => "btn" %> </td>
+				<td> <%= link_to "Disconnect Facebook", users_disconnect_path(:identity => "facebook"), :class => "btn", :id => "disconnect_facebook" %> </td>
 			<% else %>
 				<td>  </td>
 				<td>  </td>
-				<td> <%= link_to "Connect Facebook", user_omniauth_authorize_path(:facebook), :class => "btn btn-success" %> </td>
+				<td> <%= link_to "Connect Facebook", user_omniauth_authorize_path(:facebook), :class => "btn btn-success", :id => "connect_facebook" %> </td>
 			<% end %>
 		</tr>
 
@@ -34,11 +34,11 @@
 			<% if google_identity %>
 				<td> <%= google_identity.provider %> </td>
 				<td> <%= google_identity.uid %> </td>
-				<td> <%= link_to "Disconnect Google", users_disconnect_path(:identity => "google"), :class => "btn" %> </td>
+				<td> <%= link_to "Disconnect Google", users_disconnect_path(:identity => "google"), :class => "btn", :id => "disconnect_google" %> </td>
 			<% else %>
 				<td>  </td>
 				<td>  </td>
-				<td> <%= link_to "Connect Google", user_omniauth_authorize_path(:google), :class => "btn btn-success" %> </td>
+				<td> <%= link_to "Connect Google", user_omniauth_authorize_path(:google), :class => "btn btn-success", :id => "connect_google" %> </td>
 			<% end %>
 		</tr>
 
@@ -47,11 +47,11 @@
 			<% if linkedin_identity %>
 				<td> <%= linkedin_identity.provider %> </td>
 				<td> <%= linkedin_identity.uid %> </td>
-				<td> <%= link_to "Disconnect LinkedIn", users_disconnect_path(:identity => "linkedin"), :class => "btn" %> </td>
+				<td> <%= link_to "Disconnect LinkedIn", users_disconnect_path(:identity => "linkedin"), :class => "btn", :id => "disconnect_linkedin" %> </td>
 			<% else %>
 				<td>  </td>
 				<td>  </td>
-				<td> <%= link_to "Connect LinkedIn", user_omniauth_authorize_path(:linkedin), :class => "btn btn-success" %> </td>
+				<td> <%= link_to "Connect LinkedIn", user_omniauth_authorize_path(:linkedin), :class => "btn btn-success", :id => "connect_linkedin" %> </td>
 			<% end %>
 		</tr>
 	</table>

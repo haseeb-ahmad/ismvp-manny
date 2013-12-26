@@ -1,3 +1,5 @@
+require 'fb_service'
+
 class User < ActiveRecord::Base
 	# Include default devise modules. Others available are:
 	# :token_authenticatable, :confirmable,
@@ -8,24 +10,34 @@ class User < ActiveRecord::Base
 	has_many :identities, :dependent => :destroy
 
 	attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :first_name, :last_name
+				  	:first_name, :last_name
 
-    def self.find_or_create(auth)
+	def self.find_or_create(auth)
 
-    	user = User.where("email = '#{auth.info.email}'").first_or_initialize
+		# If user exists then update else create new user
+		user = User.where("email = '#{auth.info.email}'").first_or_initialize
 
-    	unless user.persisted?
-			user.email		= auth.info.email
-			user.first_name	= auth.info.first_name
-			user.last_name	= auth.info.last_name
+		user.email		= auth.info.email
+		user.first_name	= auth.info.first_name
+		user.last_name	= auth.info.last_name
 
-			user.skip_confirmation!
+		# No need to send confirmation email to user
+		user.skip_confirmation!
+		user.save!(:validate => false)
 
-			user.save!(:validate => false)
-    	end
-    	user
-    end
+		user
+	end
 
+	def get_friends
+		identity = self.identities.where(:provider=>"facebook").first
+		if identity.nil?
+			[]
+		else
+			token = identity.token
+			@friends = FbService.get_fb_friends(token)
+		end
+
+	end
 
 	def password_required?
 		super if confirmed?
