@@ -1,0 +1,10 @@
+Contacts:   <br/>
+
+<ul>
+    <% @friends.each do|f| %>
+        <li><%= f.name %></li>
+    <% end %>
+</ul>
+
+
+<%= link_to 'Sign out', destroy_user_session_path, :method => :delete, :class => "btn btn-danger" %>
