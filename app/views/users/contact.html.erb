@@ -1,11 +1,28 @@
-Contacts:   <br/>
+<br/>
+<div class = "container">
+	<%= link_to 'Sign out', destroy_user_session_path, :method => :delete, :class => "btn btn-danger pull-right" %>
 
-<ul>
-    <% @friends.each do|f| %>
-        <li><%= f.name %></li>
-      <br/>
-    <% end %>
-</ul>
+	<br/><br/><br/>
 
+	<table class = "table">
+		<tr>
+			<th> Name </th>
+			<th> First Name </th>
+			<th> Last Name </th>
+			<th> Gender </th>
+			<th> Username </th>
+			<th> Profile Pic </th>
+		</tr>
 
-<%= link_to 'Sign out', destroy_user_session_path, :method => :delete, :class => "btn btn-danger" %>
+		<% @friends.each do |friend| %>
+			<tr>
+				<td> <%= friend.name %> </td>
+				<td> <%= friend.first_name %> </td>
+				<td> <%= friend.last_name %> </td>
+				<td> <%= friend.gender %> </td>
+				<td> <%= friend.username %> </td>
+				<td> <%= image_tag(friend.picture) %> </td>
+			</tr>
+		<% end %>
+	</table>
+</div>

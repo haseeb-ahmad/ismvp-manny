@@ -218,7 +218,7 @@ Devise.setup do |config|
 
 
   config.omniauth :facebook, FACEBOOK_CONFIG[:app_id], FACEBOOK_CONFIG[:app_secret], :client_options => {:ssl => {:ca_path => '/etc/ssl/certs'}}
-  config.omniauth :linkedin, LINKEDIN_CONFIG[:app_id], LINKEDIN_CONFIG[:app_secret], { scope: 'r_fullprofile r_emailaddress r_network rw_nus', name: 'linkedin', authorize_params: { state: SecureRandom.hex(15)} }
+  config.omniauth :linkedin, LINKEDIN_CONFIG[:app_id], LINKEDIN_CONFIG[:app_secret], { scope: 'r_fullprofile r_emailaddress r_contactinfo r_network rw_nus', name: 'linkedin', authorize_params: { state: SecureRandom.hex(15)} }
   config.omniauth :google_oauth2, GOOGLE_CONFIG[:app_id], GOOGLE_CONFIG[:app_secret],{ name: 'google'}
 
   # ==> OmniAuth

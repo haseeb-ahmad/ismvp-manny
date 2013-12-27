@@ -1,5 +1,3 @@
-require 'fb_service'
-
 class User < ActiveRecord::Base
 	# Include default devise modules. Others available are:
 	# :token_authenticatable, :confirmable,
@@ -29,12 +27,27 @@ class User < ActiveRecord::Base
 	end
 
 	def get_friends
+
+		identity = self.identities.where(:provider=>"google").first
+		if identity.nil?
+			[]
+		else
+			friends = GpService.get_gp_friends(identity.token)
+		end
+
+		identity = self.identities.where(:provider=>"linkedin").first
+		if identity.nil?
+			[]
+		else
+			friends = LinService.get_lin_friends(identity.token, identity.secret)
+		end
+
+
 		identity = self.identities.where(:provider=>"facebook").first
 		if identity.nil?
 			[]
 		else
-			token = identity.token
-			@friends = FbService.get_fb_friends(token)
+			friends = FbService.get_fb_friends(identity.token)
 		end
 
 	end

@@ -15,9 +15,11 @@ gem "protected_attributes"
 
 gem "omniauth"
 gem "omniauth-facebook"
-gem "omniauth-linkedin-oauth2"
+gem "omniauth-linkedin"
 gem "omniauth-google-oauth2"
 gem "fb_graph"
+gem "linkedin"
+gem "google-api-client"
 
 gem "therubyracer"
 gem "less-rails"

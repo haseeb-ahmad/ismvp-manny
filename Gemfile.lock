@@ -41,6 +41,10 @@ GEM
     arel (5.0.0)
     atomic (1.1.14)
     attr_required (0.0.5)
+    autoparse (0.3.3)
+      addressable (>= 2.3.1)
+      extlib (>= 0.9.15)
+      multi_json (>= 1.0.0)
     bcrypt-ruby (3.1.2)
     builder (3.2.2)
     capybara (2.2.0)
@@ -78,6 +82,7 @@ GEM
       mail (~> 2.2)
     erubis (2.7.0)
     execjs (2.0.2)
+    extlib (0.9.16)
     factory_girl (4.3.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.3.0)
@@ -93,6 +98,16 @@ GEM
       rack-oauth2 (>= 0.14.4)
       tzinfo
     ffi (1.9.3)
+    google-api-client (0.6.4)
+      addressable (>= 2.3.2)
+      autoparse (>= 0.3.3)
+      extlib (>= 0.9.15)
+      faraday (~> 0.8.4)
+      jwt (>= 0.1.5)
+      launchy (>= 2.1.1)
+      multi_json (>= 1.0.0)
+      signet (~> 0.4.5)
+      uuidtools (>= 2.1.0)
     hashie (2.0.5)
     hike (1.2.3)
     httpauth (0.2.0)
@@ -115,6 +130,10 @@ GEM
       actionpack (>= 3.1)
       less (~> 2.4.0)
     libv8 (3.16.14.3)
+    linkedin (0.4.4)
+      hashie (>= 1.2, < 2.1)
+      multi_json (~> 1.0)
+      oauth (~> 0.4)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -125,6 +144,7 @@ GEM
     multipart-post (1.2.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
+    oauth (0.4.7)
     oauth2 (0.8.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -139,9 +159,11 @@ GEM
     omniauth-google-oauth2 (0.2.1)
       omniauth (~> 1.0)
       omniauth-oauth2
-    omniauth-linkedin-oauth2 (0.1.5)
+    omniauth-linkedin (0.1.0)
+      omniauth-oauth (~> 1.0)
+    omniauth-oauth (1.0.1)
+      oauth
       omniauth (~> 1.0)
-      omniauth-oauth2
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
@@ -208,6 +230,11 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0.4)
+    signet (0.4.5)
+      addressable (>= 2.2.3)
+      faraday (~> 0.8.1)
+      jwt (>= 0.1.5)
+      multi_json (>= 1.0.0)
     spring (1.0.0)
     sprockets (2.10.1)
       hike (~> 1.2)
@@ -236,6 +263,7 @@ GEM
     uglifier (2.3.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    uuidtools (2.1.4)
     warden (1.2.3)
       rack (>= 1.0)
     websocket (1.0.7)
@@ -255,14 +283,16 @@ DEPENDENCIES
   factory_girl_rails
   faker
   fb_graph
+  google-api-client
   jbuilder (~> 1.2)
   jquery-rails
   less-rails
+  linkedin
   minitest
   omniauth
   omniauth-facebook
   omniauth-google-oauth2
-  omniauth-linkedin-oauth2
+  omniauth-linkedin
   pg
   protected_attributes
   rails (= 4.1.0.beta1)
