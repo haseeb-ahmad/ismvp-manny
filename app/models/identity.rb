@@ -1,6 +1,7 @@
 class Identity < ActiveRecord::Base
 	
 	belongs_to :user
+	has_many :contacts
 
 	validates :provider, presence: true
 	validates :uid, presence: true, uniqueness: {scope: :provider}
@@ -17,7 +18,7 @@ class Identity < ActiveRecord::Base
 		identity.token			= auth.credentials.token
 		identity.secret			= auth.credentials.secret
 		identity.expires_at		= Time.at(auth.credentials.expires_at) if auth.provider == "facebook"
-		identity.refresh_token	= auth.credentials.refresh_token
+		identity.refresh_token	||= auth.credentials.refresh_token
 
 		identity.save!
 		user.identities << identity

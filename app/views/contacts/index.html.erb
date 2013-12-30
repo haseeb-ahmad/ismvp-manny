@@ -1,57 +1,62 @@
-<h1>Listing contacts</h1>
+<br/>
+<div class = "container">
+	<%= link_to 'Sign out', destroy_user_session_path, :method => :delete, :class => "btn btn-danger pull-right" %>
 
-<table>
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Given name</th>
-      <th>Photo url</th>
-      <th>Gender</th>
-      <th>Email</th>
-      <th>Phone</th>
-      <th>User</th>
-      <th>Identity</th>
-      <th>Network url</th>
-      <th>Network username</th>
-      <th>Job title</th>
-      <th>Organization</th>
-      <th>Industry</th>
-      <th>Country</th>
-      <th>About</th>
-      <th>Notes</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+	<br/><br/><h1>Listing contacts</h1><br/>
 
-  <tbody>
-    <% @contacts.each do |contact| %>
-      <tr>
-        <td><%= contact.first_name %></td>
-        <td><%= contact.last_name %></td>
-        <td><%= contact.given_name %></td>
-        <td><%= contact.photo_url %></td>
-        <td><%= contact.gender %></td>
-        <td><%= contact.email %></td>
-        <td><%= contact.phone %></td>
-        <td><%= contact.user %></td>
-        <td><%= contact.identity %></td>
-        <td><%= contact.network_url %></td>
-        <td><%= contact.network_username %></td>
-        <td><%= contact.job_title %></td>
-        <td><%= contact.organization %></td>
-        <td><%= contact.industry %></td>
-        <td><%= contact.country %></td>
-        <td><%= contact.about %></td>
-        <td><%= contact.notes %></td>
-        <td><%= link_to 'Show', contact %></td>
-        <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-        <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+<table class = "table">
+	<thead>
+		<tr>
+			<th> Photo </th>
+			<th> Full name </th>
+			<th> First name </th>
+			<th> Last name </th>
+			<th> Given name </th>
+			<th> Gender </th>
+			<th> Email </th>
+			<th> Phone </th>
+			<th> Network username </th>
+			<th> Job title </th>
+			<th> Organization </th>
+			<th> Industry </th>
+			<th> Country </th>
+			<th> About </th>
+			<th> Notes </th>
+			<th> User </th>
+			<th> Identity </th>
+			<th colspan="3"></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @contacts.each do |contact| %>
+			<tr>
+				<td> <%= image_tag(contact.photo_url) %> </td>
+				<td> <%= contact.full_name %> </td>
+				<td> <%= contact.first_name %> </td>
+				<td> <%= contact.last_name %> </td>
+				<td> <%= contact.given_name %> </td>
+				<td> <%= contact.gender %> </td>
+				<td> <%= contact.email %> </td>
+				<td> <%= contact.phone %> </td>
+				<td> <%= contact.network_username %> </td>
+				<td> <%= contact.job_title %> </td>
+				<td> <%= contact.organization %> </td>
+				<td> <%= contact.industry %> </td>
+				<td> <%= contact.country %> </td>
+				<td> <%= contact.about %> </td>
+				<td> <%= contact.notes %> </td>
+				<td> <%= contact.user.id %> </td>
+				<td> <%= contact.identity.id %> </td>
+				<td><%#= link_to 'Show', contact %></td>
+				<td><%#= link_to 'Edit', edit_contact_path(contact) %></td>
+				<td><%#= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			</tr>
+		<% end %>
+	</tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Contact', new_contact_path %>
+<%#= link_to 'New Contact', new_contact_path %>
+</div>

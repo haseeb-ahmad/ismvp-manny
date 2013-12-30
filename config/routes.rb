@@ -2,7 +2,6 @@ Rails.application.routes.draw do
 
 
   get "users/index"
-  #get "users/contact"
   get "users/disconnect" => "users#disconnect"
 
   devise_for :users, :controllers => { :confirmations => "confirmations",
