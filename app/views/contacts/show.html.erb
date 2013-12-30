@@ -1,0 +1,89 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @contact.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @contact.last_name %>
+</p>
+
+<p>
+  <strong>Given name:</strong>
+  <%= @contact.given_name %>
+</p>
+
+<p>
+  <strong>Photo url:</strong>
+  <%= @contact.photo_url %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <%= @contact.gender %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @contact.email %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @contact.phone %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @contact.user %>
+</p>
+
+<p>
+  <strong>Identity:</strong>
+  <%= @contact.identity %>
+</p>
+
+<p>
+  <strong>Network url:</strong>
+  <%= @contact.network_url %>
+</p>
+
+<p>
+  <strong>Network username:</strong>
+  <%= @contact.network_username %>
+</p>
+
+<p>
+  <strong>Job title:</strong>
+  <%= @contact.job_title %>
+</p>
+
+<p>
+  <strong>Organization:</strong>
+  <%= @contact.organization %>
+</p>
+
+<p>
+  <strong>Industry:</strong>
+  <%= @contact.industry %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @contact.country %>
+</p>
+
+<p>
+  <strong>About:</strong>
+  <%= @contact.about %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @contact.notes %>
+</p>
+
+<%= link_to 'Edit', edit_contact_path(@contact) %> |
+<%= link_to 'Back', contacts_path %>

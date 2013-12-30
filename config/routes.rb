@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  
+
+
   get "users/index"
-  get "users/contact"
+  #get "users/contact"
   get "users/disconnect" => "users#disconnect"
 
   devise_for :users, :controllers => { :confirmations => "confirmations",
@@ -11,6 +12,10 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     patch "/confirm" => "confirmations#confirm"
+  end
+
+  resources :users, :only => :none do
+    resources :contacts
   end
 
 
