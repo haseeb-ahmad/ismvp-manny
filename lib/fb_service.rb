@@ -1,13 +1,27 @@
 module FbService
-	def self.get_fb_friends(token)
-		friends = fb_friends_from(token)
-		
-		array = Array.new
-		friends.each do |friend|
-			array << friend.fetch
-		end
+	def self.get_fb_contacts(token)
+		friends = fb_friends_from(token)		
+		contacts = Array.new
 
-		array
+		friends.each do |friend|
+			
+			friend = friend.fetch
+			contact = Contact.new
+
+			contact.name = friend.name
+			contact.first_name = friend.first_name
+			contact.last_name = friend.last_name
+			contact.network = "facebook"
+			contact.network_page = friend.link
+			contact.network_id = friend.identifier
+			contact.network_username = friend.username
+			contact.gender = friend.gender
+			#contact.posts = friend.posts
+			contact.photo = friend.picture
+
+			contacts << contact
+		end
+		contacts
 	end
 
 	private
@@ -17,7 +31,7 @@ module FbService
 	end
 
 	def self.fb_friends_from(token)
-			return fb_user_from(token).friends(options = {:access_token => token}) || []
+		return fb_user_from(token).friends(options = {:access_token => token}) || []
 	end
 
 	def self.people_from_fb_friends(fb_friends)

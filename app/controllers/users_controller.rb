@@ -2,14 +2,11 @@ class UsersController < ApplicationController
 	before_filter :authenticate_user!
 
 	def index
-		@user = current_user
 		@identities = current_user.identities
 	end
 
 	def contact
-		@user = current_user
-		@identities = current_user.identities
-		@friends = @user.get_friends
+		@contacts = current_user.get_contacts
 	end
 
 	def disconnect

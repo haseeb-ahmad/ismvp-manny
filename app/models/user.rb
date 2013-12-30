@@ -26,30 +26,17 @@ class User < ActiveRecord::Base
 		user
 	end
 
-	def get_friends
+	def get_contacts
+		gp_token = self.identities.where(:provider=>"google").first.token rescue nil
+		gp_contacts = gp_token.nil? ? [] : GpService.get_gp_contacts(gp_token)
 
-		identity = self.identities.where(:provider=>"google").first
-		if identity.nil?
-			[]
-		else
-			friends = GpService.get_gp_friends(identity.token)
-		end
+		fb_token = self.identities.where(:provider=>"facebook").first.token rescue nil
+		fb_contacts = fb_token.nil? ? [] : FbService.get_fb_contacts(fb_token)
 
-		identity = self.identities.where(:provider=>"linkedin").first
-		if identity.nil?
-			[]
-		else
-			friends = LinService.get_lin_friends(identity.token, identity.secret)
-		end
+		lin_token, lin_secret = self.identities.where(:provider=>"linkedin").pluck(:token, :secret).first
+		lin_contacts = (lin_token.nil? || lin_secret.nil?) ? [] : LinService.get_lin_contacts(lin_token, lin_secret)
 
-
-		identity = self.identities.where(:provider=>"facebook").first
-		if identity.nil?
-			[]
-		else
-			friends = FbService.get_fb_friends(identity.token)
-		end
-
+		fb_contacts + lin_contacts + gp_contacts
 	end
 
 	def password_required?

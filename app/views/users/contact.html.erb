@@ -10,18 +10,28 @@
 			<th> First Name </th>
 			<th> Last Name </th>
 			<th> Gender </th>
-			<th> Username </th>
+			<th> Network </th>
+			<th> Network ID </th>
+			<th> Network Username </th>
+			<th> Country </th>
+			<th> Job </th>
+			<th> Industry </th>
 			<th> Profile Pic </th>
 		</tr>
 
-		<% @friends.each do |friend| %>
+		<% @contacts.each do |contact| %>
 			<tr>
-				<td> <%= friend.name %> </td>
-				<td> <%= friend.first_name %> </td>
-				<td> <%= friend.last_name %> </td>
-				<td> <%= friend.gender %> </td>
-				<td> <%= friend.username %> </td>
-				<td> <%= image_tag(friend.picture) %> </td>
+				<td> <%= contact.name %> </td>
+				<td> <%= contact.first_name %> </td>
+				<td> <%= contact.last_name %> </td>
+				<td> <%= contact.gender %> </td>
+				<td> <%= contact.network %> </td>
+				<td> <%= link_to "#{contact.network_id}", contact.network_page %> </td>
+				<td> <%= contact.network_username %> </td>
+				<td> <%= contact.country %> </td>
+				<td> <%= contact.job %> </td>
+				<td> <%= contact.industry %> </td>
+				<td> <%= image_tag(contact.photo) %> </td>
 			</tr>
 		<% end %>
 	</table>
