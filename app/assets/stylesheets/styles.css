@@ -7720,6 +7720,7 @@ header .searcher img {
 /* line 207, ../sass/styles.scss */
 #main .img-contact {
   position: relative;
+  border-radius: 15px;
   bottom: 0;
 }
 /* line 212, ../sass/styles.scss */

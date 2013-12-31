@@ -1,0 +1,81 @@
+<% if counter == 1 %>
+<div class="active-tab" id=<%="contact_#{contact.id}"%>>
+<% else %>
+<div class="tabify" id=<%="contact_#{contact.id}"%>>
+<% end %>
+
+	<div class="notes right-col col-sm-offset-1 col-sm-4">
+		<div class="title">
+			<img class="rect" src="/assetsrectangle.png" alt="">
+			<h1> <%= contact.full_name.upcase %> </h1>
+			<div class="mail">
+				kiefer@sutherland.com
+			</div>
+			<div class="phone">
+				(281) 415-8889
+			</div>
+		</div>
+		<div class="tags">
+			<div class="tag">
+				<img class="rounded" src="/assetsrounded_1.png" alt="">
+				<h4>POKER</h4>
+			</div>
+			<div class="tag">
+				<img class="rounded" src="/assetsrounded_2.png" alt="">
+				<h4>OPERA</h4>
+			</div>
+			<div class="tag">
+				<img class="rounded" src="/assetsrounded_3.png" alt="">
+				<h4>YAHOO</h4>
+			</div>
+			<div class="tag">
+				<img class="rounded" src="/assetsrounded_4.png" alt="">
+			</div>
+		</div>
+		<div class="note">
+			<p>
+				Uniquely combined skills of design and development that reap their
+				benefits in the ever-changing industry of IT. From brand-identity to
+				application launch, these broad areas of expertise contribute in every
+				step to define the structure of a successful endeavor. Self-learnt and
+				attained experience through different freelance, part-time and
+				full-time jobs. Excels at problem-solving skills. Good communication
+				and team management capability. Passionate to work in the evolving
+				world of web.
+				<span class="date">April 24, 2013 at 3pm</span>
+			</p>
+			<div class="links">
+				<a href="#">Add note</a>
+				<a href="#">Show all notes</a>
+			</div>
+		</div>
+		<div class="note">
+			<h2>Work</h2>
+			<div class="who">
+				Senior Software Engineer, Monaqasat
+			</div>
+			<div class="term">
+				April 2010 – Present (3 years 7 months) Abu Dhabi, UAE
+			</div>
+			<p>
+				Refactored the whole application and wrote specs and features using
+				RSpec and Cucumber. Trained and educated the staff to use new
+				technologies by holding presentations and workshops...
+			</p>
+		</div>
+		<div class="note">
+			<h2>Education</h2>
+			<div class="who">
+				BS in Computer Science
+			</div>
+			<div class="term">
+				April 2010 – Present (3 years 7 months) Abu Dhabi, UAE
+			</div>
+			<p>
+				Refactored the whole application and wrote specs and features using
+				RSpec and Cucumber. Trained and educated the staff to use new
+				technologies by holding presentations and workshops...
+			</p>
+		</div>
+	</div>
+</div>

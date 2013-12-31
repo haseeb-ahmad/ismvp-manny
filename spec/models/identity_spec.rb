@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Contact do
+describe Identity do
 	describe 'Associations' do
+		it { should have_many :contacts }
 		it { should belong_to :user }
-		it { should belong_to :identity }
 	end
 end

@@ -7,7 +7,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 		if current_user.nil?
 			# User tries to Sign In / Register through some social network
-			flash.now[:notice] = "You are connected to #{identity.provider.capitalize}. Welcome!"
+			flash[:notice] = "You are connected to #{identity.provider.capitalize}. Welcome!"
 
   			if user.encrypted_password.empty?
 				# User need to set password first.
@@ -22,7 +22,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			end
 		else
 			# User already signed in and tries to connect with some identity
-			flash.now[:notice] = "You are successfully connected to #{identity.provider.capitalize}."
+			flash[:notice] = "You are successfully connected to #{identity.provider.capitalize}."
 			redirect_to users_index_path
 		end
 	end

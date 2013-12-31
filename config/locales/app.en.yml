@@ -1,0 +1,4 @@
+en:
+  sign_up:
+    already_registered: "#{email} is already already registered. Please Sign in to continue."
+  

@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
 	attr_accessible :email, :password, :password_confirmation, :remember_me,
 				  	:first_name, :last_name
 
+	scope :get_user, lambda {|email| where(:email => email)}
+	
+
 	def self.find_or_create(auth)
 
 		# If user exists then update else create new user
@@ -28,14 +31,14 @@ class User < ActiveRecord::Base
 	end
 
 	def get_contacts
-		gp_access_token, gp_refresh_token = self.identities.where(:provider=>"google").pluck(:token, :refresh_token).first
-		gp_contacts = (gp_access_token.nil? || gp_refresh_token.nil?) ? [] : get_google_plus_contacts(gp_access_token, gp_refresh_token)
+		#gp_access_token, gp_refresh_token = self.identities.where(:provider=>"google").pluck(:token, :refresh_token).first
+		#gp_contacts = (gp_access_token.nil? || gp_refresh_token.nil?) ? [] : get_google_plus_contacts(gp_access_token, gp_refresh_token)
 
-		fb_token = self.identities.where(:provider=>"facebook").first.token rescue nil
-		fb_contacts = fb_token.nil? ? [] : get_fb_contacts(fb_token)
+		#fb_token = self.identities.where(:provider=>"facebook").first.token rescue nil
+		#fb_contacts = fb_token.nil? ? [] : get_fb_contacts(fb_token)
 
-		lin_token, lin_secret = self.identities.where(:provider=>"linkedin").pluck(:token, :secret).first
-		lin_contacts = (lin_token.nil? || lin_secret.nil?) ? [] : get_lin_contacts(lin_token, lin_secret)
+		#lin_token, lin_secret = self.identities.where(:provider=>"linkedin").pluck(:token, :secret).first
+		#lin_contacts = (lin_token.nil? || lin_secret.nil?) ? [] : get_lin_contacts(lin_token, lin_secret)
 
 		#fb_contacts + lin_contacts + gp_contacts
 		self.contacts

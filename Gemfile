@@ -21,10 +21,6 @@ gem "fb_graph"
 gem "linkedin"
 gem "google-api-client"
 
-gem "therubyracer"
-gem "less-rails"
-gem "twitter-bootstrap-rails", :git => "git://github.com/seyhunak/twitter-bootstrap-rails.git"
-
 gem "rspec-rails", group: [:development, :test]
 gem "capybara", group: [:development, :test]
 gem "factory_girl_rails", group: [:development, :test]
@@ -34,6 +30,7 @@ gem "database_cleaner", group: :test
 gem "email_spec", :group => :test
 gem "faker", group: :test
 gem "minitest", :group => :test
+gem 'shoulda-matchers', :group => :test
 
 
 # Use SCSS for stylesheets
