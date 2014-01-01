@@ -1,16 +1,16 @@
+<%= link_to "+ Add Contact", new_user_contact_path, :id => "add-contact", :class => "btn btn-success"%>
 <div id="main" class="row">
-	<% counter = 1 %>
 	<div id="tabs_contact" class="contacts left-col col-sm-offset-1 col-sm-6">
+		<% counter = 1 %>
 		<% @contacts.each do |contact| %>
-			<%= link_to image_tag(contact.photo_url, :class => "img-contact each#{counter}"), "#contact_#{contact.id}", :id => "#contact_#{contact.id}" %>
+			<%= link_to image_tag(contact.photo_url, :class => "img-contact each#{counter}"), "#contact_#{contact.id}"%>
 			<% counter = (counter % 22) + 1 %>
 		<% end %>
 	</div>
 
-	<% counter = 1 %>
+	<% show = true %>
 	<% @contacts.each do |contact| %>
-		<%= render "contact_detail", {contact: contact, counter: counter} %>
-		<% counter = 2 %>
+		<%= render "contact_detail", {contact: contact, show: show} %>
+		<% show = false %>
 	<% end %>
-
 </div>

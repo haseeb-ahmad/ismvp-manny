@@ -1,4 +1,4 @@
 en:
   sign_up:
-    already_registered: "#{email} is already already registered. Please Sign in to continue."
-  
+    already_registered: "%{email} is already already registered. Please Sign in to continue."
+    email_param_blank: "Please enter email to get registered."

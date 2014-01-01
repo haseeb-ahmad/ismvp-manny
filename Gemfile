@@ -21,6 +21,8 @@ gem "fb_graph"
 gem "linkedin"
 gem "google-api-client"
 
+gem 'jquery-turbolinks'
+
 gem "rspec-rails", group: [:development, :test]
 gem "capybara", group: [:development, :test]
 gem "factory_girl_rails", group: [:development, :test]

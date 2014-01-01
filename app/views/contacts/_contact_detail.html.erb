@@ -1,7 +1,7 @@
-<% if counter == 1 %>
-<div class="active-tab" id=<%="contact_#{contact.id}"%>>
+<% if show %>
+	<div class="content show" id=<%="contact_#{contact.id}"%>>
 <% else %>
-<div class="tabify" id=<%="contact_#{contact.id}"%>>
+	<div class="content" id=<%="contact_#{contact.id}"%>>
 <% end %>
 
 	<div class="notes right-col col-sm-offset-1 col-sm-4">
@@ -52,7 +52,7 @@
 		<div class="note">
 			<h2>Work</h2>
 			<div class="who">
-				Senior Software Engineer, Monaqasat
+				<%= contact.job_title %>
 			</div>
 			<div class="term">
 				April 2010 – Present (3 years 7 months) Abu Dhabi, UAE

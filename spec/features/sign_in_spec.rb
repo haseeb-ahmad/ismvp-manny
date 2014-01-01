@@ -8,7 +8,6 @@ feature "Signing In" do
 	end
 
 	def sign_in
-		debugger
 		visit new_user_session_path
 		#expect(page).to have_text("Stay in touch, stay on top.")
 		#click_link("LOGIN")

@@ -1,6 +1,12 @@
-.active {
-	display: block;
+#add-contact{
+	margin-left: 25px;
+	margin-bottom: 10px;
 }
-.tabify {
+
+.content {
 	display: none;
+}
+
+.show {
+	display: block;
 }

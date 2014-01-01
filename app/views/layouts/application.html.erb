@@ -16,12 +16,11 @@
 				<li> <a href="#">ACCOUNT</a> </li>
 			</ul>
 		</div>
-		<%= link_to 'Sign out', destroy_user_session_path, :method => :delete, :class => "btn btn-primary"%>
+		<%= link_to 'Sign out', destroy_user_session_path, :method => :delete, :id=> "sign-out-btn", :class => "btn btn-primary"%>
 		<div class="searcher col-sm-offset-1 col-sm-4">
 			<input type="search">
 			<img src="/assetssearch.png" alt="">
 		</div>
-
 	</header>
 
 	<% if flash[:notice] || flash[:alert] %>
