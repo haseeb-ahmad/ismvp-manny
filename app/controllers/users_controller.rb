@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 	def disconnect
 		identity = Identity.get_identity(current_user.id, params[:identity])
 		identity.delete
-		flash[:alert] = "App will not import contacts from #{identity.provider.capitalize}."
+		flash[:alert] = "You are disconnected from #{identity.provider.capitalize}. Friends information will not be fetched from this network in future."
 		redirect_to user_index_path(:user_id => current_user.id)
 	end
 

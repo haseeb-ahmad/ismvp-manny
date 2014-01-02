@@ -18,7 +18,7 @@
 			<% if facebook_identity %>
 				<td> <%= facebook_identity.provider %> </td>
 				<td> <%= facebook_identity.uid %> </td>
-				<td> <%= link_to "Don't Import From Facebook", users_disconnect_path(:identity => "facebook"), :id => "disconnect_facebook" %> </td>
+				<td> <%= link_to "You are disconnect from Facebook", users_disconnect_path(:identity => "facebook"), :id => "disconnect_facebook" %> </td>
 			<% else %>
 				<td>  </td>
 				<td>  </td>
@@ -31,7 +31,7 @@
 			<% if google_identity %>
 				<td> <%= google_identity.provider %> </td>
 				<td> <%= google_identity.uid %> </td>
-				<td> <%= link_to "Don't Import From Google", users_disconnect_path(:identity => "google"), :id => "disconnect_google" %> </td>
+				<td> <%= link_to "You are disconnect from Google", users_disconnect_path(:identity => "google"), :id => "disconnect_google" %> </td>
 			<% else %>
 				<td>  </td>
 				<td>  </td>
@@ -44,7 +44,7 @@
 			<% if linkedin_identity %>
 				<td> <%= linkedin_identity.provider %> </td>
 				<td> <%= linkedin_identity.uid %> </td>
-				<td> <%= link_to "Don't Import From LinkedIn", users_disconnect_path(:identity => "linkedin"),:id => "disconnect_linkedin" %> </td>
+				<td> <%= link_to "You are disconnect from LinkedIn", users_disconnect_path(:identity => "linkedin"),:id => "disconnect_linkedin" %> </td>
 			<% else %>
 				<td>  </td>
 				<td>  </td>
