@@ -27,7 +27,7 @@ feature "Signing Up" do
 		click_button "Update"
 	end
 
-	scenario "trivial sign up through email confirmation" do
+	scenario "Through Confirmation Email" do
 		signup
 		user = User.where("email = '#{@user.email}'").first
 		user.encrypted_password.empty?.should == true
@@ -37,6 +37,12 @@ feature "Signing Up" do
 		
 		user = User.where("email = '#{@user.email}'").first
 		user.encrypted_password.empty?.should == false
+	end
+
+	scenario "Trying Without Email" do
+		@user.email = ""
+		signup
+		expect(page).to have_text("Please enter email to get registered.")
 	end
 
 end

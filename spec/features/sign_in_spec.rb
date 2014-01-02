@@ -7,10 +7,14 @@ feature "Signing In" do
 		@user.skip_confirmation!
 	end
 
+	def create_user
+		@user.save!
+	end
+
 	def sign_in
-		visit new_user_session_path
-		#expect(page).to have_text("Stay in touch, stay on top.")
-		#click_link("LOGIN")
+		visit new_user_registration_path
+		expect(page).to have_text("Stay in touch, stay on top.")
+		click_link("LOGIN")
 
 		fill_in "user_email", :with => @user.email
 		fill_in "user_password", :with => @user.password
@@ -26,16 +30,15 @@ feature "Signing In" do
 		end
 	end
 
-	scenario "User already created" do
-		debugger
-		@user.save!
+	scenario "User already Created" do
+		create_user
 		sign_in
 		confirm_signed_in.should == true
 	end
 
-	scenario "User does not exists" do
-		#sign_in
-		#debugger
-		#confirm_signed_in.should == false
+	scenario "User does not Exists" do
+		sign_in
+		confirm_signed_in.should == false
+		expect(page).to have_text("Invalid email or password.")
 	end
 end

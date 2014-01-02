@@ -1,5 +1,6 @@
 class ContactsController < ApplicationController
 	before_action :set_contact, only: [:show, :edit, :update, :destroy]
+	before_action :get_user
 	before_filter :authenticate_user!
 
 	# GET /contacts
@@ -16,7 +17,6 @@ class ContactsController < ApplicationController
 	# GET /contacts/new
 	def new
 		@contact = Contact.new
-		@user = current_user
 	end
 
 	# GET /contacts/1/edit
@@ -33,7 +33,7 @@ class ContactsController < ApplicationController
 				format.html { redirect_to user_contacts_path, notice: 'Contact was successfully created.' }
 				format.json { render action: 'show', status: :created, location: @contact }
 			else
-				format.html { redirect_to new_user_contact_path }
+				format.html { render :action => "new" }
 				format.json { render json: @contact.errors, status: :unprocessable_entity }
 			end
 		end
@@ -67,6 +67,10 @@ class ContactsController < ApplicationController
 		# Use callbacks to share common setup or constraints between actions.
 		def set_contact
 			@contact = Contact.find(params[:id])
+		end
+
+		def get_user
+			@user = current_user
 		end
 
 		# Never trust parameters from the scary internet, only allow the white list through.

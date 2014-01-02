@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
 
 	def get_lin_contacts(token, secret)
 		connections = LinService.get_lin_connections(token, secret)
-		identity = self.identities.where("provider = 'linkedin'").first
+		identity = Identity.get_identity(self.id, "linkedin")
 		contacts = Array.new
 
 		connections.each do |connection|
@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
 
 	def get_fb_contacts(token)
 		friends = FbService.get_fb_friends(token)
-		identity = self.identities.where("provider = 'facebook'").first
+		identity = Identity.get_identity(self.id, "facebook")
 		contacts = Array.new
 		
 		friends.each do |friend|
@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
 
 	def get_google_plus_contacts(access_token, refresh_token)
 		circles = GpService.get_gp_circles(access_token, refresh_token)
-		identity = self.identities.where("provider = 'google'").first
+		identity = Identity.get_identity(self.id, "google")
 		contacts = Array.new
 		
 		circles.each do |circle|

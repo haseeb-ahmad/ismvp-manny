@@ -8,6 +8,10 @@ class Identity < ActiveRecord::Base
 
 	attr_accessible :email, :expires_at, :provider, :refresh_token, :secret, :token, :uid, :user_id
 
+	def self.get_identity(user_id, provider)
+		Identity.where("user_id = ? AND provider = ?" , user_id, provider).first
+	end
+
 	def self.find_or_create(auth, user)
 
 		identity = where(auth.slice(:provider, :uid)).first_or_initialize

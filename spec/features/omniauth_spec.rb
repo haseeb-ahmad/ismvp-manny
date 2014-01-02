@@ -1,56 +1,36 @@
 require 'spec_helper'
 
-feature "Connect through Social Networks" do
+feature "Connect Through Social Networks" do
 
-	before do
-		@user = FactoryGirl.create(:user)
-		@user.skip_confirmation!
-
-		Capybara.current_driver = :selenium
+	def connect (provider)
+		click_link("Sign in with #{provider.capitalize}")
 	end
 
-	def sign_in
+	def confirm_user_and_identities(provider)
+		user = User.get_user("test@#{provider}.com").first
+		user.should_not == nil
+		identity = Identity.get_identity(user.id, provider)
+		identity.should_not == nil
+	end
+
+	scenario "Login/Sign Up Through Facebook" do
 		visit new_user_session_path
-		fill_in "user_email", :with => @user.email
-		fill_in "user_password", :with => @user.password		
-		click_button 'Sign in'
-		
+		connect("facebook")
+		confirm_user_and_identities("facebook")
+		expect(page).to have_text("You are connected to Facebook. Welcome!")
 	end
 
-	def connect (networks)
-		networks.each do |network|
-			click_link "connet_#{network}"
-			sleep 2
-		end
+	scenario "Login/Sign Up Through Google" do
+		visit new_user_session_path
+		connect("google")
+		confirm_user_and_identities("google")
+		expect(page).to have_text("You are connected to Google. Welcome!")
 	end
 
-	def disconnect(networks)
-		networks.each do |network|
-			click_link "connet_#{network}"
-			sleep 2
-		end
-	end
-
-	def is_connected?(network)
-		begin
-				page.find("btn_connet_to_#{network}").visible?
-		rescue Exception => e
-				false
-		end
-	end
-
-	def confirm_identities(user, identities_count)
-		expect(page).to have_text("Email: #{user.email}")
-		expect(page).to have_text("Number of Conected Identities: #{identities_count}")
-	end
-
-	scenario "Connect and Disconnect with Multiple Networks" do
-		#sign_in
-		
-		#confirm_identities(@user, 0)
-		#debugger
-		#connect(["facebook", "google", "linkedin"])
-
-
+	scenario "Login/Sign Up Through LinkedIn" do
+		visit new_user_session_path
+		connect("linkedin")
+		confirm_user_and_identities("linkedin")
+		expect(page).to have_text("You are connected to Linkedin. Welcome!")
 	end
 end
