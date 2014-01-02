@@ -3,6 +3,7 @@ class Contact < ActiveRecord::Base
 
 	belongs_to :user
 	belongs_to :identity
+	has_many :contact_notes, :dependent => :destroy
 
 	validates :full_name, presence: true
 

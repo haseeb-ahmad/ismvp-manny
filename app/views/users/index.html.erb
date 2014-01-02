@@ -1,8 +1,5 @@
 <br/>
 <div class = "container">
-	<%= link_to 'Sign out', destroy_user_session_path, :method => :delete, :class => "btn btn-danger pull-right" %>
-
-	<br/><br/><br/>
 
 	<div> <%= "Email: #{@user.email}"%> </div>
 	<div> <%= "Number of Conected Identities: #{@identities.count}" %> </div>
@@ -13,7 +10,7 @@
 		<tr>
 			<th> Provider </th>
 			<th> UId </th>
-			<th> Connect/Disconnect </th>
+			<th> Import Contacts </th>
 		</tr>
 
 		<tr>
@@ -21,11 +18,11 @@
 			<% if facebook_identity %>
 				<td> <%= facebook_identity.provider %> </td>
 				<td> <%= facebook_identity.uid %> </td>
-				<td> <%= link_to "Disconnect Facebook", users_disconnect_path(:identity => "facebook"), :class => "btn", :id => "disconnect_facebook" %> </td>
+				<td> <%= link_to "Don't Import From Facebook", users_disconnect_path(:identity => "facebook"), :id => "disconnect_facebook" %> </td>
 			<% else %>
 				<td>  </td>
 				<td>  </td>
-				<td> <%= link_to "Connect Facebook", user_omniauth_authorize_path(:facebook), :class => "btn btn-success", :id => "connect_facebook" %> </td>
+				<td> <%= link_to "Import From Facebook", user_omniauth_authorize_path(:facebook), :id => "connect_facebook" %> </td>
 			<% end %>
 		</tr>
 
@@ -34,11 +31,11 @@
 			<% if google_identity %>
 				<td> <%= google_identity.provider %> </td>
 				<td> <%= google_identity.uid %> </td>
-				<td> <%= link_to "Disconnect Google", users_disconnect_path(:identity => "google"), :class => "btn", :id => "disconnect_google" %> </td>
+				<td> <%= link_to "Don't Import From Google", users_disconnect_path(:identity => "google"), :id => "disconnect_google" %> </td>
 			<% else %>
 				<td>  </td>
 				<td>  </td>
-				<td> <%= link_to "Connect Google", user_omniauth_authorize_path(:google), :class => "btn btn-success", :id => "connect_google" %> </td>
+				<td> <%= link_to "Import From Google", user_omniauth_authorize_path(:google), :id => "connect_google" %> </td>
 			<% end %>
 		</tr>
 
@@ -47,11 +44,11 @@
 			<% if linkedin_identity %>
 				<td> <%= linkedin_identity.provider %> </td>
 				<td> <%= linkedin_identity.uid %> </td>
-				<td> <%= link_to "Disconnect LinkedIn", users_disconnect_path(:identity => "linkedin"), :class => "btn", :id => "disconnect_linkedin" %> </td>
+				<td> <%= link_to "Don't Import From LinkedIn", users_disconnect_path(:identity => "linkedin"),:id => "disconnect_linkedin" %> </td>
 			<% else %>
 				<td>  </td>
 				<td>  </td>
-				<td> <%= link_to "Connect LinkedIn", user_omniauth_authorize_path(:linkedin), :class => "btn btn-success", :id => "connect_linkedin" %> </td>
+				<td> <%= link_to "Import From LinkedIn", user_omniauth_authorize_path(:linkedin), :id => "connect_linkedin" %> </td>
 			<% end %>
 		</tr>
 	</table>

@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-
-  get "users/index"
   get "users/disconnect" => "users#disconnect"
 
   devise_for :users, :controllers => { :confirmations => "confirmations",
@@ -14,7 +12,10 @@ Rails.application.routes.draw do
   end
 
   resources :users, :only => :none do
-    resources :contacts
+    get "index"
+    resources :contacts do
+      resources :contact_notes
+    end
   end
 
 
