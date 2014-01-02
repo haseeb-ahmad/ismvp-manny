@@ -1,0 +1,31 @@
+<div class="container">
+		<h1>Listing contact_notes</h1>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Note</th>
+				<th></th>
+				<th>Created At</th>
+				<th colspan="3"></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<% @contact_notes.each do |contact_note| %>
+				<tr>
+					<td><%= contact_note.note %></td>
+					<td></td>
+					<td><%= contact_note.updated_at.strftime("%B %e, %Y at %I%p") %></td>
+					<td><%#= link_to 'Show', contact_note %></td>
+					<td><%#= link_to 'Edit', edit_contact_note_path(contact_note) %></td>
+					<td><%#= link_to 'Destroy', contact_note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+	<br>
+
+	<%#= link_to 'New Contact note', new_contact_note_path %>
+</div>
