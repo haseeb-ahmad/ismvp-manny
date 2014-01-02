@@ -4,7 +4,7 @@
 		<% counter = 1 %>
 		<% @contacts.each do |contact| %>
 			<%= link_to image_tag(contact.photo_url, :class => "img-contact each#{counter}"), "#contact_#{contact.id}"%>
-			<% counter = (counter % 22) + 1 %>
+			<% counter = (counter % 21) + 1 %>
 		<% end %>
 	</div>
 

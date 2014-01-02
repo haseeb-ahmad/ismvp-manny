@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
 
 	def get_contacts
 		gp_access_token, gp_refresh_token = self.identities.where(:provider=>"google").pluck(:token, :refresh_token).first
-		gp_contacts = (gp_access_token.nil? || gp_refresh_token.nil?) ? [] : get_google_plus_contacts(gp_access_token, gp_refresh_token)
+		gp_contacts = (gp_access_token.nil?) ? [] : get_google_plus_contacts(gp_access_token, gp_refresh_token)
+		#gp_contacts = (gp_access_token.nil? || gp_refresh_token.nil?) ? [] : get_google_plus_contacts(gp_access_token, gp_refresh_token)
 
 		fb_token = self.identities.where(:provider=>"facebook").first.token rescue nil
 		fb_contacts = fb_token.nil? ? [] : get_fb_contacts(fb_token)
