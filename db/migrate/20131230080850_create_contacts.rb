@@ -1,24 +1,29 @@
 class CreateContacts < ActiveRecord::Migration
 	def change
 		create_table :contacts do |t|
-			t.string :full_name
-			t.string :first_name
-			t.string :last_name
-			t.string :given_name
-			t.string :photo_url
-			t.string :gender
-			t.string :email
-			t.string :phone
+			t.string :full_name, :default => nil
+			t.string :first_name, :default => nil
+			t.string :last_name, :default => nil
+			t.string :given_name, :default => nil
+			
+			t.string :photo_url, :default => nil
+			t.string :network_url, :default => nil
+			t.string :network_username, :default => nil
+			
+			t.string :gender, :default => nil
+			t.string :email, :default => nil
+			t.string :phone, :default => nil
+			
+			t.string :job_title, :default => nil
+			t.string :organization, :default => nil
+			t.string :industry, :default => nil
+			t.string :country, :default => nil
+
+			t.string :about, :default => nil
+			t.integer :notes_id
+
 			t.references :user, index: true
 			t.references :identity, index: true
-			t.string :network_url
-			t.string :network_username
-			t.string :job_title
-			t.string :organization
-			t.string :industry
-			t.string :country
-			t.string :about
-			t.integer :notes_id
 
 			t.timestamps
 		end

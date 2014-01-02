@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20140102094540) do
 
   create_table "contact_notes", force: true do |t|
-    t.string   "note"
+    t.text     "note"
     t.integer  "contact_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -28,19 +28,19 @@ ActiveRecord::Schema.define(version: 20140102094540) do
     t.string   "last_name"
     t.string   "given_name"
     t.string   "photo_url"
+    t.string   "network_url"
+    t.string   "network_username"
     t.string   "gender"
     t.string   "email"
     t.string   "phone"
-    t.integer  "user_id"
-    t.integer  "identity_id"
-    t.string   "network_url"
-    t.string   "network_username"
     t.string   "job_title"
     t.string   "organization"
     t.string   "industry"
     t.string   "country"
     t.string   "about"
     t.integer  "notes_id"
+    t.integer  "user_id"
+    t.integer  "identity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

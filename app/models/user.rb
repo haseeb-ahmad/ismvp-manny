@@ -105,7 +105,7 @@ class User < ActiveRecord::Base
 		circles.each do |circle|
 			contact = self.contacts.get_person_contact(circle.display_name.downcase).first_or_initialize
 			
-			if contact.given_name.nil? || contact.given_name.empty?
+			if contact.given_name.nil?
 				circle = GpService.get_gp_people(access_token, refresh_token, circle.id)
 
 				contact.full_name ||= circle.display_name.downcase
