@@ -1,7 +1,7 @@
 class CreateContactNotes < ActiveRecord::Migration
   def change
     create_table :contact_notes do |t|
-      t.string :note
+      t.text :note
       t.references :contact, index: true
 
       t.timestamps
