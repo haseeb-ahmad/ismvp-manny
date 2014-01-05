@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
 				contact.last_name ||= friend.last_name.downcase
 				contact.network_url ||= friend.link
 				contact.network_username ||= friend.username
-				contact.gender ||= friend.gender.downcase
+				contact.gender ||= friend.gender.downcase  unless friend.gender.nil?
 				contact.hometown ||= friend.hometown.name rescue nil
 			#	unless friend.birthday.empty?
        #   contact.birthday ||= friend.birthday.to_date
