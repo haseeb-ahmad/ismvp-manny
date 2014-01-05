@@ -54,7 +54,8 @@ class User < ActiveRecord::Base
 				circle = GpService.get_gp_people(identity.token, identity.refresh_token, circle.id)
 
 				contact.full_name ||= circle.display_name.downcase
-				contact.email ||= gmail_contacts.select{|con| con.name.downcase == circle.display_name.downcase}.first.email
+				gmail_contact= gmail_contacts.select{|con| con.name.downcase == circle.display_name.downcase}.first
+        contact.email ||= gmail_contact.email if gmail_contact
 				contact.given_name ||= circle.name.givenName.downcase
 				contact.gender ||= circle.gender.downcase
 				contact.network_url ||= circle.url
