@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
 				contact.network_username ||= friend.username
 				contact.gender ||= friend.gender.downcase
 				contact.hometown ||= friend.hometown.name rescue nil
-				contact.birthday ||= friend.birthday.to_date rescue nil
+				contact.birthday ||= friend.birthday.to_date unless friend.birthday.nil?
 				contact.photo_url ||= friend.picture
 
 				contact.save!
