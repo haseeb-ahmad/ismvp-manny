@@ -48,24 +48,28 @@ class User < ActiveRecord::Base
 		contacts = Array.new
 		
 		circles.each do |circle|
-			contact = self.contacts.get_person_contact(circle.display_name.downcase).first_or_initialize
+      circle = GpService.get_gp_people(identity.token, identity.refresh_token, circle.id)
 
-			if contact.given_name.nil? || contact.given_name.empty?
-				circle = GpService.get_gp_people(identity.token, identity.refresh_token, circle.id)
+      if circle.display_name
+        contact = self.contacts.get_person_contact(circle.display_name.downcase).first_or_initialize
 
-				contact.full_name ||= circle.display_name.downcase
+        if contact.given_name.nil? || contact.given_name.empty?
 
-        gmail_contact= gmail_contacts.select{|con| con.name !=nil && con.name.downcase == circle.display_name.downcase}.first
-        contact.email ||= gmail_contact.email if gmail_contact
-				contact.given_name ||= circle.name.givenName.downcase
-				contact.gender ||= circle.gender.downcase
-				contact.network_url ||= circle.url
-				contact.photo_url ||= circle.image.url
+          contact.full_name ||= circle.display_name.downcase
 
-				contact.save!
-				identity.contacts << contact
-			end
-			contacts << contact
+          gmail_contact= gmail_contacts.select{|con| con.name !=nil && con.name.downcase == circle.display_name.downcase}.first
+          contact.email ||= gmail_contact.email if gmail_contact
+          contact.given_name ||= circle.name.givenName.downcase
+          contact.gender ||= circle.gender.downcase if circle.gender
+          contact.network_url ||= circle.url if circle.url
+          contact.photo_url ||= circle.image.url if circle.image and circle.image.url
+
+          contact.save!
+          identity.contacts << contact
+        end
+        contacts << contact
+      end
+
 		end
 		contacts
 	end
