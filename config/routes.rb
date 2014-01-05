@@ -12,12 +12,11 @@ Rails.application.routes.draw do
   end
 
   resources :users, :only => :none do
-    get "index"
+    get "connections"
     resources :contacts do
       resources :contact_notes
     end
   end
-
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

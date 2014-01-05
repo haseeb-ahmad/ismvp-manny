@@ -21,7 +21,7 @@ class Identity < ActiveRecord::Base
 		identity.uid			= auth.uid
 		identity.token			= auth.credentials.token
 		identity.secret			= auth.credentials.secret
-		identity.expires_at		= Time.at(auth.credentials.expires_at) if auth.provider == "facebook"
+		identity.expires_at		= Time.at(auth.credentials.expires_at) if auth.credentials.expires_at
 		identity.refresh_token	||= auth.credentials.refresh_token
 
 		identity.save!

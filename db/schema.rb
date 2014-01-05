@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 20140102094540) do
     t.string   "gender"
     t.string   "email"
     t.string   "phone"
+    t.date     "birthday"
+    t.string   "hometown"
     t.string   "job_title"
     t.string   "organization"
     t.string   "industry"

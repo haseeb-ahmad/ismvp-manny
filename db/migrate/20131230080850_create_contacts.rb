@@ -13,6 +13,8 @@ class CreateContacts < ActiveRecord::Migration
 			t.string :gender, :default => nil
 			t.string :email, :default => nil
 			t.string :phone, :default => nil
+			t.date	 :birthday, :default => nil
+			t.string :hometown, :default => nil
 			
 			t.string :job_title, :default => nil
 			t.string :organization, :default => nil

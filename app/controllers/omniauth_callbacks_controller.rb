@@ -23,7 +23,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		else
 			# User already signed in and tries to connect with some identity
 			flash[:notice] = "Your contacts will be imported from #{identity.provider.capitalize}."
-			redirect_to user_index_path(:user_id => current_user.id)
+			redirect_to user_connections_path(:user_id => current_user.id)
 		end
 	end
 

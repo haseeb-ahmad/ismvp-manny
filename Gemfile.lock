@@ -87,6 +87,8 @@ GEM
       rack-oauth2 (>= 0.14.4)
       tzinfo
     ffi (1.9.3)
+    gmail-contacts (0.0.6)
+      hpricot
     google-api-client (0.6.4)
       addressable (>= 2.3.2)
       autoparse (>= 0.3.3)
@@ -99,6 +101,7 @@ GEM
       uuidtools (>= 2.1.0)
     hashie (2.0.5)
     hike (1.2.3)
+    hpricot (0.8.6)
     httpauth (0.2.0)
     httpclient (2.3.4.1)
     i18n (0.6.9)
@@ -267,6 +270,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   fb_graph
+  gmail-contacts
   google-api-client
   jbuilder (~> 1.2)
   jquery-rails

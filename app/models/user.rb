@@ -17,7 +17,6 @@ class User < ActiveRecord::Base
 
 		# If user exists then update else create new user
 		user = User.where("email = '#{auth.info.email}'").first_or_initialize
-
 		user.email		= auth.info.email
 		user.first_name	= auth.info.first_name
 		user.last_name	= auth.info.last_name
@@ -30,25 +29,75 @@ class User < ActiveRecord::Base
 	end
 
 	def get_contacts
-		gp_access_token, gp_refresh_token = self.identities.where(:provider=>"google").pluck(:token, :refresh_token).first
-		gp_contacts = (gp_access_token.nil?) ? [] : get_google_plus_contacts(gp_access_token, gp_refresh_token)
-		#gp_contacts = (gp_access_token.nil? || gp_refresh_token.nil?) ? [] : get_google_plus_contacts(gp_access_token, gp_refresh_token)
+		identity = Identity.get_identity(self.id, "google")
+		gp_contacts = identity.nil? ? [] : get_google_plus_contacts(identity)
 
-		fb_token = self.identities.where(:provider=>"facebook").first.token rescue nil
-		fb_contacts = fb_token.nil? ? [] : get_fb_contacts(fb_token)
+		identity = Identity.get_identity(self.id, "facebook")
+		fb_contacts = identity.nil? ? [] : get_facebook_contacts(identity)
 
-		lin_token, lin_secret = self.identities.where(:provider=>"linkedin").pluck(:token, :secret).first
-		lin_contacts = (lin_token.nil? || lin_secret.nil?) ? [] : get_lin_contacts(lin_token, lin_secret)
+		identity = Identity.get_identity(self.id, "linkedin")
+		lin_contacts = identity.nil? ? [] : get_linkedin_contacts(identity)
 
-		#fb_contacts + lin_contacts + gp_contacts
 		self.contacts
 	end
 
-	def get_lin_contacts(token, secret)
-		connections = LinService.get_lin_connections(token, secret)
-		identity = Identity.get_identity(self.id, "linkedin")
+	def get_google_plus_contacts(identity)
+		circles, access_token = GpService.get_gp_circles(identity.token, identity.refresh_token, identity.expires_at < Time.now.utc)
+		identity.update(:token => access_token) unless access_token.nil?
+		gmail_contacts = GpService.get_gmail_contacts(identity.token, identity.refresh_token)
+		contacts = Array.new
+		
+		circles.each do |circle|
+			contact = self.contacts.get_person_contact(circle.display_name.downcase).first_or_initialize
+
+			if contact.given_name.nil? || contact.given_name.empty?
+				circle = GpService.get_gp_people(identity.token, identity.refresh_token, circle.id)
+
+				contact.full_name ||= circle.display_name.downcase
+				contact.email ||= gmail_contacts.select{|con| con.name.downcase == circle.display_name.downcase}.first.email
+				contact.given_name ||= circle.name.givenName.downcase
+				contact.gender ||= circle.gender.downcase
+				contact.network_url ||= circle.url
+				contact.photo_url ||= circle.image.url
+
+				contact.save!
+				identity.contacts << contact
+			end
+			contacts << contact
+		end
+		contacts
+	end
+
+	def get_facebook_contacts(identity)
+		friends = FbService.get_fb_friends(identity.token)
 		contacts = Array.new
 
+		friends.each do |friend|
+			contact = self.contacts.get_person_contact(friend.name.downcase).first_or_initialize
+			if contact.gender.nil? || contact.network_username.nil?
+				friend = friend.fetch
+
+				contact.full_name ||= friend.name.downcase
+				contact.first_name ||= friend.first_name.downcase
+				contact.last_name ||= friend.last_name.downcase
+				contact.network_url ||= friend.link
+				contact.network_username ||= friend.username
+				contact.gender ||= friend.gender.downcase
+				contact.hometown ||= friend.hometown.name rescue nil
+				contact.birthday ||= friend.birthday.to_date
+				contact.photo_url ||= friend.picture
+
+				contact.save!
+				identity.contacts << contact
+			end
+			contacts << contact
+		end
+		contacts
+	end
+
+	def get_linkedin_contacts(identity)
+		connections = LinService.get_lin_connections(identity.token, identity.secret)
+		contacts = Array.new
 		connections.each do |connection|
 			contact = self.contacts.get_person_contact(connection.first_name.downcase + " " + connection.last_name.downcase).first_or_initialize
 			
@@ -65,57 +114,6 @@ class User < ActiveRecord::Base
 
 				contact.save!
 				identity.contacts << contact				
-			end
-			contacts << contact
-		end
-		contacts
-	end
-
-	def get_fb_contacts(token)
-		friends = FbService.get_fb_friends(token)
-		identity = Identity.get_identity(self.id, "facebook")
-		contacts = Array.new
-		
-		friends.each do |friend|
-			contact = self.contacts.get_person_contact(friend.name.downcase).first_or_initialize
-			if contact.gender.nil? || contact.network_username.nil?
-				friend = friend.fetch
-
-				contact.full_name ||= friend.name.downcase
-				contact.first_name ||= friend.first_name.downcase
-				contact.last_name ||= friend.last_name.downcase
-				contact.network_url ||= friend.link
-				contact.network_username ||= friend.username
-				contact.gender ||= friend.gender.downcase
-				contact.photo_url ||= friend.picture
-
-				contact.save!
-				identity.contacts << contact
-			end
-			contacts << contact
-		end
-		contacts
-	end
-
-	def get_google_plus_contacts(access_token, refresh_token)
-		circles = GpService.get_gp_circles(access_token, refresh_token)
-		identity = Identity.get_identity(self.id, "google")
-		contacts = Array.new
-		
-		circles.each do |circle|
-			contact = self.contacts.get_person_contact(circle.display_name.downcase).first_or_initialize
-			
-			if contact.given_name.nil? || contact.given_name.empty?
-				circle = GpService.get_gp_people(access_token, refresh_token, circle.id)
-
-				contact.full_name ||= circle.display_name.downcase
-				contact.given_name ||= circle.name.givenName.downcase
-				contact.gender ||= circle.gender.downcase
-				contact.network_url ||= circle.url
-				contact.photo_url ||= circle.image.url
-
-				contact.save!
-				identity.contacts << contact
 			end
 			contacts << contact
 		end

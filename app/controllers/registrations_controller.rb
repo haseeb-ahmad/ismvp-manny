@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
 	def create
 		# Ckeck if user exists
 		email = sign_up_params[:email]
-		if email.empty?
+		if email.nil? || email.empty?
 			# Email filed is empty
 			flash[:alert] = I18n.t("sign_up.email_param_blank")
 			redirect_to root_path

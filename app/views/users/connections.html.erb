@@ -1,0 +1,55 @@
+<br/>
+<div class = "container">
+
+	<div> <%= "Email: #{@user.email}"%> </div>
+	<div> <%= "Number of Conected Identities: #{@identities.count}" %> </div>
+
+	<br/>
+
+	<table class = "table">
+		<tr>
+			<th> Provider </th>
+			<th> UId </th>
+			<th> Import Contacts </th>
+		</tr>
+
+		<tr>
+			<% facebook_identity = @identities.find{|identity| identity.provider == "facebook" } %>
+			<% if facebook_identity %>
+				<td> <%= facebook_identity.provider %> </td>
+				<td> <%= facebook_identity.uid %> </td>
+				<td> <%= link_to "Disconnect from Facebook", users_disconnect_path(:identity => "facebook"), :id => "disconnect_facebook" %> </td>
+			<% else %>
+				<td>  </td>
+				<td>  </td>
+				<td> <%= link_to "Import From Facebook", user_omniauth_authorize_path(:facebook), :id => "connect_facebook" %> </td>
+			<% end %>
+		</tr>
+
+		<tr>
+			<% google_identity = @identities.find{|identity| identity.provider == "google" } %>
+			<% if google_identity %>
+				<td> <%= google_identity.provider %> </td>
+				<td> <%= google_identity.uid %> </td>
+				<td> <%= link_to "Disconnect from Google", users_disconnect_path(:identity => "google"), :id => "disconnect_google" %> </td>
+			<% else %>
+				<td>  </td>
+				<td>  </td>
+				<td> <%= link_to "Import From Google", user_omniauth_authorize_path(:google), :id => "connect_google" %> </td>
+			<% end %>
+		</tr>
+
+		<tr>
+			<% linkedin_identity = @identities.find{|identity| identity.provider == "linkedin" } %>
+			<% if linkedin_identity %>
+				<td> <%= linkedin_identity.provider %> </td>
+				<td> <%= linkedin_identity.uid %> </td>
+				<td> <%= link_to "Disconnect from LinkedIn", users_disconnect_path(:identity => "linkedin"),:id => "disconnect_linkedin" %> </td>
+			<% else %>
+				<td>  </td>
+				<td>  </td>
+				<td> <%= link_to "Import From LinkedIn", user_omniauth_authorize_path(:linkedin), :id => "connect_linkedin" %> </td>
+			<% end %>
+		</tr>
+	</table>
+</div>
