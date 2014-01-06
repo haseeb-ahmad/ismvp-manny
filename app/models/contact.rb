@@ -14,6 +14,6 @@ class Contact < ActiveRecord::Base
 	scope :get_person_contact, lambda { |name| where(:full_name => name)}
 
 	def default_values
-		self.photo_url = "/assets/photo.png" if (self.photo_url.empty? || self.photo_url.nil?)
+		self.photo_url = "/assets/photo.png" if (self.photo_url.nil? || self.photo_url.empty?)
 	end
 end
