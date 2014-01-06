@@ -48,28 +48,27 @@ class User < ActiveRecord::Base
 		contacts = Array.new
 		
 		circles.each do |circle|
-      circle = GpService.get_gp_people(identity.token, identity.refresh_token, circle.id)
+			circle = GpService.get_gp_people(identity.token, identity.refresh_token, circle.id)
 
-      if circle.display_name
-        contact = self.contacts.get_person_contact(circle.display_name.downcase).first_or_initialize
+			if circle.display_name
+				contact = self.contacts.get_person_contact(circle.display_name.downcase).first_or_initialize
 
-        if contact.given_name.nil? || contact.given_name.empty?
+				if contact.given_name.nil? || contact.given_name.empty?
 
-          contact.full_name ||= circle.display_name.downcase
+					contact.full_name ||= circle.display_name.downcase
 
-          gmail_contact= gmail_contacts.select{|con| con.name !=nil && con.name.downcase == circle.display_name.downcase}.first
-          contact.email ||= gmail_contact.email if gmail_contact
-          contact.given_name ||= circle.name.givenName.downcase
-          contact.gender ||= circle.gender.downcase if circle.gender
-          contact.network_url ||= circle.url if circle.url
-          contact.photo_url ||= circle.image.url if circle.image and circle.image.url
+					gmail_contact= gmail_contacts.select{|con| con.name !=nil && con.name.downcase == circle.display_name.downcase}.first
+					contact.email ||= gmail_contact.email if gmail_contact
+					contact.given_name ||= circle.name.givenName.downcase
+					contact.gender ||= circle.gender.downcase if circle.gender
+					contact.network_url ||= circle.url if circle.url
+					contact.photo_url ||= circle.image.url if circle.image and circle.image.url
 
-          contact.save!
-          identity.contacts << contact
-        end
-        contacts << contact
-      end
-
+					contact.save!
+					identity.contacts << contact
+				end
+				contacts << contact
+			end
 		end
 		contacts
 	end
@@ -91,8 +90,8 @@ class User < ActiveRecord::Base
 				contact.gender ||= friend.gender.downcase  unless friend.gender.nil?
 				contact.hometown ||= friend.hometown.name rescue nil
 			#	unless friend.birthday.empty?
-       #   contact.birthday ||= friend.birthday.to_date
-       # end
+			#		contact.birthday ||= friend.birthday.to_date
+			#	end
 				contact.photo_url ||= friend.picture
 
 				contact.save!
