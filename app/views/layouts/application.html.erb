@@ -25,7 +25,7 @@
 	</header>
 
 	<% if flash[:notice] || flash[:alert] %>
-		<p> <%= flash[:notice] || flash[:alert]%> </p>
+		<p class="container"> <%= flash[:notice] || flash[:alert]%> </p>
 	<%end%>
 
 	<%= yield %>

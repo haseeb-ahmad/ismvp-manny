@@ -1,4 +1,3 @@
-<%= link_to "+ Add Contact", new_user_contact_path, :id => "add-contact", :class => "btn btn-success"%>
 <div id="main" class="row">
 	<div id="tabs_contact" class="contacts left-col col-sm-offset-1 col-sm-6">
 		<% counter = 1 %>
@@ -7,6 +6,9 @@
 			<% counter = (counter % 21) + 1 %>
 		<% end %>
 	</div>
+
+	<%= link_to "+ Add Contact", new_user_contact_path, :class => "btn btn-success", :id => "add-contact"%>
+
 
 	<% show = true %>
 	<% @contacts.each do |contact| %>

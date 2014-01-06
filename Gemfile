@@ -13,6 +13,10 @@ gem "rails_12factor", group: :production
 gem "devise", "3.0.0.rc"
 gem "protected_attributes"
 
+gem "sidekiq"
+gem "sinatra", require: false
+gem "slim"
+
 gem "omniauth"
 gem "omniauth-facebook"
 gem "omniauth-linkedin"

@@ -30,16 +30,9 @@ class User < ActiveRecord::Base
 
 	def get_contacts
 		begin
-			identity = Identity.get_identity(self.id, "google")
-			gp_contacts = identity.nil? ? [] : get_google_plus_contacts(identity)
-
-			identity = Identity.get_identity(self.id, "facebook")
-			fb_contacts = identity.nil? ? [] : get_facebook_contacts(identity)
-
-			identity = Identity.get_identity(self.id, "linkedin")
-			lin_contacts = identity.nil? ? [] : get_linkedin_contacts(identity)
+			UpdateContacts.perform_async(self.id)
 		rescue Exception => ex
-			#flash[:alert] = ex.message
+			flash[:alert] = ex.message
 		end
 		self.contacts
 	end
