@@ -4,7 +4,7 @@ module GpService
 		new_access_token = get_new_access_token ? renew_access_token(access_token, refresh_token) : nil
 		access_token = new_access_token unless new_access_token.nil?
 
-		client = Google::APIClient.new
+		client = Google::APIClient.new(:application_name => "Contact", :application_version => "1.0")
 		client.authorization.client_id = GOOGLE_CONFIG[:app_id]
 		client.authorization.client_secret = GOOGLE_CONFIG[:app_secret]
 		client.authorization.access_token = access_token
@@ -14,7 +14,7 @@ module GpService
 	end
 
 	def self.get_gp_people(access_token, refresh_token, uid)
-		client = Google::APIClient.new
+		client = Google::APIClient.new(:application_name => "Contact", :application_version => "1.0")
 		client.authorization.client_id = GOOGLE_CONFIG[:app_id]
 		client.authorization.client_secret = GOOGLE_CONFIG[:app_secret]
 		client.authorization.access_token = access_token
@@ -30,7 +30,7 @@ module GpService
 
 	private
 		def self.renew_access_token(access_token, refresh_token)
-			client = Google::APIClient.new
+			client = Google::APIClient.new(:application_name => "Contact", :application_version => "1.0")
 			client.authorization.client_id = GOOGLE_CONFIG[:app_id]
 			client.authorization.client_secret = GOOGLE_CONFIG[:app_secret]
 			client.authorization.refresh_token = refresh_token

@@ -8,3 +8,7 @@ textarea{
 	height: 100px;
 	resize: none;
 }
+
+.table td, .table th {
+   text-align: center;   
+}

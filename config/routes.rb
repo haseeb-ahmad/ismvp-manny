@@ -1,10 +1,6 @@
-require "sidekiq/web"
 Rails.application.routes.draw do
 
-  mount Sidekiq::Web => '/process'
-
   get "users/disconnect" => "users#disconnect"
-
   devise_for :users, :controllers => { :confirmations => "confirmations",
                                        :registrations => "registrations",
                                        :omniauth_callbacks => "omniauth_callbacks"
@@ -17,7 +13,7 @@ Rails.application.routes.draw do
   resources :users, :only => :none do
     get "connections"
     resources :contacts do
-      resources :contact_notes
+      resources :notes
     end
   end
 

@@ -7,14 +7,16 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 		if current_user.nil?
 			# User tries to Sign In / Register through some social network
-			flash[:notice] = "You are connected to #{identity.provider.capitalize}. Welcome!"
 
   			if user.encrypted_password.empty?
+  				
 				# User need to set password first.
 				user.confirmed_at = nil
 				user.confirmation_token = Devise.friendly_token
 				user.confirmation_sent_at = Time.now.utc
 				user.save!(:validate => false)
+
+				flash[:notice] = I18n.t("sign_up.with_network", :identity => identity.provider.capitalize)
 				redirect_to user_confirmation_path(:confirmation_token => user.confirmation_token)
 			else
 				# User is already registered. Now trying to login through social network
@@ -22,7 +24,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			end
 		else
 			# User already signed in and tries to connect with some identity
-			flash[:notice] = "Your contacts will be imported from #{identity.provider.capitalize}."
+			flash[:notice] = I18n.t("connections.connect_network", :identity => identity.provider.capitalize)
 			redirect_to user_connections_path(:user_id => current_user.id)
 		end
 	end

@@ -8,10 +8,14 @@
 		<div class="title">
 			<img class="rect" src="/assetsrectangle.png" alt="">
 			<h1> <%= contact.full_name.upcase %> </h1>
-			<%= link_to "Edit Contact", edit_user_contact_path(:id => contact.id) %>
 			<div class="mail">
-				<%= contact.email %>
+				<a href="mailto:#{contact.email}" target="_top"> <%= contact.email %> </a>
 			</div>
+			<% unless contact.form_social_network? %>
+				<%= link_to "Edit Contact", edit_user_contact_path(:id => contact.id) %>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			<% end %>
+			<%= link_to "Delete Contact", user_contact_path(:user_id => @user.id, :id => contact.id), method: :delete, data: { confirm: "Are you sure?" } %>
 			<div class="phone">
 				<%= contact.phone %>
 			</div>
@@ -35,41 +39,21 @@
 		</div>
 		<div class="note">
 			<p>
-				<%= contact.contact_notes.last.note if contact.contact_notes.count > 0 %>
-				<span class="date"><%= contact.contact_notes.last.updated_at.strftime("%B %e, %Y at %I%p")  if contact.contact_notes.count > 0 %></span>
+				<%= contact.notes.last.note if contact.notes.count > 0 %>
+				<span class="date"><%= contact.notes.last.updated_at.strftime("%B %e, %Y at %I%p")  if contact.notes.count > 0 %></span>
 			</p>
 			<div class="links">
-				<%= link_to "Add note", new_user_contact_contact_note_path(:contact_id => contact.id) %>
-				<%= link_to "Show all notes", user_contact_contact_notes_path(:contact_id => contact.id) %>
+				<%= link_to "Add note", new_user_contact_note_path(:contact_id => contact.id) %>
+				<%= link_to "Show all notes", user_contact_notes_path(:contact_id => contact.id) %>
 			</div>
 		</div>
 		<div class="note">
 			<h2>Work</h2>
-			<div class="who">
-				<%= contact.job_title %>
-			</div>
-			<div class="term">
-				April 2010 – Present (3 years 7 months) Abu Dhabi, UAE
-			</div>
-			<p>
-				Refactored the whole application and wrote specs and features using
-				RSpec and Cucumber. Trained and educated the staff to use new
-				technologies by holding presentations and workshops...
-			</p>
+			<p> <%= contact.work.html_safe if  contact.work %> </p>
 		</div>
 		<div class="note">
 			<h2>Education</h2>
-			<div class="who">
-				BS in Computer Science
-			</div>
-			<div class="term">
-				April 2010 – Present (3 years 7 months) Abu Dhabi, UAE
-			</div>
-			<p>
-				Refactored the whole application and wrote specs and features using
-				RSpec and Cucumber. Trained and educated the staff to use new
-				technologies by holding presentations and workshops...
-			</p>
+			<p> <%= contact.education.html_safe if contact.education %> </p>
 		</div>
 	</div>
 </div>

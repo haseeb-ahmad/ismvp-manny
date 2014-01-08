@@ -1,8 +1,6 @@
-class UpdateContacts
-	include Sidekiq::Worker
-	sidekiq_options retry: false
+class UpdateContacts < Struct.new(:user_id)
 
-	def perform(user_id)
+	def perform
 		user = User.find(user_id)
 
 		identity = Identity.get_identity(user.id, "google")

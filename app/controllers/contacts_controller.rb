@@ -6,7 +6,12 @@ class ContactsController < ApplicationController
 	# GET /contacts
 	# GET /contacts.json
 	def index
-		@contacts = current_user.get_contacts
+		begin
+			@contacts = current_user.get_contacts
+		rescue Exception => ex
+			flash[:notice] = ex.message
+			@contacts = Contact.get_active_contacts(current_user.id)
+		end
 	end
 
 	# GET /contacts/1
@@ -53,14 +58,11 @@ class ContactsController < ApplicationController
 		end
 	end
 
-	# DELETE /contacts/1
-	# DELETE /contacts/1.json
+	# Soft Delete	
 	def destroy
-		@contact.destroy
-		respond_to do |format|
-			format.html { redirect_to contacts_url }
-			format.json { head :no_content }
-		end
+		@contact.is_deleted = true
+		@contact.save!
+		redirect_to user_contacts_path
 	end
 
 	private

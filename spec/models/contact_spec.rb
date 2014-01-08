@@ -6,7 +6,7 @@ describe Contact do
 	describe 'Associations' do
 		it { should belong_to :user }
 		it { should belong_to :identity }
-		it { should have_many :contact_notes }
+		it { should have_many :notes }
 	end
 
 	context "validations" do

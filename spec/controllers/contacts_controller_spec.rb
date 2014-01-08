@@ -28,8 +28,11 @@ describe ContactsController do
 		end
 
 		it "delete contact" do
-			#expect { delete :destroy, {:id => @contact.id, :user_id => @user.id}}.to change(Contact, :count).by(-1)
-			#assigns(:contact).should_not be_persisted
+			expect { delete :destroy, {:id => @contact.id, :user_id => @user.id}}.to change(Contact, :count).by(0)
+			assigns(:contact).should be_persisted
+			@contact.reload
+			@contact.is_deleted.should == true
+			Contact.get_deleted_contacts(@user.id).last.should == @contact
 		end
 	end
 	

@@ -1,5 +1,5 @@
 FactoryGirl.define do
-	factory :contact_note do
+	factory :note do
 		note 	{ Faker::Lorem.characters }
 	end
 end

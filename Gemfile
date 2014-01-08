@@ -13,9 +13,7 @@ gem "rails_12factor", group: :production
 gem "devise", "3.0.0.rc"
 gem "protected_attributes"
 
-gem "sidekiq"
-gem "sinatra", require: false
-gem "slim"
+gem "delayed_job_active_record"
 
 gem "omniauth"
 gem "omniauth-facebook"
@@ -25,6 +23,7 @@ gem "fb_graph"
 gem "linkedin"
 gem "google-api-client"
 gem "gmail-contacts", :require => "gmail-contacts"
+gem "linkedin-scraper"
 
 gem "jquery-turbolinks"
 

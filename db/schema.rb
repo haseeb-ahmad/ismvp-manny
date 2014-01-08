@@ -11,16 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140102094540) do
-
-  create_table "contact_notes", force: true do |t|
-    t.text     "note"
-    t.integer  "contact_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "contact_notes", ["contact_id"], name: "index_contact_notes_on_contact_id"
+ActiveRecord::Schema.define(version: 20140108122242) do
 
   create_table "contacts", force: true do |t|
     t.string   "full_name"
@@ -39,8 +30,14 @@ ActiveRecord::Schema.define(version: 20140102094540) do
     t.string   "organization"
     t.string   "industry"
     t.string   "country"
+    t.text     "work"
+    t.text     "education"
+    t.string   "facebook_id"
+    t.string   "google_id"
+    t.string   "linkedin_id"
     t.string   "about"
     t.integer  "notes_id"
+    t.boolean  "is_deleted",       default: false
     t.integer  "user_id"
     t.integer  "identity_id"
     t.datetime "created_at"
@@ -49,6 +46,22 @@ ActiveRecord::Schema.define(version: 20140102094540) do
 
   add_index "contacts", ["identity_id"], name: "index_contacts_on_identity_id"
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id"
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "identities", force: true do |t|
     t.integer  "user_id"
@@ -65,6 +78,15 @@ ActiveRecord::Schema.define(version: 20140102094540) do
   add_index "identities", ["provider"], name: "index_identities_on_provider"
   add_index "identities", ["uid"], name: "index_identities_on_uid"
   add_index "identities", ["user_id"], name: "index_identities_on_user_id"
+
+  create_table "notes", force: true do |t|
+    t.text     "note"
+    t.integer  "contact_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notes", ["contact_id"], name: "index_notes_on_contact_id"
 
   create_table "users", force: true do |t|
     t.string   "first_name"

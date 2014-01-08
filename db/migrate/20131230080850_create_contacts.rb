@@ -21,8 +21,17 @@ class CreateContacts < ActiveRecord::Migration
 			t.string :industry, :default => nil
 			t.string :country, :default => nil
 
+			t.text	 :work, :default => nil
+			t.text	 :education, :default => nil
+
+			t.string :facebook_id, :default => nil
+			t.string :google_id, :default => nil
+			t.string :linkedin_id, :default => nil
+
 			t.string :about, :default => nil
 			t.integer :notes_id
+
+			t.boolean :is_deleted, :default => false
 
 			t.references :user, index: true
 			t.references :identity, index: true

@@ -1,2 +1,1 @@
-scheduler: bundle exec sidekiq
-worker: bundle exec sidekiq
+worker:  bundle exec rake jobs:work
