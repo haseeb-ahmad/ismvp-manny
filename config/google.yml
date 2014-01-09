@@ -9,5 +9,5 @@ test:
   <<: *defaults
 
 production:
-  app_id: '911770276979-pd7durbi78tmtqhop80n5e7feubhn6kc'
-  app_secret: '9ZB4PMhc973UQJYxUYlVZQu6'
+  app_id: '538313000201'
+  app_secret: 'zy15LNLOBGIalPwCyW9n2rwF'

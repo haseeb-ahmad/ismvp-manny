@@ -9,6 +9,6 @@ test:
   <<: *defaults
 
 production:
-  app_id: '632052596830438'
-  app_secret: 'dcdeb1b3efb51a49bfffdd5abd3f893b'
+  app_id: '246624545504529'
+  app_secret: '363ca70454175b8c8e63a22edf66ed9c'
 
