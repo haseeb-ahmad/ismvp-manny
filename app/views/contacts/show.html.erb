@@ -19,6 +19,8 @@
 	<p> <strong>Country:</strong> <%= @contact.country %> </p>
 
 	<p> <strong>About:</strong> <%= @contact.about %> </p>
+	<p> <strong>Education:</strong> <%= @contact.education.gsub("\n", "<br/><br/>").html_safe if @contact.education %> </p>
+	<p> <strong>Work:</strong> <%= @contact.work.gsub("\n", "<br/><br/>").html_safe if @contact.work %> </p>
 </div>
 <%#= link_to 'Edit', edit_contact_path(@contact) %>
 <%#= link_to 'Back', contacts_path %>

@@ -28,11 +28,6 @@ class User < ActiveRecord::Base
 		user
 	end
 
-	def get_contacts
-		Delayed::Job.enqueue UpdateContacts.new(self.id), :queue => "queue_#{self.id}"
-		Contact.get_active_contacts(self.id)
-	end
-
 	def get_google_plus_contacts(identity)
 		circles, access_token = GpService.get_gp_circles(identity.token, identity.refresh_token, identity.expires_at < Time.now.utc)
 		identity.update(:token => access_token) unless access_token.nil?
@@ -40,28 +35,25 @@ class User < ActiveRecord::Base
 		contacts = Array.new
 		
 		circles.each do |circle|
+			next unless circle.display_name
+
+			name = circle.display_name.downcase
+			contact = self.contacts.find_contact(name, circle.id).first_or_initialize
 			circle = GpService.get_gp_people(identity.token, identity.refresh_token, circle.id)
+			gmail_contact = gmail_contacts.select{|con| con.name != nil && con.name.downcase == circle.display_name.downcase}.first
 
-			if circle.display_name
-				contact = self.contacts.get_person_contact(circle.display_name.downcase).first_or_initialize
+			contact.google_id 		= circle.id
+			contact.full_name 		||= circle.display_name.downcase
+			contact.email 			= gmail_contact.email if gmail_contact
+			contact.given_name 		||= circle.name.givenName.downcase
+			contact.gender 			||= circle.gender.downcase if circle.gender
+			contact.network_url		||= circle.url if circle.url
+			contact.photo_url		||= circle.image.url if circle.image and circle.image.url
 
-				if contact.given_name.nil? || contact.given_name.empty?
-
-					contact.google_id = circle.id
-					contact.full_name ||= circle.display_name.downcase
-
-					gmail_contact = gmail_contacts.select{|con| con.name != nil && con.name.downcase == circle.display_name.downcase}.first
-					contact.email = gmail_contact.email if gmail_contact
-					contact.given_name ||= circle.name.givenName.downcase
-					contact.gender ||= circle.gender.downcase if circle.gender
-					contact.network_url ||= circle.url if circle.url
-					contact.photo_url ||= circle.image.url if circle.image and circle.image.url
-
-					contact.save!
-					identity.contacts << contact
-				end
-				contacts << contact
-			end
+			contact.save!
+			identity.contacts << contact
+				
+			contacts << contact
 		end
 		contacts
 	end
@@ -71,30 +63,28 @@ class User < ActiveRecord::Base
 		contacts = Array.new
 
 		friends.each do |friend|
-			contact = self.contacts.get_person_contact(friend.name.downcase).first_or_initialize
+			contact = self.contacts.find_contact(friend.name.downcase ,friend.identifier).first_or_initialize
+			friend = friend.fetch
 
-			if contact.gender.nil? || contact.network_username.nil?
-				friend = friend.fetch
+			work = facebook_companies_data(friend)
+			education = facebook_education_data(friend)
 
-				contact.facebook_id = friend.identifier
-				contact.full_name ||= friend.name.downcase
-				contact.first_name ||= friend.first_name.downcase
-				contact.last_name ||= friend.last_name.downcase
-				contact.network_url ||= friend.link
-				contact.network_username ||= friend.username
-				contact.email ||= "#{friend.username}@facebook.com" if friend.username
-				contact.gender ||= friend.gender.downcase  unless friend.gender.nil?
-				contact.hometown ||= friend.hometown.name rescue nil
-				contact.photo_url ||= friend.picture
+			contact.facebook_id 		= friend.identifier
+			contact.full_name 			= friend.name.downcase
+			contact.first_name 			= friend.first_name.downcase
+			contact.last_name			= friend.last_name.downcase
+			contact.network_url			= friend.link
+			contact.network_username	= friend.username if friend.username
+			contact.email				||= "#{friend.username}@facebook.com" if friend.username
+			contact.gender				= friend.gender.downcase  if friend.gender
+			contact.hometown			= friend.hometown.name if friend.hometown
+			contact.photo_url			= friend.picture
+			contact.work				= work if work
+			contact.education 			= education if education
 
-				work = facebook_companies_data(friend)
-				education = facebook_education_data(friend)
-				contact.work ||= work unless work.nil? || work.empty?
-				contact.education ||= education unless education.nil? || education.empty?
-
-				contact.save!
-				identity.contacts << contact
-			end
+			contact.save!
+			identity.contacts << contact
+			
 			contacts << contact
 		end
 		contacts
@@ -109,9 +99,9 @@ class User < ActiveRecord::Base
 			start_date = company.start_date if company.start_date
 			end_date = company.end_date if company.end_date
 
-			companies = companies + "#{name} - #{location} - #{position} - #{start_date}-#{end_date} <br/>"
+			companies = companies + "#{name} - #{location} - #{position} - #{start_date}-#{end_date} \n"
 		end
-		companies
+		companies.empty? ? nil : companies
 	end
 
 	def facebook_education_data(friend)
@@ -120,40 +110,38 @@ class User < ActiveRecord::Base
 			school = edu.school.name if edu.school
 			description = edu.classes.first.name if edu.classes.count > 0
 			period = edu.year.name if edu.year
-			education = education + "#{school} - #{description} - #{period} <br/>"
+			education = education + "#{school} - #{description} - #{period} \n"
 		end
-		education
+		education.empty? ? nil : education
 	end
 
 	def get_linkedin_contacts(identity)
 		connections = LinService.get_lin_connections(identity.token, identity.secret)
 		contacts = Array.new
+
 		connections.each do |connection|
-			contact = self.contacts.get_person_contact(connection.first_name.downcase + " " + connection.last_name.downcase).first_or_initialize
-			
-			if contact.job_title.nil? || contact.industry.nil?
+			name = connection.first_name.downcase + " " + connection.last_name.downcase
+			contact = self.contacts.find_contact(name, connection.id).first_or_initialize
+			public_info = LinService.get_connection_information(connection.public_profile_url)
 
-				contact.linkedin_id = connection.id
+			education = linkedin_education_data(public_info)
+			work = linkedin_companies_data(public_info)
 
-				contact.full_name ||= connection.first_name.downcase + " " + connection.last_name.downcase
-				contact.first_name ||= connection.first_name.downcase
-				contact.last_name ||= connection.last_name.downcase
-				contact.network_url ||= connection.site_standard_profile_request.url
-				contact.job_title ||= connection.headline
-				contact.industry ||= connection.industry
-				contact.country ||= connection.location.name
-				contact.photo_url ||= connection.picture_url
+			contact.linkedin_id 	||= connection.id
+			contact.full_name		||= name
+			contact.first_name		||= connection.first_name.downcase
+			contact.last_name		||= connection.last_name.downcase
+			contact.network_url		= connection.site_standard_profile_request.url if connection.site_standard_profile_request
+			contact.job_title		= connection.headline if connection.headline
+			contact.industry		= connection.industry if connection.industry
+			contact.country			= connection.location.name if connection.location
+			contact.photo_url		||= connection.picture_url
+			contact.education 		= education if education
+			contact.work 			= work if work
 
-				public_info = LinService.get_connection_information(connection.public_profile_url)
-				education = linkedin_education_data(public_info)
-				work = linkedin_companies_data(public_info)
+			contact.save!
+			identity.contacts << contact
 
-				contact.education = education unless education.nil? || education.empty?
-				contact.work = work unless work.nil? || work.gsub("<br/>", "").empty?
-
-				contact.save!
-				identity.contacts << contact
-			end
 			contacts << contact
 		end
 		contacts
@@ -162,23 +150,24 @@ class User < ActiveRecord::Base
 	def linkedin_education_data(public_info)
 		education = ""
 		public_info.education.each do |edu|
-			education = education + "#{edu[:name]} - #{edu[:description]} - #{edu[:period]} <br/>"
+			education = education + "#{edu[:name]} - #{edu[:description]} - #{edu[:period]} \n"
 		end
-		education
+		education.empty? ? nil : education
 	end
 
 	def linkedin_companies_data(public_info)
 		current_companies = ""
 		public_info.current_companies.each do |company|
-			current_companies = current_companies + "#{company[:company]} - #{company[:address]} - #{company[:title]} - #{company[:description]} - #{company[:start_date]}-#{company[:end_date]} <br/>"
+			current_companies = current_companies + "#{company[:company]} - #{company[:address]} - #{company[:title]} - #{company[:description]} - #{company[:start_date]}-#{company[:end_date]} \n"
 		end
 
 		past_companies = ""
 		public_info.past_companies.each do |company|
-			past_companies = past_companies + "#{company[:company]} - #{company[:address]} - #{company[:title]} - #{company[:description]} - #{company[:start_date]}-#{company[:end_date]} <br/>"
+			past_companies = past_companies + "#{company[:company]} - #{company[:address]} - #{company[:title]} - #{company[:description]} - #{company[:start_date]}-#{company[:end_date]} \n"
 		end
 		
-		current_companies + "<br/>" + past_companies
+		companies = current_companies + past_companies
+		companies.empty? ? nil : companies
 	end
 
 	def password_required?

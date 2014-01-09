@@ -13,6 +13,12 @@ class UsersController < ApplicationController
 		redirect_to user_connections_path(:user_id => current_user.id)
 	end
 
+	def update_contacts
+		# Update User Contacts (user press update button)
+		Delayed::Job.enqueue UpdateContacts.new(current_user.id), :queue => "queue_#{current_user.id}"
+		redirect_to user_contacts_path
+	end
+
 	private
 		def get_user
 			@user = current_user

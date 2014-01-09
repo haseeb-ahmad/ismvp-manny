@@ -1,13 +1,2 @@
-#add-contact{
-	float: right;
-	margin-right: 30px;
-	margin-bottom: 15px;
-}
-
-.content {
-	display: none;
-}
-
-.show {
-	display: block;
-}
+.content { display: none; }
+.show { display: block; }

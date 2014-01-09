@@ -16,6 +16,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 				user.confirmation_sent_at = Time.now.utc
 				user.save!(:validate => false)
 
+				# Update User Contacts (User just signed up)
+				Delayed::Job.enqueue UpdateContacts.new(user.id), :queue => "queue_#{user.id}"
+
 				flash[:notice] = I18n.t("sign_up.with_network", :identity => identity.provider.capitalize)
 				redirect_to user_confirmation_path(:confirmation_token => user.confirmation_token)
 			else
@@ -25,6 +28,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		else
 			# User already signed in and tries to connect with some identity
 			flash[:notice] = I18n.t("connections.connect_network", :identity => identity.provider.capitalize)
+
+			# Update User Contacts (user connects himself with some identity)
+			Delayed::Job.enqueue UpdateContacts.new(current_user.id), :queue => "queue_#{current_user.id}"
 			redirect_to user_connections_path(:user_id => current_user.id)
 		end
 	end

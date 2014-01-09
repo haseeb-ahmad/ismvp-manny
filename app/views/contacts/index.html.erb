@@ -7,8 +7,13 @@
 		<% end %>
 	</div>
 
-	<%= link_to "+ Add Contact", new_user_contact_path, :class => "btn btn-success", :id => "add-contact"%>
-
+	<div class="notes right-col col-sm-offset-1 col-sm-4">
+		<div class="btn-toolbar" >
+			<%= link_to "Update Contacts", user_update_contacts_path, :class => "btn btn-success"%>
+			<%= link_to "+ Add Contact", new_user_contact_path, :class => "btn btn-success"%>
+		</div>
+	</div>
+	<br/><br/><br/>
 
 	<% show = true %>
 	<% @contacts.each do |contact| %>

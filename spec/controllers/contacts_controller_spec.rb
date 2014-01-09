@@ -32,7 +32,7 @@ describe ContactsController do
 			assigns(:contact).should be_persisted
 			@contact.reload
 			@contact.is_deleted.should == true
-			Contact.get_deleted_contacts(@user.id).last.should == @contact
+			@user.contacts.get_deleted_contacts.last.should == @contact
 		end
 	end
 	

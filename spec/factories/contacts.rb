@@ -17,6 +17,8 @@ FactoryGirl.define do
 		industry			{ Faker::Company.name }
 		country				{ Faker::Address.country }
 		about				{ Faker::Lorem.characters }
+		work				{ Faker::Lorem.characters }
+		education			{ Faker::Lorem.characters }
 	end
 end
 

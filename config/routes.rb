@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :users, :only => :none do
     get "connections"
+    get "update_contacts"
     resources :contacts do
       resources :notes
     end

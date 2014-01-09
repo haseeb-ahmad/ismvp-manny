@@ -31,6 +31,8 @@ feature "Contacts Population" do
 		within ("//div[@id='contact_#{index + 1}']") do
 			page.should have_text(contact.full_name.upcase)
 			page.should have_text(contact.email)
+			page.should have_text(contact.education)
+			page.should have_text(contact.work)
 			page.should have_text(contact.notes.last)
 
 			page.should have_link("Edit Contact")

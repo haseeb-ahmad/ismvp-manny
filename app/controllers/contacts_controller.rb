@@ -6,12 +6,7 @@ class ContactsController < ApplicationController
 	# GET /contacts
 	# GET /contacts.json
 	def index
-		begin
-			@contacts = current_user.get_contacts
-		rescue Exception => ex
-			flash[:notice] = ex.message
-			@contacts = Contact.get_active_contacts(current_user.id)
-		end
+		@contacts = current_user.contacts.get_active_contacts
 	end
 
 	# GET /contacts/1
@@ -77,6 +72,6 @@ class ContactsController < ApplicationController
 
 		# Never trust parameters from the scary internet, only allow the white list through.
 		def contact_params
-			params.require(:contact).permit(:full_name, :first_name, :last_name, :given_name, :photo_url, :gender, :email, :phone, :user_id, :identity_id, :network_url, :network_username, :job_title, :organization, :industry, :country, :about, :notes).merge(:user_id => params[:user_id])
+			params.require(:contact).permit(:full_name, :first_name, :last_name, :given_name, :photo_url, :gender, :email, :phone, :user_id, :identity_id, :network_url, :network_username, :job_title, :organization, :industry, :country, :about, :notes, :education, :work).merge(:user_id => params[:user_id])
 		end
 end
