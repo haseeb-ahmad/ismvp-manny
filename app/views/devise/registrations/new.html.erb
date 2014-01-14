@@ -1,0 +1,24 @@
+<div id="main" class="row center">
+	<div class="col-sm-12">
+		<div class="main-title"> Stay in touch, stay on top. </div>
+		<div class="direction"> Enter your email to be part of our private beta. </div>
+
+		<div class="email">
+			<% if flash[:notice] || flash[:alert] %>
+				<div class="direction"> <%= flash[:notice] || flash[:alert] %> </div>
+			<% else %>
+				<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+					<%= f.email_field :email, :placeholder => "EMAIL ADDRESS" %>
+					<%= f.submit "SIGN UP", :class => "signup" %>
+
+					<br/><br/>
+					<div class="btn-toolbar" >
+						<%= link_to "Sign Up with Facebook", user_omniauth_authorize_path(:facebook), :class => "btn btn-primary" %>
+						<%= link_to "Sign Up with Google", user_omniauth_authorize_path(:google), :class => "btn btn-primary" %>
+						<%= link_to "Sign Up with LinkedIn", user_omniauth_authorize_path(:linkedin), :class => "btn btn-primary" %>
+					</div>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>

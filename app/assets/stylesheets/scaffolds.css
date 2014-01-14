@@ -1,0 +1,14 @@
+#sign-out-btn {
+	float: right;
+	margin-right: 35px;
+}
+
+textarea{
+	width: 400px;
+	height: 100px;
+	resize: none;
+}
+
+.table td, .table th {
+   text-align: center;   
+}

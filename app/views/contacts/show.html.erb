@@ -1,0 +1,26 @@
+<div class = "container">
+	
+	<p> <strong>Photo:</strong> <%= link_to image_tag(@contact.photo_url), @contact.network_url %> </p>
+
+	<p> <strong>Full Name:</strong> <%= @contact.full_name %> </p>
+	<p> <strong>First name:</strong> <%= @contact.first_name %> </p>
+	<p> <strong>Last name:</strong> <%= @contact.last_name %> </p>
+
+	<p> <strong>Given name:</strong> <%= @contact.given_name %> </p>
+	<p> <strong>Gender:</strong> <%= @contact.gender %> </p>
+
+	<p> <strong>Email:</strong> <%= @contact.email %> </p>
+	<p> <strong>Phone:</strong> <%= @contact.phone %> </p>
+
+	<p> <strong>Network username:</strong> <%= @contact.network_username %> </p>
+	<p> <strong>Job title:</strong> <%= @contact.job_title %> </p>
+	<p> <strong>Organization:</strong> <%= @contact.organization %> </p>
+	<p> <strong>Industry:</strong> <%= @contact.industry %> </p>
+	<p> <strong>Country:</strong> <%= @contact.country %> </p>
+
+	<p> <strong>About:</strong> <%= @contact.about %> </p>
+	<p> <strong>Education:</strong> <%= @contact.education.gsub("\n", "<br/><br/>").html_safe if @contact.education %> </p>
+	<p> <strong>Work:</strong> <%= @contact.work.gsub("\n", "<br/><br/>").html_safe if @contact.work %> </p>
+</div>
+<%#= link_to 'Edit', edit_contact_path(@contact) %>
+<%#= link_to 'Back', contacts_path %>

@@ -1,0 +1,59 @@
+<% if show %>
+	<div class="content show" id=<%="contact_#{contact.id}"%>>
+<% else %>
+	<div class="content" id=<%="contact_#{contact.id}"%>>
+<% end %>
+
+	<div class="notes right-col col-sm-offset-1 col-sm-4">
+		<div class="title">
+			<img class="rect" src="/assetsrectangle.png" alt="">
+			<h1> <%= contact.full_name.upcase %> </h1>
+			<div class="mail">
+				<a href=<%="mailto:#{contact.email}"%> target="_top"> <%= contact.email %> </a>
+			</div>
+			<% unless contact.form_social_network? %>
+				<%= link_to "Edit Contact", edit_user_contact_path(:id => contact.id) %>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			<% end %>
+			<%= link_to "Delete Contact", user_contact_path(:user_id => @user.id, :id => contact.id), method: :delete, data: { confirm: "Are you sure?" } %>
+			<div class="phone">
+				<%= contact.phone %>
+			</div>
+		</div>
+		<div class="tags">
+			<div class="tag">
+				<img class="rounded" src="/assetsrounded_1.png" alt="">
+				<h4>POKER</h4>
+			</div>
+			<div class="tag">
+				<img class="rounded" src="/assetsrounded_2.png" alt="">
+				<h4>OPERA</h4>
+			</div>
+			<div class="tag">
+				<img class="rounded" src="/assetsrounded_3.png" alt="">
+				<h4>YAHOO</h4>
+			</div>
+			<div class="tag">
+				<img class="rounded" src="/assetsrounded_4.png" alt="">
+			</div>
+		</div>
+		<div class="note">
+			<p>
+				<%= contact.notes.last.note if contact.notes.count > 0 %>
+				<span class="date"><%= contact.notes.last.updated_at.strftime("%B %e, %Y at %I%p")  if contact.notes.count > 0 %></span>
+			</p>
+			<div class="links">
+				<%= link_to "Add note", new_user_contact_note_path(:contact_id => contact.id) %>
+				<%= link_to "Show all notes", user_contact_notes_path(:contact_id => contact.id) %>
+			</div>
+		</div>
+		<div class="note">
+			<h2>Work</h2>
+			<p> <%= contact.work.gsub("\n", "<br/><br/>").html_safe if  contact.work %> </p>
+		</div>
+		<div class="note">
+			<h2>Education</h2>
+			<p> <%= contact.education.gsub("\n", "<br/><br/>").html_safe if contact.education %> </p>
+		</div>
+	</div>
+</div>

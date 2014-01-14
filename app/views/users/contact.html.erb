@@ -1,0 +1,38 @@
+<br/>
+<div class = "container">
+	<%= link_to 'Sign out', destroy_user_session_path, :method => :delete, :class => "btn btn-danger pull-right" %>
+
+	<br/><br/><br/>
+
+	<table class = "table">
+		<tr>
+			<th> Name </th>
+			<th> First Name </th>
+			<th> Last Name </th>
+			<th> Gender </th>
+			<th> Network </th>
+			<th> Network ID </th>
+			<th> Network Username </th>
+			<th> Country </th>
+			<th> Job </th>
+			<th> Industry </th>
+			<th> Profile Pic </th>
+		</tr>
+
+		<% @contacts.each do |contact| %>
+			<tr>
+				<td> <%= contact.name %> </td>
+				<td> <%= contact.first_name %> </td>
+				<td> <%= contact.last_name %> </td>
+				<td> <%= contact.gender %> </td>
+				<td> <%= contact.network %> </td>
+				<td> <%= link_to "#{contact.network_id}", contact.network_page %> </td>
+				<td> <%= contact.network_username %> </td>
+				<td> <%= contact.country %> </td>
+				<td> <%= contact.job %> </td>
+				<td> <%= contact.industry %> </td>
+				<td> <%= image_tag(contact.photo) %> </td>
+			</tr>
+		<% end %>
+	</table>
+</div>

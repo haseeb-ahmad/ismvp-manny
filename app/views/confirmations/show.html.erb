@@ -1,0 +1,14 @@
+<% if flash[:notice] || flash[:alert] %>
+	<p> <%= flash[:notice] || flash[:alert]%> </p>
+<%end%>
+
+<%= form_for(resource, :as => resource_name, :url => confirm_path(resource_name)) do |f| %>
+	<div><%= f.label :password %><br />
+	<%= f.password_field :password, :autofocus => true %></div>
+	<div><%= f.label :password_confirmation %><br />
+	<%= f.password_field :password_confirmation %></div>
+	<%= f.hidden_field :confirmation_token %>
+	<%= f.submit "Update"%>
+<% end %>
+
+

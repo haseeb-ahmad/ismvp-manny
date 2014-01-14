@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cumulusme</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+
+<body class="landing1">
+	<header class="row">
+		<div class="head col-sm-7">
+			<img class="logo" src="/assets/logo_2.png" alt="">
+		</div>
+		<div class="searcher col-sm-offset-1 col-sm-4">
+			<%= link_to "LOGIN", new_user_session_path, :class => "button white" %>
+		</div>
+	</header>
+	
+	<%= yield %>
+
+	<footer class="row">
+		<div class="copyright col-sm-6"> © 2013 CumulusMe. </div>
+		<div class="bottom-menu col-sm-6">
+			<ul>
+				<li> <a href="#"> About </a> </li>
+				<li> <a href="#"> Contact </a> </li>
+			</ul>
+		</div>
+	</footer>
+</body>
+</html>
