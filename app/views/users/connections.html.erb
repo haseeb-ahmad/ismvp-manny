@@ -1,3 +1,10 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
 <br/>
 <div class = "container">
 
@@ -11,45 +18,177 @@
 			<th> Provider </th>
 			<th> UId </th>
 			<th> Import Contacts </th>
+			<th> Profile info </th>
+
 		</tr>
 
 		<tr>
 			<% facebook_identity = @identities.find{|identity| identity.provider == "facebook" } %>
+			
 			<% if facebook_identity %>
 				<td> <%= facebook_identity.provider %> </td>
 				<td> <%= facebook_identity.uid %> </td>
 				<td> <%= link_to "Disconnect from Facebook", users_disconnect_path(:identity => "facebook"), :id => "disconnect_facebook" %> </td>
+				<th> 
+					<button type="button" class="profile_viewer" data-toggle="modal" data-target="#fbModal">View profile data</button>
+					<div class="modal fade" id="fbModal" role="dialog">
+						<div class="vertical-alignment-helper">   	
+						   	<div class="modal-dialog vertical-align-center">
+						    
+						      <div class="modal-content">
+						        <div class="modal-header">
+						          <button type="button" class="close" data-dismiss="modal">&times;</button>
+						          <h4 class="modal-title">Profile data</h4>
+						        </div>
+						        <div class="modal-body">
+						        	<% data = JSON.parse(facebook_identity.all_data) rescue {}  %>
+
+						        	<% data.each_pair do |key, value| %>
+									  <p><%= key.humanize %>: <%= value %></p>
+									<% end %>
+						        </div>
+						        <div class="modal-footer">
+						          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						        </div>
+						      </div>
+						      
+						    </div>
+						</div>
+					</div>
+				 </th>
 			<% else %>
 				<td>  </td>
 				<td>  </td>
 				<td> <%= link_to "Import From Facebook", user_omniauth_authorize_path(:facebook), :id => "connect_facebook" %> </td>
+				<td>  </td>
 			<% end %>
 		</tr>
 
 		<tr>
 			<% google_identity = @identities.find{|identity| identity.provider == "google" } %>
+			<% identity = google_identity %>
 			<% if google_identity %>
 				<td> <%= google_identity.provider %> </td>
 				<td> <%= google_identity.uid %> </td>
 				<td> <%= link_to "Disconnect from Google", users_disconnect_path(:identity => "google"), :id => "disconnect_google" %> </td>
+				<th> 
+					<button type="button" class="profile_viewer" data-toggle="modal" data-target="#googleModal">View profile data</button>
+					<div class="modal fade" id="googleModal" role="dialog">
+						<div class="vertical-alignment-helper">   	
+						   	<div class="modal-dialog vertical-align-center">
+						    
+						      <div class="modal-content">
+						        <div class="modal-header">
+						          <button type="button" class="close" data-dismiss="modal">&times;</button>
+						          <h4 class="modal-title">Profile data</h4>
+						        </div>
+						        <div class="modal-body">
+						        	<% data = JSON.parse(google_identity.all_data) rescue {} %>
+
+						        	<img class="picture" src=<%= data["image"]%> alt="Flowers in Chania" width="460" height="345">
+						        	
+						        	<% data.each_pair do |key, value| %>
+									  <p><%= key.humanize %>: <%= value %></p>
+									<% end %>
+						        </div>
+						        <div class="modal-footer">
+						          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						        </div>
+						      </div>
+						      
+						    </div>
+						</div>
+					</div>
+				 </th>
+
 			<% else %>
 				<td>  </td>
 				<td>  </td>
 				<td> <%= link_to "Import From Google", user_omniauth_authorize_path(:google), :id => "connect_google" %> </td>
+				<td>  </td>
 			<% end %>
 		</tr>
 
 		<tr>
 			<% linkedin_identity = @identities.find{|identity| identity.provider == "linkedin" } %>
+			
 			<% if linkedin_identity %>
 				<td> <%= linkedin_identity.provider %> </td>
 				<td> <%= linkedin_identity.uid %> </td>
 				<td> <%= link_to "Disconnect from LinkedIn", users_disconnect_path(:identity => "linkedin"),:id => "disconnect_linkedin" %> </td>
+				<th> 
+					<button type="button" class="profile_viewer" data-toggle="modal" data-target="#linkedinModal">View profile data</button>
+					<div class="modal fade" id="linkedinModal" role="dialog">
+						<div class="vertical-alignment-helper">   	
+						   	<div class="modal-dialog vertical-align-center">
+						    
+						      <div class="modal-content">
+						        <div class="modal-header">
+						          <button type="button" class="close" data-dismiss="modal">&times;</button>
+						          <h4 class="modal-title">Profile data</h4>
+						        </div>
+						        <div class="modal-body">
+						        	<% data = JSON.parse(linkedin_identity.all_data) rescue {}  %>
+						        	<img class="picture" src=<%= data["image"]%> alt="Flowers in Chania" width="460" height="345">
+						        	<% data.each_pair do |key, value| %>
+									  <p><%= key.humanize %>: <%= value %></p>
+									<% end %>
+						        </div>
+						        <div class="modal-footer">
+						          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						        </div>
+						      </div>
+						      
+						    </div>
+						</div>
+					</div>
+				 </th>
+
 			<% else %>
 				<td>  </td>
 				<td>  </td>
 				<td> <%= link_to "Import From LinkedIn", user_omniauth_authorize_path(:linkedin), :id => "connect_linkedin" %> </td>
+				<td>  </td>
 			<% end %>
 		</tr>
 	</table>
 </div>
+
+
+<style>
+.modal {
+}
+.vertical-alignment-helper {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+.vertical-align-center {
+    display: table-footer-group;
+    vertical-align: middle;
+}
+.modal-content {
+    width:inherit;
+    height:inherit;
+    margin: 0 auto;
+    margin-top: 10%;
+}
+.profile_viewer{
+	background: none;
+    border: none;
+    color: #74a0d5;
+    font-weight: normal;
+}
+.modal-body{
+	text-align: left;
+}
+p{
+	word-break: break-word;
+	font-weight: normal;
+}
+.picture{
+	height: 100px;
+    width: 100px;
+    margin-bottom: 20px
+}
+</style>

@@ -14,12 +14,12 @@ class User < ActiveRecord::Base
 	scope :get_user, lambda {|email| where(:email => email)}
 	
 	def self.find_or_create(auth)
-
 		# If user exists then update else create new user
 		user = User.where("email = '#{auth.info.email}'").first_or_initialize
 		user.email		= auth.info.email
 		user.first_name	= auth.info.first_name
 		user.last_name	= auth.info.last_name
+		user.password = Devise.friendly_token
 
 		# No need to send confirmation email to user
 		user.skip_confirmation!

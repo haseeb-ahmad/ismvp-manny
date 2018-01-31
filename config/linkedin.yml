@@ -1,6 +1,8 @@
 defaults: &defaults
-  app_id: '75o644cke65gv3'
-  app_secret: '8U6Z59NDNwc9qm84'
+  # app_id: '75o644cke65gv3'
+  # app_secret: '8U6Z59NDNwc9qm84'
+  app_id: '78o4asfnvzskt2'
+  app_secret: 't2bhmwv4OqypMHsb'
 
 development:
   <<: *defaults
@@ -9,6 +11,7 @@ test:
   <<: *defaults
 
 production:
-  app_id: '75ixtjnssrp6r6'
-  app_secret: 'KEYJj9aZMLgTD50l'
+  <<: *defaults
+  # app_id: '75ixtjnssrp6r6'
+  # app_secret: 'KEYJj9aZMLgTD50l'
 

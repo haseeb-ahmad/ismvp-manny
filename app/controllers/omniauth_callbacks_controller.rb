@@ -4,7 +4,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		auth = request.env["omniauth.auth"]
 		user = User.find_or_create(auth)
 		identity = Identity.find_or_create(auth, user)
-
 		if current_user.nil?
 			# User tries to Sign In / Register through some social network
 
