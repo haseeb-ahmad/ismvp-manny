@@ -4,11 +4,9 @@ class UsersController < ApplicationController
 
 	def connections
 		@identities = current_user.identities
-
-		require 'linkedin-scraper'
-
-		profile = Linkedin::Profile.new( "https://www.linkedin.com/in/tayyab-tayyab-a5b610158" ) 
-		puts profile.inspect
+		# require 'linkedin-scraper'
+		# profile = Linkedin::Profile.new( "https://www.linkedin.com/in/jeffweiner08/" ) 
+		# puts profile.inspect
 	end
 
 	def disconnect
