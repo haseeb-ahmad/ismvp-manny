@@ -7,7 +7,7 @@ gem "rails", "4.1.0.beta1"
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", group: [:development, :test]
 
-gem "pg", group: [:production]
+gem 'pg', '~> 0.18', group: [:production]
 gem "rails_12factor", group: :production
 
 gem "devise", "3.0.0.rc"
