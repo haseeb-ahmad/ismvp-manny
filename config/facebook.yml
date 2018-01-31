@@ -1,11 +1,9 @@
 defaults: &defaults
-  app_id: '474339089314884'
-  app_secret: '2a1411f9ac1d497f5a7a1dcfc607d5a8'
-  
+  # app_id: '474339089314884'
+  # app_secret: '2a1411f9ac1d497f5a7a1dcfc607d5a8'
 
-
-  # app_id: '157571718230313'
-  # app_secret: '2ee65dc770eea62249d7b1c627cf6439'
+  app_id: '157571718230313'
+  app_secret: '2ee65dc770eea62249d7b1c627cf6439'
 
 
 development:
