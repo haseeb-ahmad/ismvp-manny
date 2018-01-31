@@ -42,7 +42,7 @@
 						        </div>
 						        <div class="modal-body">
 						        	<% data = JSON.parse(facebook_identity.all_data) rescue {}  %>
-
+						        	<img class="picture" src=<%= data["image"]%> alt="Flowers in Chania" width="460" height="345">
 						        	<% data.each_pair do |key, value| %>
 									  <p><%= key.humanize %>: <%= value %></p>
 									<% end %>
