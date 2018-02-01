@@ -42,13 +42,20 @@
 						        </div>
 						        <div class="modal-body">
 						        	<% data = JSON.parse(facebook_identity.all_data) rescue {}  %>
-						        	<img class="picture" src=<%= data["info"]["image"]%> alt="Flowers in Chania" width="460" height="345">
+						        	<% if data["info"].present? %>
+						        		<img class="picture" src=<%= data["info"]["image"]%> alt="Flowers in Chania" width="460" height="345">
+						        	<% end %>
+
 						        	<% data["info"].each_pair do |key, value| %>
 									  <p><%= key.humanize %>: <%= value %></p>
 									<% end %>
-									<% data["extra"]["raw_info"].each_pair do |key, value| %>
-									  <p><%= key.humanize %>: <%= value %></p>
+
+									<% if data["extra"].present? %>
+										<% data["extra"]["raw_info"].each_pair do |key, value| %>
+										  <p><%= key.humanize %>: <%= value %></p>
+										<% end %>
 									<% end %>
+
 						        </div>
 						        <div class="modal-footer">
 						          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
