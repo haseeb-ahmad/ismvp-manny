@@ -92,7 +92,9 @@
 						        <div class="modal-body">
 						        	<% data = JSON.parse(google_identity.all_data) rescue {} %>
 
-						        	<img class="picture" src=<%= data["image"]%> alt="Flowers in Chania" width="460" height="345">
+						        	<% if data["info"].present? %>
+						        		<img class="picture" src=<%= data["info"]["image"]%> alt="Flowers in Chania" width="460" height="345">
+						        	<% end %>
 						        	
 						        	<% data.each_pair do |key, value| %>
 									  <p><%= key.humanize %>: <%= value %></p>
@@ -136,7 +138,9 @@
 						        </div>
 						        <div class="modal-body">
 						        	<% data = JSON.parse(linkedin_identity.all_data) rescue {}  %>
-						        	<img class="picture" src=<%= data["image"]%> alt="Flowers in Chania" width="460" height="345">
+						        	<% if data["info"].present? %>
+						        		<img class="picture" src=<%= data["info"]["image"]%> alt="Flowers in Chania" width="460" height="345">
+						        	<% end %>
 						        	<% data.each_pair do |key, value| %>
 									  <p><%= key.humanize %>: <%= value %></p>
 									<% end %>
