@@ -44,16 +44,20 @@
 						        	<% data = JSON.parse(facebook_identity.all_data) rescue {}  %>
 						        	<% if data["info"].present? %>
 						        		<img class="picture" src=<%= data["info"]["image"]%> alt="Flowers in Chania" width="460" height="345">
-						        	<% end %>
-
-						        	<% data["info"].each_pair do |key, value| %>
-									  <p><%= key.humanize %>: <%= value %></p>
-									<% end %>
-
-									<% if data["extra"].present? %>
-										<% data["extra"]["raw_info"].each_pair do |key, value| %>
+							        	
+							        	<% data["info"].each_pair do |key, value| %>
 										  <p><%= key.humanize %>: <%= value %></p>
 										<% end %>
+						        	<% end %>
+
+									<% if data["extra"].present? %>
+										
+										<% if data["extra"]["raw_info"].present? %>
+											<% data["extra"]["raw_info"].each_pair do |key, value| %>
+											  <p><%= key.humanize %>: <%= value %></p>
+											<% end %>
+										<% end %>
+
 									<% end %>
 
 						        </div>
