@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
   <!-- <title>Cumulusme</title> -->
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
@@ -12,8 +18,10 @@
 			<!-- <img class="logo" src="/assets/logo_2.png" alt=""> -->
 			<ul class="top-menu" style="padding-left: 5%;">
 				<li> <%= link_to "CONTACTS", user_contacts_path %> </li>
-				<li> <a href="#">GROUPS</a> </li>
-				<li> <a href="#">ACCOUNT</a> </li>
+				<li> <a data-target="#group_section_modal" data-toggle="modal" class="MainNavText" id="MainNavHelp" 
+       href="#myModal">GROUPS</a> </li>
+				<li> <a data-target="#account_section_modal" data-toggle="modal" class="MainNavText" id="MainNavHelp" 
+       href="#myModal">ACCOUNT</a> </li>
 				<li> <%= link_to "CONNECTION", user_connections_path %> </li>
 			</ul>
 		</div>
@@ -31,4 +39,61 @@
 	<%= yield %>
 
 </body>
+
+
+<div class="modal fade" id="account_section_modal" role="dialog">
+	<div class="vertical-alignment-helper">   	
+	   	<div class="modal-dialog vertical-align-center">
+	    
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Account</h4>
+	        </div>
+	        <div class="modal-body info_body">
+	        	<img class="logo info_icon" src="/assets/info_icon.png" alt="">
+	        	<p> Accounts section is in under construction! <p>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="group_section_modal" role="dialog">
+	<div class="vertical-alignment-helper">   	
+	   	<div class="modal-dialog vertical-align-center">
+	    
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Group</h4>
+	        </div>
+	        <div class="modal-body info_body">
+	        	<img class="logo info_icon" src="/assets/info_icon.png" alt="">
+	        	<p> Groups section is in under construction! <p>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<style>
+.info_body{
+	text-align: center;
+}
+.info_body img{
+	height: 50px;
+	width: 50px;
+	margin-bottom: 10px;
+}
+</style>
+
 </html>

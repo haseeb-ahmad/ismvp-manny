@@ -29,7 +29,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			flash[:notice] = I18n.t("connections.connect_network", :identity => identity.provider.capitalize)
 
 			# Update User Contacts (user connects himself with some identity)
-			Delayed::Job.enqueue UpdateContacts.new(current_user.id), :queue => "queue_#{current_user.id}"
+			# Delayed::Job.enqueue UpdateContacts.new(current_user.id) , :queue => "queue_#{current_user.id}"
 			redirect_to user_connections_path(:user_id => current_user.id)
 		end
 	end
