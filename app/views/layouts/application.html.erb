@@ -6,6 +6,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- <title>Cumulusme</title> -->
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
@@ -17,11 +18,24 @@
 		<div class="head col-sm-7">
 			<!-- <img class="logo" src="/assets/logo_2.png" alt=""> -->
 			<ul class="top-menu" style="padding-left: 5%;">
+				<li> <a id="tools", target="_blank", href="//">TOOLS</a> <li>
 				<li> <a data-target="#group_section_modal" data-toggle="modal" class="MainNavText" id="MainNavHelp" 
        href="#myModal">GROUPS</a> </li>
 				<li> <a data-target="#account_section_modal" data-toggle="modal" class="MainNavText" id="MainNavHelp" 
        href="#myModal">ACCOUNT</a> </li>
 				<li> <%= link_to "DASHBOARD", dashboard_users_path %> </li>
+				<li>
+					<div class="dropdown">
+					  <a class="dropbtn">WHAT YOUR BROWSER KNOWS
+					  	<i class="fa fa-caret-down"></i>
+					  </a>
+					  <div class="dropdown-content">
+					    <a target= "_blank" href="http://webkay.robinlinus.com/">Webkay</a>
+					    <a target= "_blank" href="https://clickclickclick.click">Clickclick</a>
+					    <a target= "_blank" href="https://panopticlick.eff.org/">Panopticlick</a>
+					  </div>
+					</div>
+				</li>
 			</ul>
 		</div>
 		<%= link_to 'Sign out', destroy_user_session_path, :method => :delete, :id=> "sign-out-btn", :class => "btn btn-primary"%>
@@ -96,6 +110,27 @@
 .vertical-align-center1{
     left: 0px;
 }
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {background-color: #ddd}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 </style>
-
 </html>
