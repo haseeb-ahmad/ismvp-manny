@@ -218,7 +218,7 @@ Devise.setup do |config|
 
   config.omniauth :facebook, FACEBOOK_CONFIG[:app_id], FACEBOOK_CONFIG[:app_secret], { scope: "email,user_about_me,user_birthday,user_education_history,user_friends,user_hometown,user_location,user_work_history,public_profile,read_custom_friendlists,user_relationship_details,user_relationships,user_religion_politics,read_friendlists", info_fields: "name,email,first_name,last_name,gender,link,locale,timezone,updated_time,verified,address,birthday,cover,currency,education,hometown,interested_in,languages,location, relationship_status,religion,sports,work,friends,friendlists", :client_options => {:ssl => {:ca_path => '/etc/ssl/certs'}}}
   config.omniauth :linkedin, LINKEDIN_CONFIG[:app_id], LINKEDIN_CONFIG[:app_secret], { scope: "r_basicprofile r_emailaddress rw_company_admin w_share", name: 'linkedin', authorize_params: { state: SecureRandom.hex(15)} }
-  config.omniauth :google_oauth2, GOOGLE_CONFIG[:app_id], GOOGLE_CONFIG[:app_secret],{ access_type: "offline", approval_prompt: "force", scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/contacts', name: 'google'}
+  config.omniauth :google_oauth2, GOOGLE_CONFIG[:app_id], GOOGLE_CONFIG[:app_secret],{ access_type: "offline", approval_prompt: "force", scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile', name: 'google'}
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
