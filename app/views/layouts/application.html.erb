@@ -17,12 +17,11 @@
 		<div class="head col-sm-7">
 			<!-- <img class="logo" src="/assets/logo_2.png" alt=""> -->
 			<ul class="top-menu" style="padding-left: 5%;">
-				<!-- <li> <%= link_to "CONTACTS", user_contacts_path %> </li> -->
 				<li> <a data-target="#group_section_modal" data-toggle="modal" class="MainNavText" id="MainNavHelp" 
        href="#myModal">GROUPS</a> </li>
 				<li> <a data-target="#account_section_modal" data-toggle="modal" class="MainNavText" id="MainNavHelp" 
        href="#myModal">ACCOUNT</a> </li>
-				<li> <%= link_to "DASHBOARD", user_connections_path %> </li>
+				<li> <%= link_to "DASHBOARD", dashboard_users_path %> </li>
 			</ul>
 		</div>
 		<%= link_to 'Sign out', destroy_user_session_path, :method => :delete, :id=> "sign-out-btn", :class => "btn btn-primary"%>

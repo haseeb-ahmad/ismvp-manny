@@ -11,8 +11,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def after_sign_in_path_for(resource)
-		# user_contacts_path(resource)
-		user_connections_path(resource)
+		dashboard_users_path()
 	end
 
 	# Control which layout is used.

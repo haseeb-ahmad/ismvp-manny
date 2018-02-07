@@ -2,12 +2,17 @@ class UsersController < ApplicationController
 	before_filter :authenticate_user!
 	before_action :get_user
 
-	def connections
+	def dashboard
 		@identities = current_user.identities
-		# require 'linkedin-scraper'
-		# profile = Linkedin::Profile.new( "https://www.linkedin.com/in/jeffweiner08/" ) 
-		# puts profile.inspect
+		render 'connections'
 	end
+	
+	# def connections
+	# 	@identities = current_user.identities
+	# 	# require 'linkedin-scraper'
+	# 	# profile = Linkedin::Profile.new( "https://www.linkedin.com/in/jeffweiner08/" ) 
+	# 	# puts profile.inspect
+	# end
 
 	def disconnect
 		identity = Identity.get_identity(current_user.id, params[:identity])
