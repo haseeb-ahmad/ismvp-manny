@@ -1,0 +1,105 @@
+
+<div id="location">
+	<ul id="location1">
+
+	</ul>
+</div>
+
+<div id="social_media_info">
+	<h2> Social Media </h2>
+	<ul id="social_media">
+
+	</ul>
+
+</div>
+
+
+
+<img style="display:none;"
+onload="show_login_status('Google', true)"
+onerror="show_login_status('Google', false)"
+src="https://accounts.google.com/CheckCookie?continue=https%3A%2F%2Fwww.google.com%2Fintl%2Fen%2Fimages%2Flogos%2Faccounts_logo.png&followup=https%3A%2F%2Fwww.google.com%2Fintl%2Fen%2Fimages%2Flogos%2Faccounts_logo.png&chtml=LoginDoneHtml&checkedDomains=youtube&checkConnection=youtube%3A291%3A1"
+/>
+ 
+<img style="display:none;"
+onload="show_login_status('GooglePlus', true)"
+onerror="show_login_status('GooglePlus', false)"
+src="https://plus.google.com/up/?continue=https://www.google.com/intl/en/images/logos/accounts_logo.png&type=st&gpsrc=ogpy0"
+/>
+ 
+<img style="display:none;" src="https://twitter.com/login?redirect_after_login=%2Fimages%2Fspinner.gif" onload="show_login_status('Twitter', true)" onerror="show_login_status('Twitter', false)" />
+ 
+<div id="fb-root"></div>
+
+<script>
+ window.fbAsyncInit = function(){
+  FB.init({ appId:'157571718230313', status:true,  cookie:true, xfbml:true});
+  FB.getLoginStatus(function(response){
+   if (response.status != "unknown")
+   {
+    show_login_status("Facebook", true);
+   }else{
+    show_login_status("Facebook", false);
+   }
+  });
+ };
+ // Load the SDK Asynchronously
+ (function(d){
+  var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+  js = d.createElement('script'); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js";
+  d.getElementsByTagName('head')[0].appendChild(js);
+ }(document));
+</script>
+
+<style type="text/css">
+	#location li{
+		display: inherit;
+		margin-left: 20px;
+	}
+	#social_media li{
+		display: inherit;
+		margin-left: 20px;
+	}
+</style>
+
+<script type="text/javascript">
+   function show_login_status(network, status)
+   {
+    if (status)
+    {
+     // alert("Logged in to " + network);
+
+     $("#social_media").append("<li>" + "Logged in to: " + network  + "</li>")
+
+    }else{
+     // alert("Not logged in to " + network);
+     $("#social_media").append("<li>" + "Not logged in to: " + network  + "</li>")
+    }
+   }
+ </script>
+
+<script>
+	$(document).ready(function(){
+	    jQuery.get("https://ipinfo.io", function(response) {
+		    Object.keys(response).forEach(function (key) { 
+			    $("#location1").append("<li>" + key + " : " + response[key]  + "</li>")
+			})
+
+		}, "jsonp");
+
+
+	    $("#location1").append("<li>" + "OS" + " : " + navigator["platform"] + "</li>")
+	    $("#location1").append("<li>" + "BROWSER" + " : " + navigator["appVersion"] + "</li>")
+	    $("#location1").append("<li>" + "plugins" + "</li>")
+
+	    var i;
+		for (i = 0; i < navigator["plugins"].length; ++i) {
+		    console.log(navigator["plugins"][i].name);
+		    $("#location1").append("<li>" + navigator["plugins"][i].name + "</li>")
+		}
+
+		$("#location1").append("<li>" + "CPU: " + navigator.hardwareConcurrency + " Cores" + "</li>")
+
+	});
+</script>

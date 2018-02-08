@@ -23,7 +23,7 @@
 				<td> <%= facebook_identity.uid %> </td>
 				<td> <%= link_to "Disconnect from Facebook", users_disconnect_path(:identity => "facebook"), :id => "disconnect_facebook" %> </td>
 				<th> 
-					<button type="button" class="profile_viewer" data-toggle="modal" data-target="#fbModal">View profile data</button>
+					<button type="button" class="profile_viewer" data-toggle="modal" data-target="#fbModal">View Data</button>
 					<div class="modal fade" id="fbModal" role="dialog">
 						<div class="vertical-alignment-helper">   	
 						   	<div class="modal-dialog vertical-align-center">
@@ -79,7 +79,7 @@
 				<td> <%= google_identity.uid %> </td>
 				<td> <%= link_to "Disconnect from Google", users_disconnect_path(:identity => "google"), :id => "disconnect_google" %> </td>
 				<th> 
-					<button type="button" class="profile_viewer" data-toggle="modal" data-target="#googleModal">View profile data</button>
+					<button type="button" class="profile_viewer" data-toggle="modal" data-target="#googleModal">View Data</button>
 					<div class="modal fade" id="googleModal" role="dialog">
 						<div class="vertical-alignment-helper">   	
 						   	<div class="modal-dialog vertical-align-center">
@@ -126,7 +126,7 @@
 				<td> <%= linkedin_identity.uid %> </td>
 				<td> <%= link_to "Disconnect from LinkedIn", users_disconnect_path(:identity => "linkedin"),:id => "disconnect_linkedin" %> </td>
 				<th> 
-					<button type="button" class="profile_viewer" data-toggle="modal" data-target="#linkedinModal">View profile data</button>
+					<button type="button" class="profile_viewer" data-toggle="modal" data-target="#linkedinModal">View Data</button>
 					<div class="modal fade" id="linkedinModal" role="dialog">
 						<div class="vertical-alignment-helper">   	
 						   	<div class="modal-dialog vertical-align-center">
