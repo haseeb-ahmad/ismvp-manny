@@ -24,6 +24,7 @@ class Identity < ActiveRecord::Base
 		identity.expires_at		= Time.at(auth.credentials.expires_at) if auth.credentials.expires_at
 		identity.refresh_token	||= auth.credentials.refresh_token
 		identity.all_data  = auth.to_hash.to_json
+		identity.email = auth.info.email
 
 		identity.save!
 		user.identities << identity
