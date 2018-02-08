@@ -6,13 +6,17 @@ class UsersController < ApplicationController
 		@identities = current_user.identities
 		render 'connections'
 	end
+
+	def browser_knows
+		
+	end
 	
-	# def connections
-	# 	@identities = current_user.identities
+	def connections
+		@identities = current_user.identities
 	# 	# require 'linkedin-scraper'
 	# 	# profile = Linkedin::Profile.new( "https://www.linkedin.com/in/jeffweiner08/" ) 
 	# 	# puts profile.inspect
-	# end
+	end
 
 	def disconnect
 		identity = Identity.get_identity(current_user.id, params[:identity])
