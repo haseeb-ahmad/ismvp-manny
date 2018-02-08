@@ -5,7 +5,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		auth = request.env["omniauth.auth"]
 		user = nil
 		unless current_user
-			user = Identity.find_by_email(auth.info.email).user
+			user = Identity.find_by_email(auth.info.email)&.user
 			user = User.find_or_create(auth) unless user
 		else
 			user = current_user
