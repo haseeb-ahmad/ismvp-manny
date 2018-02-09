@@ -1,35 +1,48 @@
+<%= javascript_include_tag 'calc_downlink_speed' %>
 
-<div id="location">
-	<ul id="location1">
+<div id="personal_info_container", class="ul_container">
+	<h2> Location </h2>
+	<ul id="personal_info"> </ul>
+	<div id="googleMap" style="width:100%;height:400px;"></div>
+</div>
 
+<div id="software_and_hardware", class="ul_container">
+	<h2> Browser and Hardware </h2>
+	<ul id="hardware_info"> 
+		<li id="status"></li>
+		<li id="level"></li>
+		<li id="charge"></li>
+		<li id="discharge"></li>
+	</ul>
+</div> 
+
+<div id="plugins_info", class="ul_container">
+	<h2> Plugins </h2>
+	<ul id="plugins_list"> 
+		
 	</ul>
 </div>
 
-<div id="social_media_info">
+<div id="network_information", class= "ul_container">
+	<h2> Connection </h2>
+	<ul id="connection_info"> </ul>
+
+</div>
+
+<div id="social_media_info", class="ul_container">
 	<h2> Social Media </h2>
-	<ul id="social_media">
-
+	<ul id="social_media"> 
+		<li id="Twitter"></li>
+		<li id="GooglePlus"></li>
+		<li id="Google"></li>
+		<li id="Facebook"></li>
+		<li></li>
+		<div class="col-sm-12"></div>
 	</ul>
-
 </div>
 
-
-
-<img style="display:none;"
-onload="show_login_status('Google', true)"
-onerror="show_login_status('Google', false)"
-src="https://accounts.google.com/CheckCookie?continue=https%3A%2F%2Fwww.google.com%2Fintl%2Fen%2Fimages%2Flogos%2Faccounts_logo.png&followup=https%3A%2F%2Fwww.google.com%2Fintl%2Fen%2Fimages%2Flogos%2Faccounts_logo.png&chtml=LoginDoneHtml&checkedDomains=youtube&checkConnection=youtube%3A291%3A1"
-/>
- 
-<img style="display:none;"
-onload="show_login_status('GooglePlus', true)"
-onerror="show_login_status('GooglePlus', false)"
-src="https://plus.google.com/up/?continue=https://www.google.com/intl/en/images/logos/accounts_logo.png&type=st&gpsrc=ogpy0"
-/>
- 
-<img style="display:none;" src="https://twitter.com/login?redirect_after_login=%2Fimages%2Fspinner.gif" onload="show_login_status('Twitter', true)" onerror="show_login_status('Twitter', false)" />
- 
-<div id="fb-root"></div>
+<!-- for social media info -->
+<%= render "users/social_media_tags" %>
 
 <script>
  window.fbAsyncInit = function(){
@@ -53,7 +66,10 @@ src="https://plus.google.com/up/?continue=https://www.google.com/intl/en/images/
 </script>
 
 <style type="text/css">
-	#location li{
+	.ul_container{
+		margin-left: 20px;
+	}
+	.ul_container li{
 		display: inherit;
 		margin-left: 20px;
 	}
@@ -61,45 +77,92 @@ src="https://plus.google.com/up/?continue=https://www.google.com/intl/en/images/
 		display: inherit;
 		margin-left: 20px;
 	}
+	.sub_header{
+		font-weight: bold;
+	}
 </style>
 
 <script type="text/javascript">
    function show_login_status(network, status)
    {
-    if (status)
-    {
-     // alert("Logged in to " + network);
-
-     $("#social_media").append("<li>" + "Logged in to: " + network  + "</li>")
-
-    }else{
-     // alert("Not logged in to " + network);
-     $("#social_media").append("<li>" + "Not logged in to: " + network  + "</li>")
-    }
+	    if (status){
+	    	$("#"+network).html("Logged in to: " + network)
+	    }else{
+	    	$("#"+network).html("Not logged in to: " + network)
+	    }
    }
  </script>
 
 <script>
+	function get_bettry_info(){
+		navigator.getBattery().then(function(battery) {
+		  function updateAllBatteryInfo(){
+		    $("#hardware_info").prepend("<li class='sub_header'>" + "Battery" +"</li>")
+		    updateChargeInfo();
+		    updateLevelInfo();
+		    updateChargingInfo();
+		    updateDischargingInfo();
+		  }
+		  updateAllBatteryInfo();
+		  battery.addEventListener('chargingchange', function(){
+		    updateChargeInfo();
+		  });
+		  function updateChargeInfo(){
+		    $("#hardware_info #status").html("Battery charging? " + (battery.charging ? "Yes" : "No"))
+		  }
+		  battery.addEventListener('levelchange', function(){
+		    updateLevelInfo();
+		  });
+		  function updateLevelInfo(){
+		    $("#hardware_info #level").html("Battery level: " + (battery.level * 100 + "%"))
+		  }
+		  battery.addEventListener('chargingtimechange', function(){
+		    updateChargingInfo();
+		  });
+		  function updateChargingInfo(){
+		    $("#hardware_info #charge").html("Battery charging time: " + (battery.chargingTime + " seconds"))
+		  }
+		  battery.addEventListener('dischargingtimechange', function(){
+		    updateDischargingInfo();
+		  });
+		  function updateDischargingInfo(){
+		    $("#hardware_info #discharge").html("Battery discharging time: " + (battery.dischargingTime + " seconds"))
+		  }
+		});
+	}
+
 	$(document).ready(function(){
 	    jQuery.get("https://ipinfo.io", function(response) {
-		    Object.keys(response).forEach(function (key) { 
-			    $("#location1").append("<li>" + key + " : " + response[key]  + "</li>")
+		    $("#personal_info").html('');
+		    Object.keys(response).forEach(function (key) {
+
+		    	if ( key == 'loc' &&  response[key].split(",").length == 2){
+		    		var mapProp= { center:new google.maps.LatLng(response[key].split(",")[0], response[key].split(",")[1]),zoom:5,};
+					var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+		    	}
+
+			    $("#personal_info").append("<li>" + key + " : " + response[key]  + "</li>")
 			})
 
 		}, "jsonp");
 
-
-	    $("#location1").append("<li>" + "OS" + " : " + navigator["platform"] + "</li>")
-	    $("#location1").append("<li>" + "BROWSER" + " : " + navigator["appVersion"] + "</li>")
-	    $("#location1").append("<li>" + "plugins" + "</li>")
-
-	    var i;
-		for (i = 0; i < navigator["plugins"].length; ++i) {
-		    console.log(navigator["plugins"][i].name);
-		    $("#location1").append("<li>" + navigator["plugins"][i].name + "</li>")
+	    $("#hardware_info").append("<li>" + "OS" + " : " + navigator["platform"] + "</li>")
+	    $("#hardware_info").append("<li>" + "BROWSER" + " : " + navigator["appVersion"] + "</li>")
+		$("#hardware_info").append("<li>" + "CPU: " + navigator.hardwareConcurrency + " Cores" + "</li>")
+		
+		if (typeof navigator.getBattery != "undefined"){
+			get_bettry_info();
 		}
 
-		$("#location1").append("<li>" + "CPU: " + navigator.hardwareConcurrency + " Cores" + "</li>")
+	    var i;
+		if (navigator["plugins"].length == 0){
+			$("#plugins_list").append("<li>" + "No plugin added." + "</li>")
+		}else{
+			for (i = 0; i < navigator["plugins"].length; ++i) {
+			    console.log(navigator["plugins"][i].name);
+			    $("#plugins_list").append("<li>" + navigator["plugins"][i].name + "</li>")
+			}
+		}
 
 	});
 </script>
