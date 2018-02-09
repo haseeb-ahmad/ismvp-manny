@@ -22,7 +22,9 @@
 				<td> <%= facebook_identity.provider %> </td>
 				<td> <%= facebook_identity.uid %> </td>
 				<td> <%= link_to "Disconnect from Facebook", users_disconnect_path(:identity => "facebook"), :id => "disconnect_facebook" %> </td>
-				<th> 
+				<th>
+					<%= link_to "Refresh Data", user_omniauth_authorize_path(:facebook), :id => "referesh_facebook", class: "profile_viewer" %>
+					|
 					<button type="button" class="profile_viewer" data-toggle="modal" data-target="#fbModal">View Data</button>
 					<div class="modal fade" id="fbModal" role="dialog">
 						<div class="vertical-alignment-helper">   	
@@ -78,7 +80,9 @@
 				<td> <%= google_identity.provider %> </td>
 				<td> <%= google_identity.uid %> </td>
 				<td> <%= link_to "Disconnect from Google", users_disconnect_path(:identity => "google"), :id => "disconnect_google" %> </td>
-				<th> 
+				<th>
+					<%= link_to "Refresh Data", user_omniauth_authorize_path(:google), :id => "referesh_google", class: "profile_viewer" %>
+					|
 					<button type="button" class="profile_viewer" data-toggle="modal" data-target="#googleModal">View Data</button>
 					<div class="modal fade" id="googleModal" role="dialog">
 						<div class="vertical-alignment-helper">   	
@@ -125,7 +129,9 @@
 				<td> <%= linkedin_identity.provider %> </td>
 				<td> <%= linkedin_identity.uid %> </td>
 				<td> <%= link_to "Disconnect from LinkedIn", users_disconnect_path(:identity => "linkedin"),:id => "disconnect_linkedin" %> </td>
-				<th> 
+				<th>
+					<%= link_to "Refresh Data", user_omniauth_authorize_path(:linkedin), :id => "refresh_linkedin", class: "profile_viewer" %>
+					| 
 					<button type="button" class="profile_viewer" data-toggle="modal" data-target="#linkedinModal">View Data</button>
 					<div class="modal fade" id="linkedinModal" role="dialog">
 						<div class="vertical-alignment-helper">   	
@@ -189,6 +195,7 @@
     border: none;
     color: #74a0d5;
     font-weight: normal;
+    padding: 0px;
 }
 .modal-body{
 	text-align: left;
