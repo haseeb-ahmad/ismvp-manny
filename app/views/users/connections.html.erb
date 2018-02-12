@@ -48,18 +48,9 @@
 									<% if data["extra"].present? %>
 										<% if data["extra"]["raw_info"].present? %>
 											<% data["extra"]["raw_info"].each_pair do |key, value| %>
-											  <% if key == "friendlists" %>
-											  	<%= render "friends_list", {value: value} %>
 											  
-											  <% elsif key == "education" %>
-											  	<%= render "education_detail", {value: value} %>
-											  <% elsif key == "work" %>
-											  	<%= render "work_detail", {value: value} %>
-											  <% elsif key == "friends" %>
-											  	<%= render "app_friends_list", {value: value} %>
-											  <% else %>
+											  
 											  	<%= render "personal_details", {value: value, key: key} %>
-											  <% end %>  
 											<% end %>
 										<% end %>
 
