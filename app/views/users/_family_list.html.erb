@@ -12,11 +12,11 @@
       <% value.each do |val| %>
         <tr>
           <td> 
-            <% if val["name"].present? %>
+            <% if val["name"] %>
               <%= val["name"] %> </td>
             <% end %>
           <td> 
-              <% if val["relationship"].present? %>
+              <% if val["relationship"] %>
                 <%= val["relationship"] %>
               <% end %>
             </td>
