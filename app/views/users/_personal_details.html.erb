@@ -1,17 +1,29 @@
 <% if key == "location" || key == "hometown" %>
 	<div class="col-sm-12 p0">
 		<div class="col-sm-6 p0"> <p style="font-weight:  bold;"> <%= key.upcase %>: </p> </div> 
-		<div class="col-sm-6 p0"> <p> <%= value["name"] %> </p> </div>	
+		<div class="col-sm-6 p0"> 
+			<% if value["name"].present? %>
+				<p> <%= value["name"] %> </p> 
+			<% end %>
+		</div>	
 	</div>
 <% elsif key == "cover" %>
 	<div class="col-sm-12 p0">
 		<div class="col-sm-6 p0"> <p style="font-weight:  bold;"> <%= key.upcase %>: </p> </div> 
-		<div class="col-sm-6 p0"> <p> <%= value["source"] %> </p> </div>	
+		<div class="col-sm-6 p0"> 
+			<% if value["source"].present? %>
+				<p> <%= value["source"] %> </p> 
+			<% end %>
+		</div>	
 	</div>
 <% elsif key == "currency" %>
 	<div class="col-sm-12 p0">
 		<div class="col-sm-6 p0"> <p style="font-weight:  bold;"> <%= key.upcase %>: </p> </div> 
-		<div class="col-sm-6 p0"> <p> <%= value["user_currency"] %> </p> </div>	
+		<div class="col-sm-6 p0"> 
+			<% if value["user_currency"].present? %>
+				<p> <%= value["user_currency"] %> </p> 
+			<% end %>
+		</div>	
 	</div>
 <% else %>
 	<div class="col-sm-12 p0">

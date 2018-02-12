@@ -26,8 +26,14 @@
               <%= val["location"]["name"] %>
             <% end %>
           </td>
-          <td> <%= val["start_date"] %> </td>
-          <td> <%= val["end_date"] %> </td>
+          <td> 
+            <% if val["start_date"].present? %>
+              <%= val["start_date"] %> </td>
+            <% end %>
+          <td> 
+            <% if val["end_date"].present? %>
+              <%= val["end_date"] %> </td>
+            <% end %>
         </tr>
       <% end %>
     </tbody>
