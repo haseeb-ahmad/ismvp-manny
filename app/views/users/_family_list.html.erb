@@ -12,18 +12,19 @@
       <% value.each do |val| %>
         <tr>
           <td> 
-            <% if val and  val["name"] %>
-              <%= val["name"] %> </td>
-            <% end %>
+            
+              <%= val["name"] %> 
+              </td>
+            
           <td> 
-              <% if val and val["relationship"] %>
+            
                 <%= val["relationship"] %>
-              <% end %>
+            
             </td>
           <td> 
-            <% if val and val["picture"].present? %>
+            
               <img src=<%= val["picture"]["data"]["url"]%> alt="Flowers in Chania" width="50px" height="50px"> 
-            <% end %>
+            
           </td>
         </tr>
       <% end %>
