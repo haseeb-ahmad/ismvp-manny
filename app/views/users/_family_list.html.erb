@@ -1,0 +1,25 @@
+<div class="family_container">
+  <h2>Family</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Relationship</th>
+        <th>Picture</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% value.each do |val| %>
+        <tr>
+          <td> <%= val["name"] %> </td>
+          <td> <%= val["relationship"] %> </td>
+          <td> 
+            <% if val["picture"].present? %>
+              <img src=<%= val["picture"]["data"]["url"]%> alt="Flowers in Chania" width="50px" height="50px"> 
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

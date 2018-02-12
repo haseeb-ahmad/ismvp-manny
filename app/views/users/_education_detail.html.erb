@@ -1,0 +1,33 @@
+<div class="education_detail">
+  <h2>Education</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Degree Name</th>
+        <th>Institute Name</th>
+        <th>Institute Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% value.each do |val| %>
+        <tr>
+          <td>
+            <% if val["concentration"].present? %>
+              
+              <% val["concentration"].each do |conc| %>
+                <%= conc["name"]%>
+              <% end %>
+
+            <% end %> 
+          </td>
+          <td> 
+            <% if val["school"].present? %>
+              <%= val["school"]["name"] %> 
+            <% end %> 
+          </td>
+          <td> <%= val["type"] %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

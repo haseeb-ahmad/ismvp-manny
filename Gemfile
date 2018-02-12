@@ -73,3 +73,4 @@ gem 'byebug', group: :development
 # gem "capistrano-rails", group: :development
 
 # Use debugger
+gem "koala"

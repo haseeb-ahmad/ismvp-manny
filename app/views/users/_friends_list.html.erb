@@ -1,0 +1,19 @@
+<div class="friends_container">
+  <h2>Friends</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Picture</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% value.each do |val| %>
+        <tr>
+          <td> <%= val["name"] %> </td>
+          <td> <img src=<%= val["picture"]["data"]["url"]%> alt="Flowers in Chania" width="50" height="50"> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

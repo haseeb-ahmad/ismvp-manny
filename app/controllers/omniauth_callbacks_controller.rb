@@ -1,8 +1,19 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 	def callback
-
+		require 'koala'
 		auth = request.env["omniauth.auth"]
+		@graph = Koala::Facebook::API.new(auth["credentials"]["token"])
+
+		if auth.provider == "facebook"
+			#getting all family list
+			auth["extra"]["raw_info"]["family"] = @graph.get_connection("me", "family", { limit:5000, fields: ["id", "name", "relationship", "picture"]})
+			#getting all friends list
+			auth["extra"]["raw_info"]["friendlists"] = @graph.get_connection("me", "taggable_friends", limit: 5000)
+			# friends that use this app
+			auth["extra"]["raw_info"]["friends"] = @graph.get_connection("me", "friends", { limit:5000, fields: ["id", "name", "picture"]})
+		end
+
 		user = nil
 		unless current_user
 			user = Identity.find_by_email(auth.info.email)&.user

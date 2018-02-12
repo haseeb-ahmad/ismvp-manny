@@ -128,6 +128,10 @@ GEM
       turbolinks
     json (1.8.6)
     jwt (1.5.6)
+    koala (3.0.0)
+      addressable
+      faraday
+      json (>= 1.8)
     launchy (2.4.3)
       addressable (~> 2.3)
     linkedin (1.1.0)
@@ -324,6 +328,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   jquery-turbolinks
+  koala
   linkedin
   linkedin-scraper
   minitest

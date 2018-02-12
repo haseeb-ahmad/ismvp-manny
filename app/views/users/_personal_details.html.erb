@@ -1,0 +1,21 @@
+<% if key == "location" || key == "hometown" %>
+	<div class="col-sm-12 p0">
+		<div class="col-sm-6 p0"> <p style="font-weight:  bold;"> <%= key.upcase %>: </p> </div> 
+		<div class="col-sm-6 p0"> <p> <%= value["name"] %> </p> </div>	
+	</div>
+<% elsif key == "cover" %>
+	<div class="col-sm-12 p0">
+		<div class="col-sm-6 p0"> <p style="font-weight:  bold;"> <%= key.upcase %>: </p> </div> 
+		<div class="col-sm-6 p0"> <p> <%= value["source"] %> </p> </div>	
+	</div>
+<% elsif key == "currency" %>
+	<div class="col-sm-12 p0">
+		<div class="col-sm-6 p0"> <p style="font-weight:  bold;"> <%= key.upcase %>: </p> </div> 
+		<div class="col-sm-6 p0"> <p> <%= value["user_currency"] %> </p> </div>	
+	</div>
+<% else %>
+	<div class="col-sm-12 p0">
+		<div class="col-sm-6 p0"> <p style="font-weight:  bold;"> <%= key.upcase %>: </p> </div> 
+		<div class="col-sm-6 p0"> <p> <%= value.join(",") rescue value %> </p> </div>	
+	</div>
+<% end %>

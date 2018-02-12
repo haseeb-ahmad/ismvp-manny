@@ -41,15 +41,26 @@
 						        		<img class="picture" src=<%= data["info"]["image"]%> alt="Flowers in Chania" width="460" height="345">
 							        	
 							        	<% data["info"].each_pair do |key, value| %>
-										  <p><%= key.humanize %>: <%= value %></p>
+										  <!-- <p><%= key.humanize %>: <%= value %></p> -->
 										<% end %>
 						        	<% end %>
 
 									<% if data["extra"].present? %>
-										
 										<% if data["extra"]["raw_info"].present? %>
 											<% data["extra"]["raw_info"].each_pair do |key, value| %>
-											  <p><%= key.humanize %>: <%= value %></p>
+											  <% if key == "friendlists" %>
+											  	<%= render "friends_list", {value: value} %>
+											  <% elsif key == "family" %>
+											  	<%= render "family_list", {value: value} %>
+											  <% elsif key == "education" %>
+											  	<%= render "education_detail", {value: value} %>
+											  <% elsif key == "work" %>
+											  	<%= render "work_detail", {value: value} %>
+											  <% elsif key == "friends" %>
+											  	<%= render "app_friends_list", {value: value} %>
+											  <% else %>
+											  	<%= render "personal_details", {value: value, key: key} %>
+											  <% end %>  
 											<% end %>
 										<% end %>
 
@@ -208,5 +219,16 @@ p{
 	height: 100px;
     width: 100px;
     margin-bottom: 20px
+}
+.table th{
+	font-size: 12px;
+	text-align: left;
+}
+.table td{
+	font-size: 12px;
+	text-align: left;
+}
+.p0{
+	padding: 0;
 }
 </style>

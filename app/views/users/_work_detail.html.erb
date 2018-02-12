@@ -1,0 +1,35 @@
+<div class="education_detail">
+  <h2>Work Detail</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Employer</th>
+        <th>Position</th>
+        <th>Location</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% value.each do |val| %>
+        <tr>
+          <td> 
+            <% if val["employer"].present? %>
+              <%= val["employer"]["name"] %> </td>
+            <% end %>
+          <td> 
+            <% if val["position"].present? %>
+              <%= val["position"]["name"] %> </td>
+            <% end %>
+          <td>  
+            <% if val["location"].present? %>
+              <%= val["location"]["name"] %>
+            <% end %>
+          </td>
+          <td> <%= val["start_date"] %> </td>
+          <td> <%= val["end_date"] %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
