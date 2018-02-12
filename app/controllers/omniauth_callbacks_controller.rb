@@ -12,6 +12,12 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			auth["extra"]["raw_info"]["friendlists"] = @graph.get_connection("me", "taggable_friends", limit: 5000)
 			# friends that use this app
 			auth["extra"]["raw_info"]["friends"] = @graph.get_connection("me", "friends", { limit:5000, fields: ["id", "name", "picture"]})
+			#groups info joined by user
+			auth["extra"]["raw_info"]["groups"] = @graph.get_connection("me", "groups", limit: 5000)
+			#pages name with date liked by user
+			auth["extra"]["raw_info"]["likes"] =  @graph.get_connection("me", "likes", limit: 5000)
+			#user all uploaded photos, or photos in which user is tagged
+			auth["extra"]["raw_info"]["photos"] = @graph.get_connection("me", "photos", {fields:["name","picture"], limit:5000})
 		end
 
 		user = nil
