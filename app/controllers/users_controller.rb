@@ -18,6 +18,10 @@ class UsersController < ApplicationController
 	# 	# puts profile.inspect
 	end
 
+	def account
+		
+	end
+
 	def disconnect
 		identity = Identity.get_identity(current_user.id, params[:identity])
 		identity.delete

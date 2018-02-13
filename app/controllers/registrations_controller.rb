@@ -1,5 +1,23 @@
 class RegistrationsController < Devise::RegistrationsController
 	
+	def update
+	  @user = current_user
+
+	  method = if params[:user][:password].blank?
+	             :update_without_password
+	           else
+	             :update_with_password
+	           end
+
+	  if @user.send(method, params[:user])
+	    flash[:notice] = "Profile updated successfully!"
+	    redirect_to :back
+	  else
+	    render :edit
+	  end
+	end
+
+
 	def create
 		# Ckeck if user exists
 		email = sign_up_params[:email]

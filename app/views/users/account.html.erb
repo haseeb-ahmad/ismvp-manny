@@ -1,0 +1,25 @@
+<br><br>
+<div class="container-fluid well span6">
+	<div class="row-fluid">
+        <div class="span2" >
+		    <img src="" class="img-circle">
+        </div>
+        <h3> My Profile </h3>
+        <div class="span8">
+            <h4>First Name: <%= @user.first_name %></h4>
+            <h4>Last Name: <%= @user.last_name %></h4>
+
+            <h4>Email: <%= @user.email%></h4>
+            <h6><%=link_to "More", dashboard_users_path %></h6>
+        </div>
+        
+        <div class="span2">
+            <%=link_to "Edit Profile", edit_user_registration_path, class: 'btn btn-primary' %>
+        </div>
+</div>
+</div>
+<style type="text/css">
+    h3{
+        padding-bottom: 20px;
+    }
+</style>
