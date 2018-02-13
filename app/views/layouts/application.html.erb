@@ -36,10 +36,10 @@
 					    <a target= "_blank" href="http://webkay.robinlinus.com/">Webkay</a>
 					    <a target= "_blank" href="https://clickclickclick.click">Clickclick</a>
 					    <a target= "_blank" href="https://panopticlick.eff.org/">Panopticlick</a>
+					    <%= link_to "Browser Data", browser_knows_users_path %>
 					  </div>
 					</div>
 				</li>
-				<li> <%= link_to "DATA", browser_knows_users_path %> </li>
 			</ul>
 		</div>
 		<%= link_to 'Sign out', destroy_user_session_path, :method => :delete, :id=> "sign-out-btn", :class => "btn btn-primary"%>
