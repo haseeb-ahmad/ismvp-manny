@@ -1,0 +1,20 @@
+.browser_knows.main{
+	background: #eee;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+.browser_knows.main .card{
+	margin-left: 15%;
+	margin-right: 15%;
+	background: white;
+	padding: 10px;
+	margin-top: 10px;
+}
+.browser_knows.main #googleMap{
+	margin-top: 15px;
+	border: 1px solid #d2d2e1;
+}
+.browser_knows.main h6{
+	display: inline;
+	font-weight: bold;
+}

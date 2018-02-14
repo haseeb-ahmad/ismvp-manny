@@ -17,7 +17,7 @@ function showResults() {
     var speedMbps = (speedKbps / 1024).toFixed(2);
     
     $("#connection_info").html("<li class='sub_header'> Your connection speed: </li>" + 
-                                  "<li>" + "In bps: "  + speedBps  + "</li>" + 
-                                  "<li>" + "In kbps: " + speedKbps + "</li>" + 
-                                  "<li>" + "In mbps: " + speedMbps + "</li>");
+                                  "<li>" + "<h6>In bps</h6>: "  + speedBps  + "</li>" + 
+                                  "<li>" + "<h6>In kbps</h6>: " + speedKbps + "</li>" + 
+                                  "<li>" + "<h6>In mbps</h6>: " + speedMbps + "</li>");
 }
