@@ -1,4 +1,5 @@
 <%= javascript_include_tag 'calc_downlink_speed' %>
+<%= javascript_include_tag 'client.min' %>
 
 <div id="personal_info_container", class="ul_container">
 	<h2> Location </h2>
@@ -38,6 +39,12 @@
 		<li id="Facebook"></li>
 		<li></li>
 		<div class="col-sm-12"></div>
+	</ul>
+</div>
+
+<div id="other_info", class="ul_container">
+	<h2> Other </h2>
+	<ul id="other_info_ul"> 
 	</ul>
 </div>
 
@@ -165,6 +172,58 @@
 			    $("#plugins_list").append("<li>" + navigator["plugins"][i].name + "</li>")
 			}
 		}
+
+		// other info
+		var client = new ClientJS();
+		$("#other_info_ul").html('')
+		$("#other_info_ul").append("<li>" + "Check For Mobile Device" + " : " + client.isMobile() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check For Android" + " : " + client.isMobileAndroid() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check For iOS" + " : " + client.isMobileIOS() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check If Java Is Installed" + " : " + client.isJava() + "</li>")
+		$("#other_info_ul").append("<li>" + "Installed Java Version" + " : " + client.getJavaVersion() + "</li>")
+		$("#other_info_ul").append("<li>" + "Device/Browser Fingerprint" + " : " + client.getFingerprint() + "</li>")
+		$("#other_info_ul").append("<li>" + "User Agent" + " : " + client.getUserAgent() + "</li>")
+		$("#other_info_ul").append("<li>" + "Browser" + " : " + client.getBrowser() + "</li>")
+		$("#other_info_ul").append("<li>" + "Browser Version" + " : " + client.getBrowserVersion() + "</li>")
+		$("#other_info_ul").append("<li>" + "Browser's Major Version" + " : " + client.getBrowserMajorVersion() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if the browser is IE" + " : " + client.isIE() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if the browser is Chrome" + " : " + client.isChrome() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if the browser is Firefox" + " : " + client.isFirefox() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if the browser is Safari" + " : " + client.isSafari() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if the browser is Opera" + " : " + client.isOpera() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if the browser is Mobile Safari" + " : " + client.isMobileSafari() + "</li>")
+		$("#other_info_ul").append("<li>" + "Browser engine" + " : " + client.getEngine() + "</li>")
+		$("#other_info_ul").append("<li>" + "Engine Version" + " : " + client.getEngineVersion() + "</li>")
+		$("#other_info_ul").append("<li>" + "Operating System" + " : " + client.getOS() + "</li>")
+		$("#other_info_ul").append("<li>" + "OS Version" + " : " + client.getOSVersion() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if the OS is Windows" + " : " + client.isWindows() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if the OS is Mac" + " : " + client.isMac() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if the OS is Linux" + " : " + client.isLinux() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if the OS is Solaris" + " : " + client.isSolaris() + "</li>")
+		$("#other_info_ul").append("<li>" + "Device" + " : " + client.getDevice() + "</li>")
+		$("#other_info_ul").append("<li>" + "Device Type" + " : " + client.getDeviceType() + "</li>")
+		$("#other_info_ul").append("<li>" + "Device Vendor" + " : " + client.getDeviceVendor() + "</li>")
+		$("#other_info_ul").append("<li>" + "CPU Architecture" + " : " + client.getCPU() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if the browser is on a mobile device" + " : " + client.isMobile() + "</li>")
+		$("#other_info_ul").append("<li>" + "Screen Color Depth" + " : " + client.getColorDepth() + "</li>")
+		$("#other_info_ul").append("<li>" + "Screen Current Resolution" + " : " + client.getCurrentResolution() + "</li>")
+		$("#other_info_ul").append("<li>" + "Screen Available Resolution" + " : " + client.getAvailableResolution() + "</li>")
+		$("#other_info_ul").append("<li>" + "Device XDPI" + " : " + client.getDeviceXDPI() + "</li>")
+		$("#other_info_ul").append("<li>" + "Device YDPI" + " : " + client.getDeviceYDPI() + "</li>")
+		$("#other_info_ul").append("<li>" + "Installed plugins" + " : " + client.getPlugins() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if Flash is installed" + " : " + client.isFlash() + "</li>")
+		$("#other_info_ul").append("<li>" + "Flash Version" + " : " + client.getFlashVersion() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if Silverlight is installed" + " : " + client.isSilverlight() + "</li>")
+		$("#other_info_ul").append("<li>" + "Silverlight Version" + " : " + client.getSilverlightVersion() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if mime types are installed" + " : " + client.isMimeTypes() + "</li>")
+		$("#other_info_ul").append("<li>" + "List of installed mime types" + " : " + client.getMimeTypes() + "</li>")
+		$("#other_info_ul").append("<li>" + "List of installed fonts" + " : " + client.getFonts() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if local storage is avaliable" + " : " + client.isLocalStorage() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if session storage is avaliable" + " : " + client.isSessionStorage() + "</li>")
+		$("#other_info_ul").append("<li>" + "Check if cookies are avaliable" + " : " + client.isCookie() + "</li>")
+		$("#other_info_ul").append("<li>" + "Time Zone" + " : " + client.getTimeZone() + "</li>")
+		$("#other_info_ul").append("<li>" + "User language" + " : " + client.getLanguage()+ "</li>")
+		$("#other_info_ul").append("<li>" + "Check For The Canvas Element" + " : " + client.isCanvas()+ "</li>")
 
 	});
 </script>
