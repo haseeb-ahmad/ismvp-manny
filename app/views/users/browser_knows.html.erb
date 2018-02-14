@@ -60,6 +60,14 @@
 			</ul>
 		</div>
 	</div>
+
+	<div class="card">
+		<div id="dnt_info", class="ul_container">
+			<h2> Don't Track Info </h2>
+			<ul id="dnt_info_ul">
+			</ul>
+		</div>
+	</div>
 </div>
 
 
@@ -235,6 +243,23 @@
 		$("#other_info_ul").append("<li>" + "<h6>Time Zone</h6>" + " : " + client.getTimeZone() + "</li>")
 		$("#other_info_ul").append("<li>" + "<h6>User language</h6>" + " : " + client.getLanguage()+ "</li>")
 		$("#other_info_ul").append("<li>" + "<h6>Check For The Canvas Element</h6>" + " : " + client.isCanvas()+ "</li>")
+
+		//tracking info
+		$("#dnt_info_ul").html('')
+		$("#dnt_info_ul").append("<li><h6>What is Do Not Track?: </h6>“Tracking” refers to the many different methods that websites, advertisers, ad networks, and others use to learn about your web browsing behavior.  This includes information about what sites you visit and for how long; things you like, dislike, and comment on; what you search for; and what you buy.  They then share this information across the web to show you ads, products, or services specifically targeted to you.</li>");
+		$("#dnt_info_ul").append("<li><h6>Is don't track enabled? </h6>" + (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1") + "</li>");
+
+		var dto_link = ''
+		if (client.getBrowser() == "Chrome"){
+			dto_link = "<li> Turn Do Not Track on or off ? <a target=_blank href=https://support.google.com/chrome/answer/2790761> Click Here </a> </li>"
+		}
+		else if (client.getBrowser() == "Firefox"){
+			dto_link = "<li> Turn Do Not Track on or off ? <a target=_blank href=https://www.mozilla.org/en-US/firefox/dnt> Click Here </a> </li>"
+		} 
+		else{
+			dto_link = "<li> Turn Do Not Track on or off ? <a target=_blank href=https://www.abine.com/blog/2011/turn-on-do-not-track> Click Here </a> </li>"
+		}
+		$("#dnt_info_ul").append(dto_link)
 
 	});
 </script>
