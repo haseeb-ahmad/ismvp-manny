@@ -10,6 +10,10 @@ class UsersController < ApplicationController
 	def browser_knows
 		
 	end
+
+	def browser_knows_list
+		
+	end
 	
 	def connections
 		@identities = current_user.identities

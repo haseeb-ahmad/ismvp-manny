@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     collection do
       get :dashboard
       get :browser_knows
+      get :browser_knows_list
       get :account
     end
     get "update_contacts"

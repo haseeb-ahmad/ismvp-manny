@@ -1,0 +1,331 @@
+<%= javascript_include_tag 'client.min' %>
+<div class="browser_knows_list main">
+	<ul class="list-group", id="personal_info"> </ul>
+	<ul class="list-group", id="hardware_info"> 
+		<li id="status" class="list-group-item"></li>
+		<li id="level" class="list-group-item"></li>
+		<li id="charge" class="list-group-item"></li>
+		<li id="discharge" class="list-group-item"></li>
+	</ul>
+
+	<ul class="list-group", id="social_media">
+		<li class='list-group-item active'><i class='fa fa-rss-square'></i> Social Media</li> 
+		<li id="Twitter", class="list-group-item"></li>
+		<li id="GooglePlus", class="list-group-item"></li>
+		<li id="Google", class="list-group-item"></li>
+		<li id="Facebook", class="list-group-item"></li>
+	</ul>
+	<ul class="list-group", id="connection_info1"> </ul>
+	<ul class="list-group", id="other_info_ul"> </ul>
+
+</div>
+
+<%= render "users/social_media_tags" %>
+
+<script>
+ window.fbAsyncInit = function(){
+
+  // $("#social_media").prepend("<li class='list-group-item active'><i class='fa fa-rss-square'></i> Social Media</li>");
+
+  FB.init({ appId:'157571718230313', status:true,  cookie:true, xfbml:true});
+  FB.getLoginStatus(function(response){
+   if (response.status != "unknown")
+   {
+    show_login_status("Facebook", true);
+   }else{
+    show_login_status("Facebook", false);
+   }
+  });
+ };
+ // Load the SDK Asynchronously
+ (function(d){
+  var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+  js = d.createElement('script'); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js";
+  d.getElementsByTagName('head')[0].appendChild(js);
+ }(document));
+
+ function show_login_status(network, status)
+   {
+	    if (status){
+	    	$("#"+network).html("<span class='key'>" + network + " Logged in?" + " </span>" + "<span class='value'>" + list_value(true)  + "</span>")
+
+	    }else{
+	    	$("#"+network).html("<span class='key'>" + network + " Logged in?" + " </span>" + "<span class='value'>" + list_value(false)  + "</span>")
+	    }
+   }
+</script>
+
+
+
+<script type="text/javascript">
+
+	function get_bettry_info(){
+		navigator.getBattery().then(function(battery) {
+		  function updateAllBatteryInfo(){
+		    $("#hardware_info").prepend("<li class='list-group-item active'><i class='fa fa-battery-three-quarters'></i> Battery</li>");
+		    updateChargeInfo();
+		    updateLevelInfo();
+		    updateChargingInfo();
+		    updateDischargingInfo();
+		  }
+		  updateAllBatteryInfo();
+		  battery.addEventListener('chargingchange', function(){
+		    updateChargeInfo();
+		  });
+		  function updateChargeInfo(){
+		    $("#hardware_info #status").html("<span class='key'>" + "Charging?" + " </span>" + "<span class='value'>" + list_value(battery.charging)  + "</span>")
+
+		  }
+		  battery.addEventListener('levelchange', function(){
+		    updateLevelInfo();
+		  });
+		  function updateLevelInfo(){
+		    // $("#hardware_info #level").html("<h6>Battery level</h6>: " + (battery.level * 100 + "%"))
+
+		    $("#hardware_info #level").html("<span class='key'>" + "Level" + " </span>" + "<span class='value'>" + list_value(battery.level * 100 + "%")  + "</span>")
+
+		  }
+		  battery.addEventListener('chargingtimechange', function(){
+		    updateChargingInfo();
+		  });
+		  function updateChargingInfo(){
+		    // $("#hardware_info #charge").html("<h6>Battery charging time</h6>: " + (battery.chargingTime + " seconds"))
+
+		    $("#hardware_info #charge").html("<span class='key'>" + "Charging time" + " </span>" + "<span class='value'>" + list_value(battery.chargingTime + " seconds")  + "</span>")
+		  }
+		  battery.addEventListener('dischargingtimechange', function(){
+		    updateDischargingInfo();
+		  });
+		  function updateDischargingInfo(){
+		    // $("#hardware_info #discharge").html("<h6>Battery discharging time</h6>: " + (battery.dischargingTime + " seconds"))
+
+		    $("#hardware_info #discharge").html("<span class='key'>" + "Discharging time" + " </span>" + "<span class='value'>" + list_value(battery.dischargingTime + " seconds")  + "</span>")
+		  }
+		});
+	}
+
+	$(document).ready(function(){
+
+		//location info
+		jQuery.get("https://ipinfo.io", function(response) {
+		    $("#personal_info").html('');
+		    $("#personal_info").append("<li class='list-group-item active'><i class='fa fa-globe'></i> Location</li>");
+
+		    Object.keys(response).forEach(function (key) {
+			    $("#personal_info").append("<li class=list-group-item >" +"<span class='key'>"+ ucwords(key) +""+ " </span>" + "<span class='value'>" +response[key] + "</span>" + "</li>")
+			})
+
+		}, "jsonp");
+
+		if (typeof navigator.getBattery != "undefined"){
+			get_bettry_info();
+		}else{
+			$("#hardware_info").remove();
+		}
+
+		// other info
+		var client = new ClientJS();
+
+		$("#other_info_ul").html('')
+
+		$("#other_info_ul").append("<li class='list-group-item active'><i class='fa fa-adjust'></i> Other</li>");
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Mobile Device?" + " </span>" + "<span class='value'>" + list_value(client.isMobile())  + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Android?" + " </span>" + "<span class='value'>" + list_value(client.isMobileAndroid()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Ios?" + " </span>" + "<span class='value'>" + list_value(client.isMobileIOS()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Java installed?" + " </span>" + "<span class='value'>" + list_value(client.isJava()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Installed Java Version" + " </span>" + "<span class='value'>" + list_value(client.getJavaVersion()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Browser Fingerprint" + " </span>" + "<span class='value'>" + list_value(client.getFingerprint()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "User Agent" + " </span>" + "<span class='value'>" + list_value(client.getUserAgent()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Browser" + " </span>" + "<span class='value'>" + list_value(client.getBrowser()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Browser Version" + " </span>" + "<span class='value'>" + list_value(client.getBrowserVersion()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Browser Major Version" + " </span>" + "<span class='value'>" + list_value(client.getBrowserMajorVersion()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is IE" + " </span>" + "<span class='value'>" + list_value(client.isIE()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is Chrome" + " </span>" + "<span class='value'>" + list_value(client.isChrome()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is Firefox" + " </span>" + "<span class='value'>" + list_value(client.isFirefox()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is Safari" + " </span>" + "<span class='value'>" + list_value(client.isSafari()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is Opera" + " </span>" + "<span class='value'>" + list_value(client.isOpera()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is Mobile Safari" + " </span>" + "<span class='value'>" + list_value(client.isMobileSafari()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Browser Engine" + " </span>" + "<span class='value'>" + list_value(client.getEngine()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Engine Version" + " </span>" + "<span class='value'>" + list_value(client.getEngineVersion()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Operating System" + " </span>" + "<span class='value'>" + list_value(client.getOS()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "OS Version" + " </span>" + "<span class='value'>" + list_value(client.getOSVersion()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "OS is Windows" + " </span>" + "<span class='value'>" + list_value(client.isWindows()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "OS is Mac" + " </span>" + "<span class='value'>" + list_value(client.isMac()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "OS is Linux" + " </span>" + "<span class='value'>" + list_value(client.isLinux()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "OS is Solaris" + " </span>" + "<span class='value'>" + list_value(client.isSolaris()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Device" + " </span>" + "<span class='value'>" + list_value(client.getDevice()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Device Type" + " </span>" + "<span class='value'>" + list_value(client.getDeviceType()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Device Vendor" + " </span>" + "<span class='value'>" + list_value(client.getDeviceVendor()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "CPU Architecture" + " </span>" + "<span class='value'>" + list_value(client.getCPU()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Mobile Device Browser" + " </span>" + "<span class='value'>" + list_value(client.isMobile()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Screen Color Depth" + " </span>" + "<span class='value'>" + list_value(client.getColorDepth()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Screen Current Resolution" + " </span>" + "<span class='value'>" + list_value(client.getCurrentResolution()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Screen Available Resolution" + " </span>" + "<span class='value'>" + list_value(client.getAvailableResolution()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Device XDPI" + " </span>" + "<span class='value'>" + list_value(client.getDeviceXDPI()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Device YDPI" + " </span>" + "<span class='value'>" + list_value(client.getDeviceYDPI()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Installed plugins" + " </span>" + "<span class='value'>" + list_value(client.getPlugins()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Flash installed?" + " </span>" + "<span class='value'>" + list_value(client.isFlash()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Flash Version" + " </span>" + "<span class='value'>" + list_value(client.getFlashVersion()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Silverlight installed?" + " </span>" + "<span class='value'>" + list_value(client.isSilverlight()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Silverlight Version" + " </span>" + "<span class='value'>" + list_value(client.getSilverlightVersion()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Mime Types installed" + " </span>" + "<span class='value'>" + list_value(client.isMimeTypes()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Installed Mime Types" + " </span>" + "<span class='value'>" + list_value(client.getMimeTypes().replace(/^,|,$/g,'')) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Installed fonts" + " </span>" + "<span class='value'>" + list_value(client.getFonts().replace(/^,|,$/g,'')) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Local Storage?" + " </span>" + "<span class='value'>" + list_value(client.isLocalStorage()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Session Storage?" + " </span>" + "<span class='value'>" + list_value(client.isSessionStorage()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Cookies?" + " </span>" + "<span class='value'>" + list_value(client.isCookie()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Time Zone" + " </span>" + "<span class='value'>" + list_value(client.getTimeZone()) + "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "User language" + " </span>" + "<span class='value'>" + list_value(client.getLanguage())+ "</span></li>")
+
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Canvas Element" + " </span>" + "<span class='value'>" + list_value(client.isCanvas())+ "</span></li>")
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Canvas Element" + " </span>" + "<span class='value'>" + list_value(client.isCanvas())+ "</span></li>")
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Don't track Enabled?" + " </span>" + "<span class='value'>" + list_value(window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1")+ "</span></li>")
+
+		
+		$("#connection_info1").html('')
+		$("#connection_info1").append("<li class='list-group-item active'><i class='fa fa-plug'></i> Connection </li>");
+
+		setConnection();
+		
+	});
+	
+	function setConnection(){
+		var imageAddr = "/assets/logo.png" + "?n=" + Math.random();
+		var startTime, endTime;
+		var downloadSize = [15449];
+		var download = new Image();
+		download.onload = function () {
+		    endTime = (new Date()).getTime();
+		    showResults();
+		}
+		startTime = (new Date()).getTime();
+		download.src = imageAddr;
+
+		function showResults() {
+		    var duration = (endTime - startTime) / 1000;
+		    var bitsLoaded = downloadSize * 8;
+		    var speedBps = (bitsLoaded / duration).toFixed(2);
+		    var speedKbps = (speedBps / 1024).toFixed(2);
+		    var speedMbps = (speedKbps / 1024).toFixed(2);
+		    
+		    $("#connection_info1").append("<li class=list-group-item >" +"<span class='key'>" + "Speed in B/s" + " </span>" + "<span class='value'>" + speedBps + "</span></li>")
+			$("#connection_info1").append("<li class=list-group-item >" +"<span class='key'>" + "Speed in KB/s" + " </span>" + "<span class='value'>" + speedKbps + "</span></li>")
+			$("#connection_info1").append("<li class=list-group-item >" +"<span class='key'>" + "Speed in MB/s" + " </span>" + "<span class='value'>" + speedMbps + "</span></li>")
+		}
+	}
+
+
+	function ucwords (str) {
+	    return (str + '').replace(/^([a-z])|\s+([a-z])/g, function ($1) {
+	        return $1.toUpperCase();
+	    });
+	}
+
+	function list_value(val){
+		if(val == 'true' || val == true){
+			return "<i class='fa fa-check-circle' ></i>"
+		}else if (val == 'false' || val == false){
+			return "<i class='fa fa-times-circle' ></i>"
+		}else{
+			return val;
+		}
+	}
+
+</script>

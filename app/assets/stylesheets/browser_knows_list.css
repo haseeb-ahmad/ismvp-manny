@@ -1,0 +1,30 @@
+.browser_knows_list.main{
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-bottom: 20px;
+}
+.browser_knows_list .list-group{
+	margin-bottom: 0px;
+}
+.browser_knows_list .list-group .list-group-item{
+	z-index: 0;
+}
+.browser_knows_list .list-group .list-group-item:first-child {
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+.browser_knows_list .list-group .list-group-item span.key{
+	width: 15%;
+    display: inline-block;
+}
+.fa-times-circle{
+	color: #e95b5b;
+	font-size: 18px;
+}
+.fa-check-circle{
+	color: green;
+	font-size: 18px;
+}
+.browser_knows_list .list-group .list-group-item{
+	margin-bottom: -2px;
+}
