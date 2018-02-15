@@ -28,3 +28,6 @@
 .browser_knows_list .list-group .list-group-item{
 	margin-bottom: -2px;
 }
+#googleMap{
+	margin-bottom: 10px;
+}
