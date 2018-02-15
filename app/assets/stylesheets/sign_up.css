@@ -1,0 +1,14 @@
+.landing1 .main-title{
+	margin-top: 0px !important;
+}
+.email{
+    text-align: start;
+    padding-left: 25%;
+}
+.email .number_msg{
+	vertical-align: bottom;
+	color: white;
+	display: list-item;
+	list-style: none;
+	padding: 5px;
+}

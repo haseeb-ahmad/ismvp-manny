@@ -10,7 +10,12 @@
 				<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 					<%= f.email_field :email, :placeholder => "EMAIL ADDRESS" %>
 					<%= f.submit "SIGN UP", :class => "signup" %>
-
+					</br>
+					</br>
+					<div>
+						<input type="text" placeholder="PHONE NUMBER">
+						<span class="number_msg"> Two-factor authentication coming soon.. </span>
+					</div>
 					<br/><br/>
 					<div class="btn-toolbar" >
 						<%= link_to "Sign Up with Facebook", user_omniauth_authorize_path(:facebook), :class => "btn btn-primary" %>
