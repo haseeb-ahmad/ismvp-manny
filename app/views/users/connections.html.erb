@@ -2,6 +2,7 @@
 <div class = "container">
 
 	<div> <%= "Primary Email: #{@user.email}"%> </div>
+	<div class='social_conatacts'> </div>
 	<div> <%= "Number of Connected Identities: #{@identities.count}" %> </div>
 
 	<br/>
@@ -69,7 +70,9 @@
 		<tr>
 			<% google_identity = @identities.find{|identity| identity.provider == "google" } %>
 			<% identity = google_identity %>
+			<% google_social_token = nil %>
 			<% if google_identity %>
+				<% google_social_token = JSON.parse(google_identity.all_data)["credentials"]["token"] %>
 				<td> <%= google_identity.provider %> </td>
 				<td> <%= google_identity.uid %> </td>
 				<td> <%= link_to "Disconnect from Google", users_disconnect_path(:identity => "google"), :id => "disconnect_google" %> </td>
@@ -215,3 +218,33 @@ p{
 	padding: 0;
 }
 </style>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		if ("<%=raw google_social_token %>" != undefined && "<%=raw google_social_token %>" != ""){
+			url = "https://people.googleapis.com/v1/people/me/?requestMask.includeField=person.names,person.addresses,person.email_addresses,person.organizations,person.phone_numbers&access_token=" + "<%=raw google_social_token %>"
+			$.ajax({
+			  	url: url,
+			  	success: function(result){
+			  		numbers_list = []
+			  	  	if (result.phoneNumbers != undefined){
+				  	  	for (i = 0; i < result.phoneNumbers.length; i++) { 
+							numbers_list += result.phoneNumbers[i].value;
+							if (i+1 != result.phoneNumbers.length){
+								numbers_list += ', '	
+							}
+						}
+				      	$('.social_conatacts').html("Phone no(s): " + numbers_list)	
+			  	  	}else{
+			  	  		$('.social_conatacts').html("Phone no(s): " )	
+			  	  	}
+			    },
+			    error: function(xhr, ajaxOptions, thrownError){
+			    	$('.social_conatacts').html("Phone no(s): " )
+			    }
+			});
+		}else{
+			$('.social_conatacts').html("Phone no(s): " )
+		}
+	});
+</script>
