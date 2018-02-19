@@ -4,11 +4,31 @@
 
 <%= form_for(resource, :as => resource_name, :url => confirm_path(resource_name)) do |f| %>
 	<div><%= f.label :password %><br />
-	<%= f.password_field :password, :autofocus => true %></div>
-	<div><%= f.label :password_confirmation %><br />
-	<%= f.password_field :password_confirmation %></div>
+	<%= f.password_field :password, :autofocus => true, class: 'form-control' %></div>
+	<div class='password_confirmation_area'><%= f.label :password_confirmation %><br />
+	<%= f.password_field :password_confirmation, class: 'form-control' %></div>
 	<%= f.hidden_field :confirmation_token %>
-	<%= f.submit "Update"%>
+	<%= f.submit "Update", class: 'form-control btn btn-primary' %>
 <% end %>
+
+<style type="text/css">
+	form{
+		margin-right: 30%;
+		margin-left: 30%;
+	}
+	.form-control.btn.btn-primary{
+		margin-top: 10px;
+	}
+	.password_confirmation_area{
+		margin-top: 10px;
+	}
+	p{
+		color: white;
+		margin-left: 20px;
+	}
+	label{
+		color: white;
+	}
+</style>
 
 

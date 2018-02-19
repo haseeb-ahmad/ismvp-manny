@@ -11,7 +11,9 @@ class ConfirmationsController < Devise::ConfirmationsController
 			set_flash_message :notice, :confirmed
 			sign_in_and_redirect(resource_name, resource)
 		else
-			render :action => "show"
+			set_flash_message :notice, resource.errors.full_messages.join(',')
+			# render :action => "show"
+			redirect_to :back
 		end
 	end
 end

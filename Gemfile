@@ -4,13 +4,16 @@ source "https://rubygems.org"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
 gem "rails", "4.1.0.beta1"
 
+
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", group: [:development, :test]
 
 gem 'pg', '~> 0.18', group: [:production]
 gem "rails_12factor", group: :production
 
-gem "devise", "3.0.0.rc"
+# gem "devise", "3.0.0.rc"
+gem 'devise', '~> 3.5.4'
+
 gem "protected_attributes"
 
 gem "delayed_job_active_record"
