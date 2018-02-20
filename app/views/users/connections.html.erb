@@ -37,7 +37,15 @@
 						          <h4 class="modal-title">Profile data</h4>
 						        </div>
 						        <div class="modal-body">
-						        	<% data = JSON.parse(facebook_identity.all_data) rescue {}  %>
+						        	
+
+						        	<% if facebook_identity.all_data.class.to_s == "String" %>
+						        		<% data = JSON.parse(facebook_identity.all_data) rescue {}  %>
+						        	<% else %>
+						        		<% data = facebook_identity.all_data  %>
+						        	<% end %>
+
+
 						        	<% if data["info"].present? %>
 						        		<img class="picture" src=<%= data["info"]["image"]%> alt="Flowers in Chania" width="460" height="345">
 						        	<% end %>
@@ -72,7 +80,13 @@
 			<% identity = google_identity %>
 			<% google_social_token = nil %>
 			<% if google_identity %>
-				<% google_social_token = JSON.parse(google_identity.all_data)["credentials"]["token"] rescue nil %>
+
+				<% if google_identity.all_data.class.to_s == "String" %>
+	        		<% google_social_token = JSON.parse(google_identity.all_data)["credentials"]["token"] rescue nil %>
+	        	<% else %>
+	        		<% google_social_token = google_identity.all_data["credentials"]["token"] rescue nil %>
+	        	<% end %>
+
 				<td> <%= google_identity.provider %> </td>
 				<td> <%= google_identity.uid %> </td>
 				<td> <%= link_to "Disconnect from Google", users_disconnect_path(:identity => "google"), :id => "disconnect_google" %> </td>
@@ -90,7 +104,13 @@
 						          <h4 class="modal-title">Profile data</h4>
 						        </div>
 						        <div class="modal-body">
-						        	<% data = JSON.parse(google_identity.all_data) rescue {} %>
+
+						        	<% if google_identity.all_data.class.to_s == "String" %>
+						        		<% data = JSON.parse(google_identity.all_data) rescue {}  %>
+						        	<% else %>
+						        		<% data = google_identity.all_data  %>
+						        	<% end %>
+
 
 						        	<% if data["info"].present? %>
 						        		<img class="picture" src=<%= data["info"]["image"]%> alt="Flowers in Chania" width="460" height="345">
@@ -139,7 +159,13 @@
 						          <h4 class="modal-title">Profile data</h4>
 						        </div>
 						        <div class="modal-body">
-						        	<% data = JSON.parse(linkedin_identity.all_data) rescue {}  %>
+
+						        	<% if linkedin_identity.all_data.class.to_s == "String" %>
+						        		<% data = JSON.parse(linkedin_identity.all_data) rescue {}  %>
+						        	<% else %>
+						        		<% data = linkedin_identity.all_data  %>
+						        	<% end %>
+
 						        	<% if data["info"].present? %>
 						        		<img class="picture" src=<%= data["info"]["image"]%> alt="Flowers in Chania" width="460" height="345">
 						        	<% end %>
