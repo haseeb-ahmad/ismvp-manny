@@ -72,7 +72,7 @@
 			<% identity = google_identity %>
 			<% google_social_token = nil %>
 			<% if google_identity %>
-				<% google_social_token = JSON.parse(google_identity.all_data)["credentials"]["token"] %>
+				<% google_social_token = JSON.parse(google_identity.all_data)["credentials"]["token"] rescue nil %>
 				<td> <%= google_identity.provider %> </td>
 				<td> <%= google_identity.uid %> </td>
 				<td> <%= link_to "Disconnect from Google", users_disconnect_path(:identity => "google"), :id => "disconnect_google" %> </td>
