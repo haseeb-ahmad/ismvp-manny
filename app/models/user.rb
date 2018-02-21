@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 	has_many :contacts, :dependent => :destroy
 
 	attr_accessible :email, :password, :password_confirmation, :remember_me,
-				  	:first_name, :last_name
+				  	:first_name, :last_name, :phone_number
 
 	scope :get_user, lambda {|email| where(:email => email)}
 	

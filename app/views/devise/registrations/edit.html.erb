@@ -28,7 +28,8 @@
   <div class="form-group row">
     <label class="col-lg-2 control-label">Phone Number:</label>
     <div class="col-lg-4">
-      <p>N/A   (Note: Two-factor authentication coming soon..)</p>
+      <!-- <p>N/A   (Note: Two-factor authentication coming soon..)</p> -->
+      <%= f.number_field :phone_number, :autofocus => true, class: 'form-control' %>
     </div>
   </div>
 

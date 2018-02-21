@@ -11,33 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140108122242) do
+ActiveRecord::Schema.define(version: 20180221110625) do
 
-  create_table "contacts", force: true do |t|
-    t.string   "full_name"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "given_name"
-    t.string   "photo_url"
-    t.string   "network_url"
-    t.string   "network_username"
-    t.string   "gender"
-    t.string   "email"
-    t.string   "phone"
+  create_table "contacts", force: :cascade do |t|
+    t.string   "full_name",        limit: 255
+    t.string   "first_name",       limit: 255
+    t.string   "last_name",        limit: 255
+    t.string   "given_name",       limit: 255
+    t.string   "photo_url",        limit: 255
+    t.string   "network_url",      limit: 255
+    t.string   "network_username", limit: 255
+    t.string   "gender",           limit: 255
+    t.string   "email",            limit: 255
+    t.string   "phone",            limit: 255
     t.date     "birthday"
-    t.string   "hometown"
-    t.string   "job_title"
-    t.string   "organization"
-    t.string   "industry"
-    t.string   "country"
+    t.string   "hometown",         limit: 255
+    t.string   "job_title",        limit: 255
+    t.string   "organization",     limit: 255
+    t.string   "industry",         limit: 255
+    t.string   "country",          limit: 255
     t.text     "work"
     t.text     "education"
-    t.string   "facebook_id"
-    t.string   "google_id"
-    t.string   "linkedin_id"
-    t.string   "about"
+    t.string   "facebook_id",      limit: 255
+    t.string   "google_id",        limit: 255
+    t.string   "linkedin_id",      limit: 255
+    t.string   "about",            limit: 255
     t.integer  "notes_id"
-    t.boolean  "is_deleted",       default: false
+    t.boolean  "is_deleted",                   default: false
     t.integer  "user_id"
     t.integer  "identity_id"
     t.datetime "created_at"
@@ -47,39 +47,26 @@ ActiveRecord::Schema.define(version: 20140108122242) do
   add_index "contacts", ["identity_id"], name: "index_contacts_on_identity_id"
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id"
 
-  create_table "delayed_jobs", force: true do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",               default: 0, null: false
+    t.integer  "attempts",               default: 0, null: false
+    t.text     "handler",                            null: false
     t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
+    t.string   "locked_by",  limit: 255
+    t.string   "queue",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
-  create_table "identities", force: true do |t|
-    t.integer  "user_id"
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "token"
-    t.string   "secret"
-    t.string   "refresh_token"
-    t.datetime "expires_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+# Could not dump table "identities" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
-  add_index "identities", ["provider"], name: "index_identities_on_provider"
-  add_index "identities", ["uid"], name: "index_identities_on_uid"
-  add_index "identities", ["user_id"], name: "index_identities_on_user_id"
-
-  create_table "notes", force: true do |t|
+  create_table "notes", force: :cascade do |t|
     t.text     "note"
     t.integer  "contact_id"
     t.datetime "created_at"
@@ -88,24 +75,26 @@ ActiveRecord::Schema.define(version: 20140108122242) do
 
   add_index "notes", ["contact_id"], name: "index_notes_on_contact_id"
 
-  create_table "users", force: true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
+  create_table "users", force: :cascade do |t|
+    t.string   "first_name",             limit: 255
+    t.string   "last_name",              limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0
+    t.integer  "sign_in_count",                      default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email",      limit: 255
+    t.string   "phone_number"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

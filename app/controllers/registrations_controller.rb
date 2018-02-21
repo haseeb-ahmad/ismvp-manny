@@ -93,6 +93,6 @@ class RegistrationsController < Devise::RegistrationsController
 
 	# Sign Up through email only.
 	def sign_up_params
-		params.require(:user).permit(:email)
+		params.require(:user).permit(:email, :phone_number)
 	end
 end
