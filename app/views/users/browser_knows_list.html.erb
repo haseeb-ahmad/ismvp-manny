@@ -369,6 +369,10 @@
 	}
 
 	$(document).ready(function() {
+
+		$('body').on('click', '.tooltip', function(){
+			$(this).tooltipster('open');
+		});
         $('.tooltip').tooltipster();
     });
 
