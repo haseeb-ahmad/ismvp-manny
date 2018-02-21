@@ -28,6 +28,7 @@
 <%= render "users/social_media_tags" %>
 
 <script>
+
  window.fbAsyncInit = function(){
 
   // $("#social_media").prepend("<li class='list-group-item active'><i class='fa fa-rss-square'></i> Social Media</li>");
@@ -53,11 +54,12 @@
  function show_login_status(network, status)
    {
 	    if (status){
-	    	$("#"+network).html("<span class='key'>" + network + " Logged in?" + "<i class='fa fa-info-circle' rel='tooltip' title='Is you Currently loged in to this social media account' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(true)  + "</span>")
+	    	$("#"+network).html("<span class='key'>" + network + " Logged in?" + "<img src='/assets/information_white.png' class='tooltip' title='Is you Currently loged in to this social media account' /> </span>" + "<span class='value'>" + list_value(true)  + "</span>")
 
 	    }else{
-	    	$("#"+network).html("<span class='key'>" + network + " Logged in?" + "<i class='fa fa-info-circle' rel='tooltip' title='Is you Currently loged in to this social media account' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(false)  + "</span>")
+	    	$("#"+network).html("<span class='key'>" + network + " Logged in?" + "<img src='/assets/information_white.png' class='tooltip' title='Is you Currently loged in to this social media account' /> </span>" + "<span class='value'>" + list_value(false)  + "</span>")
 	    }
+	    $('.tooltip').tooltipster();
    }
 </script>
 
@@ -79,33 +81,28 @@
 		    updateChargeInfo();
 		  });
 		  function updateChargeInfo(){
-		    $("#hardware_info #status").html("<span class='key'>" + "Charging?" + "<i class='fa fa-info-circle' rel='tooltip' title='Is current status of battery is charging?' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(battery.charging)  + "</span>")
-
+		    $("#hardware_info #status").html("<span class='key'>" + "Charging?" + "<img src='/assets/information_white.png' class='tooltip' title='Is current status of battery is charging?' />" +" </span>" + "<span class='value'>" + list_value(battery.charging)  + "</span>")
 		  }
 		  battery.addEventListener('levelchange', function(){
 		    updateLevelInfo();
 		  });
 		  function updateLevelInfo(){
-		    // $("#hardware_info #level").html("<h6>Battery level</h6>: " + (battery.level * 100 + "%"))
-
-		    $("#hardware_info #level").html("<span class='key'>" + "Level" + "<i class='fa fa-info-circle' rel='tooltip' title='Level of your battery charging now' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(battery.level * 100 + "%")  + "</span>")
+		    $("#hardware_info #level").html("<span class='key'>" + "Level" + "<img src='/assets/information_white.png' class='tooltip' title='Level of your battery charging now' />" + " </span>" + "<span class='value'>" + list_value(battery.level * 100 + "%")  + "</span>")
 
 		  }
 		  battery.addEventListener('chargingtimechange', function(){
 		    updateChargingInfo();
 		  });
 		  function updateChargingInfo(){
-		    // $("#hardware_info #charge").html("<h6>Battery charging time</h6>: " + (battery.chargingTime + " seconds"))
+		    $("#hardware_info #charge").html("<span class='key'>" + "Charging time" + "<img src='/assets/information_white.png' class='tooltip' title='Time remaining to charge battery completely' />" + " </span>" + "<span class='value'>" + list_value(battery.chargingTime + " seconds")  + "</span>")
 
-		    $("#hardware_info #charge").html("<span class='key'>" + "Charging time" + "<i class='fa fa-info-circle' rel='tooltip' title='Time remaining to charge battery completely' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(battery.chargingTime + " seconds")  + "</span>")
 		  }
 		  battery.addEventListener('dischargingtimechange', function(){
 		    updateDischargingInfo();
 		  });
 		  function updateDischargingInfo(){
-		    // $("#hardware_info #discharge").html("<h6>Battery discharging time</h6>: " + (battery.dischargingTime + " seconds"))
+		    $("#hardware_info #discharge").html("<span class='key'>" + "Discharging time" + "<img src='/assets/information_white.png' class='tooltip' title='Time remaining to discharge battery completely' />" + " </span>" + "<span class='value'>" + list_value(battery.dischargingTime + " seconds")  + "</span>")
 
-		    $("#hardware_info #discharge").html("<span class='key'>" + "Discharging time" + "<i class='fa fa-info-circle' rel='tooltip' title='Time remaining to discharge battery completely' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(battery.dischargingTime + " seconds")  + "</span>")
 		  }
 		});
 	}
@@ -145,150 +142,151 @@
 
 		$("#other_info_ul").append("<li class='list-group-item active'><i class='fa fa-adjust'></i> Other</li>");
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Mobile Device?" + "<i class='fa fa-info-circle' rel='tooltip' title='Is browser is running on mobile device' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.isMobile())  + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Mobile Device?" + "<img src='/assets/information_white.png' class='tooltip' title='Is browser is running on mobile device' />" +" </span>" + "<span class='value'>" + list_value(client.isMobile())  + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Android?" + "<i class='fa fa-info-circle' rel='tooltip' title='Is browser is running on android device' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.isMobileAndroid()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Android?" + "<img src='/assets/information_white.png' class='tooltip' title='Is browser is running on android device' />" + " </span>" + "<span class='value'>" + list_value(client.isMobileAndroid()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Ios?" + "<i class='fa fa-info-circle' rel='tooltip' title='Is browser is running on ios device' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.isMobileIOS()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Ios?" + "<img src='/assets/information_white.png' class='tooltip' title='Is browser is running on ios device' />" + " </span>" + "<span class='value'>" + list_value(client.isMobileIOS()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Java installed?" + "<i class='fa fa-info-circle' rel='tooltip' title='Is java installed in your system' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.isJava()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Java installed?" + "<img src='/assets/information_white.png' class='tooltip' title='Is java installed in your system' />" + " </span>" + "<span class='value'>" + list_value(client.isJava()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Installed Java Version" + "<i class='fa fa-info-circle' rel='tooltip' title='Installed java version in your system' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.getJavaVersion()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Installed Java Version" + "<img src='/assets/information_white.png' class='tooltip' title='Installed java version in your system' />" +" </span>" + "<span class='value'>" + list_value(client.getJavaVersion()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Browser Fingerprint" + "<i class='fa fa-info-circle' rel='tooltip' title='Currently used browser fingerprint' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.getFingerprint()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Browser Fingerprint" + "<img src='/assets/information_white.png' class='tooltip' title='Currently used browser fingerprint' />" +" </span>" + "<span class='value'>" + list_value(client.getFingerprint()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "User Agent" + "<i class='fa fa-info-circle' rel='tooltip' title='Browser user agent' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.getUserAgent()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "User Agent" + "<img src='/assets/information_white.png' class='tooltip' title='Browser user agent' />" + " </span>" + "<span class='value'>" + list_value(client.getUserAgent()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Browser" + "<i class='fa fa-info-circle' rel='tooltip' title='Browser name' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.getBrowser()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Browser" + "<img src='/assets/information_white.png' class='tooltip' title='Browser name' />" + " </span>" + "<span class='value'>" + list_value(client.getBrowser()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Browser Version" + "<i class='fa fa-info-circle' rel='tooltip' title='Browser version' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.getBrowserVersion()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Browser Version" + "<img src='/assets/information_white.png' class='tooltip' title='Browser version' />" + " </span>" + "<span class='value'>" + list_value(client.getBrowserVersion()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Browser Major Version" + "<i class='fa fa-info-circle' rel='tooltip' title='Browser major version' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.getBrowserMajorVersion()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Browser Major Version" + "<img src='/assets/information_white.png' class='tooltip' title='Browser major version' />" + " </span>" + "<span class='value'>" + list_value(client.getBrowserMajorVersion()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is IE" + "<i class='fa fa-info-circle' rel='tooltip' title='Is browser is Internet Explorer' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.isIE()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is IE" + "<img src='/assets/information_white.png' class='tooltip' title='Is browser is Internet Explorer' />" +" </span>" + "<span class='value'>" + list_value(client.isIE()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is Chrome" + "<i class='fa fa-info-circle' rel='tooltip' title='Is browser is Google Chrome' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.isChrome()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is Chrome" + "<img src='/assets/information_white.png' class='tooltip' title='Is browser is Google Chrome' />" +" </span>" + "<span class='value'>" + list_value(client.isChrome()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is Firefox" + "<i class='fa fa-info-circle' rel='tooltip' title='Is browser is Mozilla Firefox' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.isFirefox()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is Firefox" + "<img src='/assets/information_white.png' class='tooltip' title='Is browser is Mozilla Firefox' />" +" </span>" + "<span class='value'>" + list_value(client.isFirefox()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is Safari" + "<i class='fa fa-info-circle' rel='tooltip' title='Is browser is Safari' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.isSafari()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is Safari" + "<img src='/assets/information_white.png' class='tooltip' title='Is browser is Safari' />" +" </span>" + "<span class='value'>" + list_value(client.isSafari()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is Opera" + "<i class='fa fa-info-circle' rel='tooltip' title='Is browser is Opera' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.isOpera()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is Opera" + "<img src='/assets/information_white.png' class='tooltip' title='Is browser is Opera' />" +" </span>" + "<span class='value'>" + list_value(client.isOpera()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is Mobile Safari" + "<i class='fa fa-info-circle' rel='tooltip' title='Browser is used in mobile device and safari' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.isMobileSafari()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Is Mobile Safari" + "<img src='/assets/information_white.png' class='tooltip' title='Browser is used in mobile device and safari' />" + " </span>" + "<span class='value'>" + list_value(client.isMobileSafari()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Browser Engine" + "<i class='fa fa-info-circle' rel='tooltip' title='Currently used browser engine' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.getEngine()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Browser Engine" + "<img src='/assets/information_white.png' class='tooltip' title='Currently used browser engine' />" +" </span>" + "<span class='value'>" + list_value(client.getEngine()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Engine Version" + "<i class='fa fa-info-circle' rel='tooltip' title='Currently used browser engine version' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.getEngineVersion()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Engine Version" + "<img src='/assets/information_white.png' class='tooltip' title='Currently used browser engine version' />" +" </span>" + "<span class='value'>" + list_value(client.getEngineVersion()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Operating System" + "<i class='fa fa-info-circle' rel='tooltip' title='Operating system installed in your system' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.getOS()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Operating System" + "<img src='/assets/information_white.png' class='tooltip' title='Operating system installed in your system' />" +" </span>" + "<span class='value'>" + list_value(client.getOS()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "OS Version" + "<i class='fa fa-info-circle' rel='tooltip' title='Operating system version installed in your system' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.getOSVersion()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "OS Version" + "<img src='/assets/information_white.png' class='tooltip' title='Operating system version installed in your system' />" +" </span>" + "<span class='value'>" + list_value(client.getOSVersion()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "OS is Windows" + "<i class='fa fa-info-circle' rel='tooltip' title='Is your operating system is windows' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.isWindows()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "OS is Windows" + "<img src='/assets/information_white.png' class='tooltip' title='Is your operating system is windows' />" + " </span>" + "<span class='value'>" + list_value(client.isWindows()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "OS is Mac" + "<i class='fa fa-info-circle' rel='tooltip' title='Is your operating system is Mac' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.isMac()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "OS is Mac" + "<img src='/assets/information_white.png' class='tooltip' title='Is your operating system is Mac' />" + " </span>" + "<span class='value'>" + list_value(client.isMac()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "OS is Linux"  + "<i class='fa fa-info-circle' rel='tooltip' title='Is your operating system is Linux' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.isLinux()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "OS is Linux"  + "<img src='/assets/information_white.png' class='tooltip' title='Is your operating system is Linux' />" + " </span>" + "<span class='value'>" + list_value(client.isLinux()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "OS is Solaris" + "<i class='fa fa-info-circle' rel='tooltip' title='Is your operating system is Solaris' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.isSolaris()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "OS is Solaris" + "<img src='/assets/information_white.png' class='tooltip' title='Is your operating system is Solaris' />" + " </span>" + "<span class='value'>" + list_value(client.isSolaris()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Device" + "<i class='fa fa-info-circle' rel='tooltip' title='Currently used device' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.getDevice()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Device" + "<img src='/assets/information_white.png' class='tooltip' title='Currently used device' />" +" </span>" + "<span class='value'>" + list_value(client.getDevice()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Device Type" + "<i class='fa fa-info-circle' rel='tooltip' title='Currently used device type' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.getDeviceType()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Device Type" + "<img src='/assets/information_white.png' class='tooltip' title='Currently used device type' />" + " </span>" + "<span class='value'>" + list_value(client.getDeviceType()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Device Vendor" + "<i class='fa fa-info-circle' rel='tooltip' title='Currently used device Vendor is' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.getDeviceVendor()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Device Vendor" + "<img src='/assets/information_white.png' class='tooltip' title='Currently used device Vendor is' />" + " </span>" + "<span class='value'>" + list_value(client.getDeviceVendor()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "CPU Architecture" + "<i class='fa fa-info-circle' rel='tooltip' title='Architecture of your CPU is' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.getCPU()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "CPU Architecture" + "<img src='/assets/information_white.png' class='tooltip' title='Architecture of your CPU is' />" +" </span>" + "<span class='value'>" + list_value(client.getCPU()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Mobile Device Browser" + "<i class='fa fa-info-circle' rel='tooltip' title='Is this browser is used on mobile device' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.isMobile()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Mobile Device Browser" + "<img src='/assets/information_white.png' class='tooltip' title='Is this browser is used on mobile device' />" +" </span>" + "<span class='value'>" + list_value(client.isMobile()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Screen Color Depth" + "<i class='fa fa-info-circle' rel='tooltip' title='Your Screen Color Depth is' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.getColorDepth()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Screen Color Depth" + "<img src='/assets/information_white.png' class='tooltip' title='Your Screen Color Depth is' />" +" </span>" + "<span class='value'>" + list_value(client.getColorDepth()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Screen Current Resolution" + "<i class='fa fa-info-circle' rel='tooltip' title='Your Screen current Resolution is' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.getCurrentResolution()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Screen Current Resolution" + "<img src='/assets/information_white.png' class='tooltip' title='Your Screen current Resolution is' />" +" </span>" + "<span class='value'>" + list_value(client.getCurrentResolution()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Screen Available Resolution" + "<i class='fa fa-info-circle' rel='tooltip' title='Your Screen Available Resolution is' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.getAvailableResolution()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Screen Available Resolution" + "<img src='/assets/information_white.png' class='tooltip' title='Your Screen Available Resolution is' />" + " </span>" + "<span class='value'>" + list_value(client.getAvailableResolution()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Device XDPI" + "<i class='fa fa-info-circle' rel='tooltip' title='Your Screen Device Resolution in XDPI' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.getDeviceXDPI()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Device XDPI" + "<img src='/assets/information_white.png' class='tooltip' title='Your Screen Device Resolution in XDPI' />" + " </span>" + "<span class='value'>" + list_value(client.getDeviceXDPI()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Device YDPI" + "<i class='fa fa-info-circle' rel='tooltip' title='Your Screen Resolution in YDPI' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.getDeviceYDPI()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Device YDPI" + "<img src='/assets/information_white.png' class='tooltip' title='Your Screen Resolution in YDPI' />" +" </span>" + "<span class='value'>" + list_value(client.getDeviceYDPI()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Installed plugins" + "<i class='fa fa-info-circle' rel='tooltip' title='Names of plugins installed in your browser' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.getPlugins()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Installed plugins" + "<img src='/assets/information_white.png' class='tooltip' title='Names of plugins installed in your browser' />" + " </span>" + "<span class='value'>" + list_value(client.getPlugins()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Flash installed?" + "<i class='fa fa-info-circle' rel='tooltip' title='Is flash installed in your browser' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.isFlash()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Flash installed?" + "<img src='/assets/information_white.png' class='tooltip' title='Is flash installed in your browser' />" +" </span>" + "<span class='value'>" + list_value(client.isFlash()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Flash Version" + "<i class='fa fa-info-circle' rel='tooltip' title='Your browser installed flash version' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.getFlashVersion()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Flash Version" + "<img src='/assets/information_white.png' class='tooltip' title='Your browser installed flash version' />" +" </span>" + "<span class='value'>" + list_value(client.getFlashVersion()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Silverlight installed?" + "<i class='fa fa-info-circle' rel='tooltip' title='Is Silverlight installed in your browser' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.isSilverlight()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Silverlight installed?" + "<img src='/assets/information_white.png' class='tooltip' title='Is Silverlight installed in your browser' />" + " </span>" + "<span class='value'>" + list_value(client.isSilverlight()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Silverlight Version" + "<i class='fa fa-info-circle' rel='tooltip' title='Installed Silverlight version' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.getSilverlightVersion()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Silverlight Version" + "<img src='/assets/information_white.png' class='tooltip' title='Installed Silverlight version' />" +" </span>" + "<span class='value'>" + list_value(client.getSilverlightVersion()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Mime Types installed" + "<i class='fa fa-info-circle' rel='tooltip' title='Is mimetypes installed in your browser' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.isMimeTypes()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Mime Types installed" + "<img src='/assets/information_white.png' class='tooltip' title='Is mimetypes installed in your browser' />" +" </span>" + "<span class='value'>" + list_value(client.isMimeTypes()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Installed Mime Types" + "<i class='fa fa-info-circle' rel='tooltip' title='List of installed mimetypes' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.getMimeTypes().replace(/^,|,$/g,'')) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Installed Mime Types" + "<img src='/assets/information_white.png' class='tooltip' title='List of installed mimetypes' />" + " </span>" + "<span class='value'>" + list_value(client.getMimeTypes().replace(/^,|,$/g,'')) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Installed fonts" +  "<i class='fa fa-info-circle' rel='tooltip' title='List of fonts installed in your browser' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.getFonts().replace(/^,|,$/g,'')) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Installed fonts" +  "<img src='/assets/information_white.png' class='tooltip' title='List of fonts installed in your browser' />" +" </span>" + "<span class='value'>" + list_value(client.getFonts().replace(/^,|,$/g,'')) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Local Storage?" + "<i class='fa fa-info-circle' rel='tooltip' title='Is local storage available in your browser' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.isLocalStorage()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Local Storage?" + "<img src='/assets/information_white.png' class='tooltip' title='Is local storage available in your browser' />" +" </span>" + "<span class='value'>" + list_value(client.isLocalStorage()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Session Storage?" + "<i class='fa fa-info-circle' rel='tooltip' title='Is session storage available in your browser' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.isSessionStorage()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Session Storage?" + "<img src='/assets/information_white.png' class='tooltip' title='Is session storage available in your browser' />" +" </span>" + "<span class='value'>" + list_value(client.isSessionStorage()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Cookies?" + "<i class='fa fa-info-circle' rel='tooltip' title='Are cookies Enabled in your browser' id='blah'></i>" +" </span>" + "<span class='value'>" + list_value(client.isCookie()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Cookies?" + "<img src='/assets/information_white.png' class='tooltip' title='Are cookies Enabled in your browser' />" +" </span>" + "<span class='value'>" + list_value(client.isCookie()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Time Zone" + "<i class='fa fa-info-circle' rel='tooltip' title='Your browser timezone' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.getTimeZone()) + "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Time Zone" + "<img src='/assets/information_white.png' class='tooltip' title='Your browser timezone' />" + " </span>" + "<span class='value'>" + list_value(client.getTimeZone()) + "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "User language" + "<i class='fa fa-info-circle' rel='tooltip' title='Currently used browser language' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.getLanguage())+ "</span></li>")
 
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "User language" + "<img src='/assets/information_white.png' class='tooltip' title='Currently used browser language' />" + " </span>" + "<span class='value'>" + list_value(client.getLanguage())+ "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Canvas Element" + "<i class='fa fa-info-circle' rel='tooltip' title='Is browser canvas enabled' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(client.isCanvas())+ "</span></li>")
 
-		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Don't track Enabled?" + "<i class='fa fa-info-circle' rel='tooltip' title='Is do not track flag is enabled in your browser' id='blah'></i>" + " </span>" + "<span class='value'>" + list_value(window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1")+ "</span></li>")
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Canvas Element" + "<img src='/assets/information_white.png' class='tooltip' title='Is browser canvas enabled' />" + " </span>" + "<span class='value'>" + list_value(client.isCanvas())+ "</span></li>")
+
+		$("#other_info_ul").append("<li class=list-group-item >" +"<span class='key'>" + "Don't track Enabled?" + "<img src='/assets/information_white.png' class='tooltip' title='Is do not track flag is enabled in your browser' />" + " </span>" + "<span class='value'>" + list_value(window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1")+ "</span></li>")
 
 		
 		$("#connection_info1").html('')
@@ -317,37 +315,38 @@
 		    var speedKbps = (speedBps / 1024).toFixed(2);
 		    var speedMbps = (speedKbps / 1024).toFixed(2);
 		    
-		    $("#connection_info1").append("<li class=list-group-item >" +"<span class='key'>" + "Speed in B/s" + "<i class='fa fa-info-circle' rel='tooltip' title='Your connection speed in Byte per seconds' id='blah'></i>" +" </span>" + "<span class='value'>" + speedBps + "</span></li>")
-			$("#connection_info1").append("<li class=list-group-item >" +"<span class='key'>" + "Speed in KB/s" + "<i class='fa fa-info-circle' rel='tooltip' title='Your connection speed in Kilo Bytes per seconds' id='blah'></i>" +" </span>" + "<span class='value'>" + speedKbps + "</span></li>")
-			$("#connection_info1").append("<li class=list-group-item >" +"<span class='key'>" + "Speed in MB/s" + "<i class='fa fa-info-circle' rel='tooltip' title='Your connection speed in Mega Bytes per seconds' id='blah'></i>" +" </span>" + "<span class='value'>" + speedMbps + "</span></li>")
+		    $("#connection_info1").append("<li class=list-group-item >" +"<span class='key'>" + "Speed in B/s" + "<img src='/assets/information_white.png' class='tooltip' title='Your connection speed in Byte per seconds' />" +" </span>" + "<span class='value'>" + speedBps + "</span></li>")
+			$("#connection_info1").append("<li class=list-group-item >" +"<span class='key'>" + "Speed in KB/s" + "<img src='/assets/information_white.png' class='tooltip' title='Your connection speed in Kilo Bytes per seconds' />" +" </span>" + "<span class='value'>" + speedKbps + "</span></li>")
+			$("#connection_info1").append("<li class=list-group-item >" +"<span class='key'>" + "Speed in MB/s" + "<img src='/assets/information_white.png' class='tooltip' title='Your connection speed in Mega Bytes per seconds' />" +" </span>" + "<span class='value'>" + speedMbps + "</span></li>")
 		}
 	}
 
 	function location_data_info (str) {
 		switch(str) {
 			case 'ip':
-	    		return "<i class='fa fa-info-circle' rel='tooltip' title='Your system IP address' id='blah'></i>"
+	    		// return "<i class='fa fa-info-circle' rel='tooltip' title='Your system IP address' id='blah'></i>"
+	    		return "<img src='/assets/information_white.png' class='tooltip' title='Your system IP address' />"
 				break;
 			case 'city':
-	    		return "<i class='fa fa-info-circle' rel='tooltip' title='Your city according to Ip address' id='blah'></i>"
+	    		return "<img src='/assets/information_white.png' class='tooltip' title='Your city according to Ip address' />"
 				break;
 			case 'region':
-	    		return "<i class='fa fa-info-circle' rel='tooltip' title='Your region according to Ip address' id='blah'></i>"
+	    		return "<img src='/assets/information_white.png' class='tooltip' title='Your region according to Ip address' />"
 				break;
 			case 'country':
-	    		return "<i class='fa fa-info-circle' rel='tooltip' title='Your country according to Ip address' id='blah'></i>"
+	    		return "<img src='/assets/information_white.png' class='tooltip' title='Your country according to Ip address' />"
 				break;
 			case 'loc':
-	    		return "<i class='fa fa-info-circle' rel='tooltip' title='Latitude and longitude of your current location' id='blah'></i>"
+	    		return "<img src='/assets/information_white.png' class='tooltip' title='Latitude and longitude of your current location' />"
 				break;
 			case 'org':
-	    		return "<i class='fa fa-info-circle' rel='tooltip' title='Detected network organization' id='blah'></i>"
+	    		return "<img src='/assets/information_white.png' class='tooltip' title='Detected network organization' />"
 				break;
 			case 'postal': 
-	    		return "<i class='fa fa-info-circle' rel='tooltip' title='Postal address based on your current location' id='blah'></i>"
+	    		return "<img src='/assets/information_white.png' class='tooltip' title='Postal address based on your current location' />"
 				break;
 		    default:
-	    		return "<i class='fa fa-info-circle' rel='tooltip' title='defult' id='blah'></i>"
+	    		return "<img src='/assets/information_white.png' class='tooltip' title='your browser's info' />"
 		        break;
 		}
 
@@ -368,5 +367,9 @@
 			return val;
 		}
 	}
+
+	$(document).ready(function() {
+        $('.tooltip').tooltipster();
+    });
 
 </script>
