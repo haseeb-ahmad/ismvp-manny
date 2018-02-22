@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
+	require 'twilio-ruby'
+
 	before_filter :authenticate_user!
 	before_action :get_user
+	before_filter :is_twillio_verified
 
 	def dashboard
 		@identities = current_user.identities
@@ -42,5 +45,13 @@ class UsersController < ApplicationController
 	private
 		def get_user
 			@user = current_user
+		end
+
+		def is_twillio_verified
+			if  current_user.present?
+				if current_user.is_twillio_verified == false && current_user.twillio_verification_code.present?
+					redirect_to new_twillio_confirmation_path(user_id: current_user.id)
+				end
+			end
 		end
 end

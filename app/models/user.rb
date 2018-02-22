@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 	has_many :contacts, :dependent => :destroy
 
 	attr_accessible :email, :password, :password_confirmation, :remember_me,
-				  	:first_name, :last_name, :phone_number
+				  	:first_name, :last_name, :phone_number, :twillio_verification_code, :is_twillio_verified
 
 	scope :get_user, lambda {|email| where(:email => email)}
 	
@@ -183,5 +183,5 @@ class User < ActiveRecord::Base
 
 	def only_if_unconfirmed
 		pending_any_confirmation {yield}
-	end
+	end 
 end

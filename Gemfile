@@ -78,3 +78,4 @@ gem 'byebug', group: :development
 
 # Use debugger
 gem "koala"
+gem 'twilio-ruby', "~> 5.5.0"
