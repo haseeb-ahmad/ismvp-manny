@@ -51,9 +51,13 @@
 		</div>
 	</header>
 
-	<% if flash[:notice] || flash[:alert] %>
-		<p class="container"> <%= flash[:notice] || flash[:alert]%> </p>
-	<%end%>
+		<div class="container">
+			<% flash.each do |key, value| %>
+		      <div class="<%= flash_class(key) %>">
+		            <%= value %>
+		      </div>
+		  <% end %>
+	  </div>
 
 	<%= yield %>
 

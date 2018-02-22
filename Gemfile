@@ -41,7 +41,7 @@ gem "email_spec", :group => :test
 gem "faker", group: :test
 gem "minitest", :group => :test
 gem "shoulda-matchers", :group => :test
-
+gem "iso_country_codes"
 
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 4.0.0.rc1"

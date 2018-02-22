@@ -24,7 +24,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :twillio_confirmations, only: [:new, :create]
+  resources :twillio_confirmations, only: [:new, :create] do
+    collection do
+      get 'check_number', as: :check_number
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

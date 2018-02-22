@@ -10,9 +10,14 @@ class ApplicationController < ActionController::Base
 	end
 
 	def after_sign_in_path_for(resource)
-		if resource.phone_number.present?
+		if resource.phone_number.present? 
 			ConfirmationSender.send_confirmation_to(resource)
-	      	new_twillio_confirmation_path(user_id: resource.id)
+			if resource.twillio_verification_code.nil?
+				flash[:success] = "Update Your moile number!"
+				edit_user_registration_path(resource.id)
+			else
+      	new_twillio_confirmation_path(user_id: resource.id)	
+			end
 		else
 			dashboard_users_path()
 		end

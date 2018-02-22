@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 	has_many :identities, :dependent => :destroy
 	has_many :contacts, :dependent => :destroy
 
-	attr_accessible :email, :password, :password_confirmation, :remember_me,
+	attr_accessible :email, :password, :password_confirmation, :remember_me,:code,
 				  	:first_name, :last_name, :phone_number, :twillio_verification_code, :is_twillio_verified
 
 	scope :get_user, lambda {|email| where(:email => email)}

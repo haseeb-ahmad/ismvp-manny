@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
 	before_filter :authenticate_user!
 	before_action :get_user
-	before_filter :is_twillio_verified
+	before_filter :is_twillio_verified,except: [:edit]
 
 	def dashboard
 		@identities = current_user.identities
@@ -12,6 +12,10 @@ class UsersController < ApplicationController
 
 	def browser_knows
 		
+	end
+
+	def edit
+		super
 	end
 
 	def browser_knows_list
@@ -54,4 +58,12 @@ class UsersController < ApplicationController
 				end
 			end
 		end
+		# def is_twillio
+		# 	if  current_user.present?
+		# 		if current_user.twillio_verification_code.nil?
+		# 			flash[:success] = "Update Your moile number!"
+		# 			redirect_to edit_user_registration_path(user_id: current_user.id)
+		# 		end
+		# 	end
+		# end
 end
