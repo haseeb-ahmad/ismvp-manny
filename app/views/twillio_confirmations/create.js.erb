@@ -1,0 +1,6 @@
+if ('<%= @user.twillio_verification_code == params[:verification_code].to_i %>'){
+  $("#loginform").modal("hide");
+  document.getElementById("edit_user").submit()
+}else {
+  console.log("hello")
+}

@@ -20,36 +20,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<header class="row">
-		<div class="head col-sm-7">
-			<img class="logo" src="/assets/logo.png" alt="">
-			<ul class="top-menu" style="padding-left: 5%;">
-				<li> <a data-target="#group_section_modal" data-toggle="modal" class="MainNavText" id="MainNavHelp" 
-       href="#myModal">GROUPS</a> </li>
-				<li> <%= link_to "ACCOUNT", account_users_path %> </li>
-				<li> <%= link_to "DASHBOARD", dashboard_users_path %> </li>
-
-				<li>
-					<div class="dropdown">
-					  <a class="dropbtn">TOOLS
-					  	<i class="fa fa-caret-down"></i>
-					  </a>
-					  <div class="dropdown-content">
-					    <a target= "_blank" href="http://webkay.robinlinus.com/">Webkay</a>
-					    <a target= "_blank" href="https://clickclickclick.click">Clickclick</a>
-					    <a target= "_blank" href="https://panopticlick.eff.org/">Panopticlick</a>
-					    <%= link_to "Browser Data", browser_knows_list_users_path %>
-					  </div>
-					</div>
-				</li>
-			</ul>
-		</div>
-		<%= link_to 'Sign out', destroy_user_session_path, :method => :delete, :id=> "sign-out-btn", :class => "btn btn-primary"%>
-		<div class="searcher col-sm-offset-1 col-sm-4">
-			<input type="search">
-			<img src="/assetssearch.png" alt="">
-		</div>
-	</header>
+	<%= render partial: 'shared/sign_up_header' %>
 
 		<div class="container">
 			<% flash.each do |key, value| %>

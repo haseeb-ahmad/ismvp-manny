@@ -67,6 +67,28 @@
 <% end %>
 </div>
 
+
+<div id="loginform" class="modal" style="margin-top: 150px;">
+  <%=  form_tag(twillio_confirmations_path, method: "post",class: 'modal-content animat', remote: true) do |f| %>
+    <div class="container" style="background-color:#f1f1f1; padding-top: 10px;">
+      <h1> <%= @user.phone_number%> </h1>
+      <%  if @user.is_verified_number %>
+        <%= link_to "Update Number", edit_user_registration_path(@user.id) %>
+      <% end %>
+      <p>  We have sent you a SMS with a code to the number above. </p>
+      <p> To complete your phone number verification, please enter the 6-digits activation code. </p>
+    </div>
+     <div class="container" style="background-color:#f1f1f1; padding-bottom: 10px;">
+       <%= label_tag :verification_code, "Verification code", class: "col-md-2 control-label" %>
+       <%= text_field_tag :verification_code, nil, class: "form-control" %>
+       <%= hidden_field_tag :user_id, @user.id %>
+       <br><br>
+       <%= submit_tag "Confirm", class: "btn btn-success" %>
+       <br>
+    </div>
+  <% end %>
+</div>
+
 <style type="text/css">
   .edit_profile_header{
     padding-left: 1%;
@@ -76,21 +98,28 @@
     padding-left: 7%;
   }
 </style>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   document.getElementById("numberhelp").style.display = "none" ;
-  var button = $("#update-button").on("click", function(event){
+  var val = $("#phone_number").val()
+  if(val.length > 0){
+    var button = $("#update-button").on("click", function(event){
         event.preventDefault();
-        var val = $("#phone_number").val()
-        if(val.length > 0){
+        val = $("#phone_number").val()
+        if(val == '<%= resource.phone_number %>'){
+          button.parents().filter("form").submit();
+        }
+        else{
           document.getElementById("loading").style.display = "block" ;
           $.ajax({
                 url : '/twillio_confirmations/check_number',
                 type: 'GET',
-                data: { phone_number: $("#phone_number").val()},
+                data: { phone_number: $("#phone_number").val(),id: '<%= resource.id %>'},
                 success : function (data) {
                   console.log(data["valid"]);
                   if(data["valid"] == true){
-                     button.parents().filter("form").submit();
+                    $("#loginform").modal('show');
+                     // button.parents().filter("form").submit();
                   }else{        
                     document.getElementById("numberhelp").style.display = "block" ;
                     document.getElementById("loading").style.display = "none" ;
@@ -101,4 +130,9 @@
         }
     
     })
+  }
+  else{
+    console.log("hey");
+  }
+  
 </script>

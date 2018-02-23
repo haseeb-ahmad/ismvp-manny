@@ -4,20 +4,22 @@ class ApplicationController < ActionController::Base
 	protect_from_forgery with: :exception
 	before_filter :configure_devise_params, if: :devise_controller?
 	layout :dynamic_layout
+	before_filter :authenticate_user!
 
 	def after_sign_up_path_for(resource)
 		after_sign_in_path_for(resource)
 	end
 
 	def after_sign_in_path_for(resource)
+		session[:usr_id] = resource.id
 		if resource.phone_number.present? 
-			ConfirmationSender.send_confirmation_to(resource)
-			if resource.twillio_verification_code.nil?
+			if is_verified_twilio(resource) 
+				dashboard_users_path()
+			else 
+				ConfirmationSender.send_confirmation_to(resource.phone_number,resource.id)
 				flash[:success] = "Update Your moile number!"
-				edit_user_registration_path(resource.id)
-			else
-      	new_twillio_confirmation_path(user_id: resource.id)	
-			end
+	    	new_twillio_confirmation_path()
+	    end
 		else
 			dashboard_users_path()
 		end
@@ -32,12 +34,21 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
+
 	protected
 
 	def configure_devise_params
 		# Need email only for sign up...
 		devise_parameter_sanitizer.for(:sign_up) do |u|
 			u.permit(:email, :password, :password_confirmation, :remember_me)
+		end
+	end
+
+	def is_verified_twilio(user)
+		if user.is_twillio_verified 
+			return true 
+		else 
+			return false
 		end
 	end
 end

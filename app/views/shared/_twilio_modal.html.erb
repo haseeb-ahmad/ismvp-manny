@@ -1,11 +1,11 @@
 <!-- <div id="loginform" class="modal" style=""> -->
- <%=  form_tag(twillio_confirmations_path, method: "post",class: 'modal-content animat') do |f| %>
-    <div class="container" style="background-color:#f1f1f1; padding-top: 10px;">
+ <%=  form_tag(twillio_confirmations_path, method: "post") do |f| %>
+    <div class="container" style="padding-top: 10px;">
       <h1> <%= @user.phone_number%> </h1>
       <p>  We have sent you a SMS with a code to the number above. </p>
       <p> To complete your phone number verification, please enter the 6-digits activation code. </p>
     </div>
-     <div class="container" style="background-color:#f1f1f1; padding-bottom: 10px;">
+     <div class="container" style=" padding-bottom: 10px;">
        <%= label_tag :verification_code, "Verification code", class: "col-md-2 control-label" %>
        <%= text_field_tag :verification_code, nil, class: "form-control" %>
        <%= hidden_field_tag :user_id, @user.id %>

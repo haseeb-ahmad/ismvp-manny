@@ -28,7 +28,7 @@ gem "linkedin"
 gem "google-api-client"
 gem "gmail-contacts", :require => "gmail-contacts"
 gem "linkedin-scraper"
-
+gem 'dotenv-rails'
 gem "jquery-turbolinks"
 
 gem "rspec-rails", group: [:development, :test]

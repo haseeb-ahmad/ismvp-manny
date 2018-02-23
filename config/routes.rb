@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   get "users/disconnect" => "users#disconnect"
   devise_for :users, :controllers => { :confirmations => "confirmations",
                                        :registrations => "registrations",
-                                       :omniauth_callbacks => "omniauth_callbacks"
+                                       :omniauth_callbacks => "omniauth_callbacks",
+                                       :sessions => "sessions"
                                     }
 
   devise_scope :user do
