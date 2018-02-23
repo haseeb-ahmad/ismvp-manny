@@ -46,8 +46,6 @@
 	$(document).ready(check_number);
 	$(document).on('page:load', check_number);
 	var regEx = /^[+-]?\d+$/;
-	console.log("ad")
-
 	function check_number () {
 		document.getElementById("emailhelp1").style.display = "none" ;
 		document.getElementById("numberhelp").style.display = "none" ;
@@ -74,12 +72,14 @@
 					        success : function (data) {
 					          console.log(data["valid"]);
 					          if(data["valid"] == true){
-					          	 button.parents().filter("form").submit();
+					          	console.log('true');
+  										document.getElementById("new_user").submit()
 					          }else{      	
+
+					          	console.log('false');
 									 		document.getElementById("numberhelp").style.display = "block" ;
 											document.getElementById("loading").style.display = "none" ;
 					          }
-					          
 					        }
 					  })
 					}
