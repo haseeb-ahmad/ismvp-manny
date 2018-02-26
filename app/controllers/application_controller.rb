@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 	def after_sign_in_path_for(resource)
 		session[:usr_id] = resource.id
 		if resource.phone_number.present? 
-			if is_verified_twilio(resource) 
+			if resource.is_twillio_verified
 				dashboard_users_path()
 			else 
 				ConfirmationSender.send_confirmation_to(resource.phone_number,resource.id)
@@ -40,14 +40,6 @@ class ApplicationController < ActionController::Base
 		# Need email only for sign up...
 		devise_parameter_sanitizer.for(:sign_up) do |u|
 			u.permit(:email, :password, :password_confirmation, :remember_me)
-		end
-	end
-
-	def is_verified_twilio(user)
-		if user.is_twillio_verified 
-			return true 
-		else 
-			return false
 		end
 	end
 end

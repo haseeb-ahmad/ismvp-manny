@@ -4,7 +4,8 @@ module ConfirmationSender
       user = User.find(id)
       verification_code = CodeGenerator.generate
       MessageSender.send_code(phone_number, verification_code)
-      user.update_columns(:twillio_verification_code => verification_code, :is_twillio_verified => false)
+      user.update(:twillio_verification_code => verification_code, :is_twillio_verified => false)
+      puts "message sent"
       return true
     rescue  => e
       user.update(:is_verified_number => false)

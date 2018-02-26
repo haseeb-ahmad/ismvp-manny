@@ -201,6 +201,9 @@ GEM
     omniauth (1.8.1)
       hashie (>= 3.4.6, < 3.6.0)
       rack (>= 1.6.2, < 3)
+    omniauth-amazon (1.0.1)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.1)
     omniauth-facebook (4.0.0)
       omniauth-oauth2 (~> 1.2)
     omniauth-google-oauth2 (0.5.3)
@@ -367,6 +370,7 @@ DEPENDENCIES
   linkedin-scraper
   minitest
   omniauth
+  omniauth-amazon
   omniauth-facebook
   omniauth-google-oauth2
   omniauth-linkedin

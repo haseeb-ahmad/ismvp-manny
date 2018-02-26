@@ -1,0 +1,19 @@
+defaults: &defaults
+  # app_id: '474339089314884'
+  # app_secret: '2a1411f9ac1d497f5a7a1dcfc607d5a8'
+
+  app_id: 'amzn1.application-oa2-client.4241a64c0fd546499c51c3c4a9b6c100'
+  app_secret: '07e978bd502c5a24e3ecf64d9655e311f1bb9def0ad8a710874cbd362fe261d4'
+
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  # app_id: '246624545504529'
+  # app_secret: '363ca70454175b8c8e63a22edf66ed9c'
+

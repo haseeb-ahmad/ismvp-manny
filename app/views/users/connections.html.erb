@@ -190,6 +190,59 @@
 				<td>  </td>
 			<% end %>
 		</tr>
+
+		<tr>
+			<% amazon_identity = @identities.find{|identity| identity.provider == "amazon" } %>
+			
+			<% if amazon_identity %>
+				<td> <%= amazon_identity.provider %> </td>
+				<td> <%= amazon_identity.uid %> </td>
+				<td> <%= link_to "Disconnect from amazon", users_disconnect_path(:identity => "amazon"),:id => "disconnect_linkedin" %> </td>
+				<th>
+					<%= link_to "Refresh Data", user_omniauth_authorize_path(:amazon), :id => "refresh_amazon", class: "profile_viewer" %>
+					| 
+					<button type="button" class="profile_viewer" data-toggle="modal" data-target="#amazonModal">View Data</button>
+					<div class="modal fade" id="amazonModal" role="dialog">
+						<div class="vertical-alignment-helper">   	
+						   	<div class="modal-dialog vertical-align-center">
+						    
+						      <div class="modal-content">
+						        <div class="modal-header">
+						          <button type="button" class="close" data-dismiss="modal">&times;</button>
+						          <h4 class="modal-title">Profile data</h4>
+						        </div>
+						        <div class="modal-body">
+
+						        	<% if amazon_identity.all_data.class.to_s == "String" %>
+						        		<% data = JSON.parse(amazon_identity.all_data) rescue {}  %>
+						        	<% else %>
+						        		<% data = amazon_identity.all_data  %>
+						        	<% end %>
+
+						        	<% if data["info"].present? %>
+						        		<img class="picture" src=<%= data["info"]["image"]%> alt="Flowers in Chania" width="460" height="345">
+						        	<% end %>
+						        	<% data.each_pair do |key, value| %>
+									  <p><%= key.humanize %>: <%= value %></p>
+									<% end %>
+						        </div>
+						        <div class="modal-footer">
+						          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						        </div>
+						      </div>
+						      
+						    </div>
+						</div>
+					</div>
+				 </th>
+
+			<% else %>
+				<td>  </td>
+				<td>  </td>
+				<td> <%= link_to "Import From amazon", user_omniauth_authorize_path(:amazon), :id => "connect_linkedin" %> </td>
+				<td>  </td>
+			<% end %>
+		</tr>
 	</table>
 </div>
 

@@ -4,7 +4,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		require 'koala'
 		auth = request.env["omniauth.auth"]
 		@graph = Koala::Facebook::API.new(auth["credentials"]["token"])
-
+		
 		if auth.provider == "facebook"
 			#getting all family list
 			auth["extra"]["raw_info"]["family"] = @graph.get_connection("me", "family", { limit:5000, fields: ["id", "name", "relationship", "picture"]})
@@ -64,9 +64,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			redirect_to user_connections_path(:user_id => current_user.id)
 		end
 	end
-
 	alias_method :facebook,	:callback
 	alias_method :linkedin,	:callback
 	alias_method :google,	:callback
+	alias_method :amazon,	:callback
 
 end
