@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180227080424) do
+ActiveRecord::Schema.define(version: 20180227111503) do
 
   create_table "contacts", force: :cascade do |t|
     t.string   "full_name",        limit: 255
