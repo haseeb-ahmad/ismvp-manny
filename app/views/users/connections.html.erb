@@ -1,7 +1,12 @@
 <br/>
 <div class = "container">
 
-	<div> <%= "Primary Email: #{@user.email}"%> </div>
+	<div> 
+		<%= "Primary Email: #{@user.email}"%> 
+		<% if @user.email.include?("example.com") %>
+			<p class="insta_email_message"> (This is an instagram generated email, Kindly edit your email from profile section.) </p>
+		<% end %>
+	</div>
 	<div class='social_conatacts'> </div>
 	<div> <%= "Number of Connected Identities: #{@identities.count}" %> </div>
 
@@ -243,6 +248,58 @@
 				<td>  </td>
 			<% end %>
 		</tr>
+		<tr>
+			<% instagram_identity = @identities.find{|identity| identity.provider == "instagram" } %>
+			
+			<% if instagram_identity %>
+				<td> <%= instagram_identity.provider %> </td>
+				<td> <%= instagram_identity.uid %> </td>
+				<td> <%= link_to "Disconnect from instagram", users_disconnect_path(:identity => "instagram"),:id => "disconnect_instagram" %> </td>
+				<th>
+					<%= link_to "Refresh Data", user_omniauth_authorize_path(:instagram), :id => "refresh_instagram", class: "profile_viewer" %>
+					| 
+					<button type="button" class="profile_viewer" data-toggle="modal" data-target="#instagramModal">View Data</button>
+					<div class="modal fade" id="instagramModal" role="dialog">
+						<div class="vertical-alignment-helper">   	
+						   	<div class="modal-dialog vertical-align-center">
+						    
+						      <div class="modal-content">
+						        <div class="modal-header">
+						          <button type="button" class="close" data-dismiss="modal">&times;</button>
+						          <h4 class="modal-title">Profile data</h4>
+						        </div>
+						        <div class="modal-body">
+
+						        	<% if instagram_identity.all_data.class.to_s == "String" %>
+						        		<% data = JSON.parse(instagram_identity.all_data) rescue {}  %>
+						        	<% else %>
+						        		<% data = instagram_identity.all_data  %>
+						        	<% end %>
+
+						        	<% if data["info"].present? %>
+						        		<img class="picture" src=<%= data["info"]["image"]%> alt="Flowers in Chania" width="460" height="345">
+						        	<% end %>
+						        	<% data.each_pair do |key, value| %>
+									  <p><%= key.humanize %>: <%= value %></p>
+									<% end %>
+						        </div>
+						        <div class="modal-footer">
+						          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						        </div>
+						      </div>
+						      
+						    </div>
+						</div>
+					</div>
+				 </th>
+
+			<% else %>
+				<td>  </td>
+				<td>  </td>
+				<td> <%= link_to "Import From instagram", user_omniauth_authorize_path(:instagram), :id => "connect_instagram" %> </td>
+				<td>  </td>
+			<% end %>
+		</tr>
 	</table>
 </div>
 
@@ -295,6 +352,10 @@ p{
 }
 .p0{
 	padding: 0;
+}
+.insta_email_message{
+	display: inline;
+	color: #fa6363;
 }
 </style>
 

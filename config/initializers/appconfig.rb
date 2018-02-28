@@ -2,3 +2,5 @@ FACEBOOK_CONFIG = YAML.load_file("#{Rails.root}/config/facebook.yml")[Rails.env]
 LINKEDIN_CONFIG = YAML.load_file("#{Rails.root}/config/linkedin.yml")[Rails.env].symbolize_keys
 GOOGLE_CONFIG = YAML.load_file("#{Rails.root}/config/google.yml")[Rails.env].symbolize_keys
 AMAZON_CONFIG = YAML.load_file("#{Rails.root}/config/amazon.yml")[Rails.env].symbolize_keys
+INSTAGRAM_CONFIG = YAML.load_file("#{Rails.root}/config/instagram.yml")[Rails.env].symbolize_keys
+

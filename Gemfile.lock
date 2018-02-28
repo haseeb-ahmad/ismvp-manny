@@ -210,6 +210,9 @@ GEM
       jwt (>= 1.5)
       omniauth (>= 1.1.1)
       omniauth-oauth2 (>= 1.5)
+    omniauth-instagram (1.0.2)
+      omniauth (~> 1)
+      omniauth-oauth2 (~> 1)
     omniauth-linkedin (0.2.0)
       omniauth-oauth (~> 1.0)
     omniauth-oauth (1.1.0)
@@ -373,6 +376,7 @@ DEPENDENCIES
   omniauth-amazon
   omniauth-facebook
   omniauth-google-oauth2
+  omniauth-instagram
   omniauth-linkedin
   pg (~> 0.18)
   protected_attributes

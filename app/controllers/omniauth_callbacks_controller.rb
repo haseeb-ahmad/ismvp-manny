@@ -3,6 +3,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 	def callback
 		require 'koala'
 		auth = request.env["omniauth.auth"]
+
 		@graph = Koala::Facebook::API.new(auth["credentials"]["token"])
 		
 		if auth.provider == "facebook"
@@ -24,8 +25,12 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			auth["extra"]["raw_info"]["videos"] = @graph.get_connection("me", "videos", {fields:[], limit:5000})
 			#all posts shared or in tagged
 			auth["extra"]["raw_info"]["posts"] = @graph.get_connection("me", "posts", {fields:["story","message","created_time","picture"], limit:5000})
+		
+		elsif auth.provider == "instagram"
+			# as omniauth-instagram not returning private data e.g email, phone no so we have to create email using username
+			auth["extra"]["raw_info"]["email"] = auth["extra"]["raw_info"]["username"] + "@example.com" 
+			auth["info"]["email"] = auth["extra"]["raw_info"]["username"] + "@example.com" 
 		end
-
 		user = nil
 		unless current_user
 			user = Identity.find_by_email(auth.info.email)&.user
@@ -68,5 +73,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 	alias_method :linkedin,	:callback
 	alias_method :google,	:callback
 	alias_method :amazon,	:callback
+	alias_method :instagram,:callback
 
 end

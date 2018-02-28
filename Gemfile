@@ -24,6 +24,7 @@ gem "omniauth-facebook"
 gem "omniauth-linkedin"
 gem "omniauth-google-oauth2"
 gem 'omniauth-amazon'
+gem 'omniauth-instagram'
 gem "fb_graph"
 gem "linkedin"
 gem "google-api-client"

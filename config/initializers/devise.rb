@@ -220,6 +220,9 @@ Devise.setup do |config|
   config.omniauth :linkedin, LINKEDIN_CONFIG[:app_id], LINKEDIN_CONFIG[:app_secret], { scope: "r_basicprofile r_emailaddress rw_company_admin w_share", name: 'linkedin', authorize_params: { state: SecureRandom.hex(15)} }
   config.omniauth :google_oauth2, GOOGLE_CONFIG[:app_id], GOOGLE_CONFIG[:app_secret],{ access_type: "offline", approval_prompt: "force", scope: 'email profile https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/user.phonenumbers.read https://www.googleapis.com/auth/contacts https://www.googleapis.com/auth/contacts.readonly https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/user.addresses.read https://www.googleapis.com/auth/user.birthday.read https://www.googleapis.com/auth/user.emails.read', name: 'google'}
   config.omniauth :amazon, AMAZON_CONFIG[:app_id], AMAZON_CONFIG[:app_secret],{:scope => 'profile postal_code'}
+  config.omniauth :instagram, INSTAGRAM_CONFIG[:app_id], INSTAGRAM_CONFIG[:app_secret], { scope: "basic public_content follower_list comments relationships likes" }
+
+
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
