@@ -1,0 +1,7 @@
+<% if @isSmoothSession %>
+	$("#yodleeModal").hide();
+	window.location.reload();
+<% else %>
+	$.toast("Unexpected Error occured!");
+<% end %>
+

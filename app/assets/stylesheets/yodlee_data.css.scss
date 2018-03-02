@@ -1,0 +1,18 @@
+.yodlee_data_container{
+	padding-left: 1%;
+	padding-right: 1%;
+	.table{
+		font-size: 12px;
+		thead{
+			background: #086ec6;
+			color: white;
+		}
+		th{
+			text-align: left;
+			vertical-align: top;
+		}
+		td{
+			text-align: left;
+		}
+	}
+}

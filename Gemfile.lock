@@ -129,6 +129,8 @@ GEM
     htmlentities (4.3.4)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
+    httparty (0.16.0)
+      multi_xml (>= 0.5.2)
     httpclient (2.8.3)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
@@ -364,6 +366,7 @@ DEPENDENCIES
   fb_graph
   gmail-contacts
   google-api-client
+  httparty
   iso_country_codes
   jbuilder (~> 1.2)
   jquery-rails

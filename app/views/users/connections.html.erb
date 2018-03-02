@@ -300,6 +300,47 @@
 				<td>  </td>
 			<% end %>
 		</tr>
+
+		<tr>
+			<% yodlee_identity = @identities.find{|identity| identity.provider == "yodlee" } %>
+			
+			<% if yodlee_identity %>
+				<td> <%= yodlee_identity.provider %> </td>
+				<td> <%= yodlee_identity.uid %> </td>
+				<td> <%= link_to "Disconnect from yodlee", users_disconnect_path(:identity => "yodlee"),:id => "disconnect_yodlee" %> </td>
+				<th>
+					<button type="button" class="profile_viewer" data-toggle="modal" data-target="#yodleeModal">Refresh Data</button>
+				</th>
+
+			<% else %>
+				<td>  </td>
+				<td>  </td>
+				<td> 
+					<button type="button" class="profile_viewer" data-toggle="modal" data-target="#yodleeModal">Import from Yodlee</button>
+				</td>
+				<td>  </td>
+			<% end %>
+			<div class="modal fade" id="yodleeModal" role="dialog">
+				<div class="vertical-alignment-helper">   	
+				   	<div class="modal-dialog vertical-align-center">
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				          <h4 class="modal-title">Profile data</h4>
+				        </div>
+				        <div class="modal-body">
+				        	<%= render "users/yodlee_login" %>
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        </div>
+				      </div>
+				      
+				    </div>
+				</div>
+			</div>
+		</tr>
+
 	</table>
 </div>
 

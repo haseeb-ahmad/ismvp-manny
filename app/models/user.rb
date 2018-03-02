@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
 	attr_accessible :email, :password, :password_confirmation, :remember_me,:code,
 				  	:first_name, :last_name, :phone_number, :twillio_verification_code, :is_twillio_verified,:is_verified_number
 
+	YODLEE_COB_LOGIN = 'sbCobd8ad8043b7fbab3a021ebc5c712d95bada'
+	YODLEE_COB_PASSWORD = '3fa363f7-4bb6-43be-874f-e4f761175044'
+
 	scope :get_user, lambda {|email| where(:email => email)}
 	
 	def self.find_or_create(auth)
@@ -183,5 +186,75 @@ class User < ActiveRecord::Base
 
 	def only_if_unconfirmed
 		pending_any_confirmation {yield}
-	end 
+	end
+
+
+	def self.getCobSession
+		result = HTTParty.post("https://developer.api.yodlee.com/ysl/restserver/v1/cobrand/login", 
+		    :body => { "cobrand": {
+					      "cobrandLogin": "#{YODLEE_COB_LOGIN}",
+					      "cobrandPassword": "#{YODLEE_COB_PASSWORD}",
+					      "locale": "en_US"
+					     }
+		             }.to_json,
+		    :headers => { 'Content-Type' => 'application/json' } )
+
+		result["session"]["cobSession"]
+	end
+
+	def self.getUserSession username, password, cobSession
+		result = HTTParty.post("https://developer.api.yodlee.com/ysl/restserver/v1/user/login", 
+		    :body => { "user":      {
+					      "loginName": "#{username}",
+					      "password": "#{password}",
+					      "locale": "en_US"
+					  	}
+		             }.to_json,
+		    :headers => { 
+		    			  'Content-Type' => 'application/json', 
+		    			  "Authorization" => "cobSession=#{cobSession}" 
+		    			} )
+
+		result["user"]
+	end
+
+	def self.getAccount cobSession, userSession
+		result = HTTParty.get("https://developer.api.yodlee.com/ysl/restserver/v1/accounts", 
+		    :headers => { 'Content-Type' => 'application/json',
+		    			  "Authorization" => "cobSession=#{cobSession}, userSession=#{userSession}"
+		    			} )
+		result["account"]
+	end
+
+	def self.getStatements cobSession, userSession
+		result = HTTParty.get("https://developer.api.yodlee.com/ysl/restserver/v1/statements", 
+		    :headers => { 'Content-Type' => 'application/json',
+		    			  "Authorization" => "cobSession=#{cobSession}, userSession=#{userSession}"
+		    			} )
+		result["statement"]
+	end
+
+	def self.getDocuments cobSession, userSession
+		result = HTTParty.get("https://developer.api.yodlee.com/ysl/restserver/v1/documents", 
+		    :headers => { 'Content-Type' => 'application/json',
+		    			  "Authorization" => "cobSession=#{cobSession}, userSession=#{userSession}"
+		    			} )
+		result["document"]
+	end
+
+	def self.getHoldings cobSession, userSession
+		result = HTTParty.get("https://developer.api.yodlee.com/ysl/restserver/v1/holdings", 
+		    :headers => { 'Content-Type' => 'application/json',
+		    			  "Authorization" => "cobSession=#{cobSession}, userSession=#{userSession}"
+		    			} )
+		result["holding"]
+	end
+
+	def self.getTransactions cobSession, userSession
+		result = HTTParty.get("https://developer.api.yodlee.com/ysl/restserver/v1/transactions", 
+		    :headers => { 'Content-Type' => 'application/json',
+		    			  "Authorization" => "cobSession=#{cobSession}, userSession=#{userSession}"
+		    			} )
+		result["transaction"]
+	end
 end

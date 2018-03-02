@@ -18,6 +18,8 @@ Rails.application.routes.draw do
       get :browser_knows
       get :browser_knows_list
       get :account
+      post :fetch_yodlee_data
+      get :yodlee_data
     end
     get "update_contacts"
     resources :contacts do

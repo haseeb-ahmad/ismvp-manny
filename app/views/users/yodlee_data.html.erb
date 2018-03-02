@@ -1,0 +1,269 @@
+<div class="yodlee_data_container">
+	<h4> USER INFORMATION <h4>
+	<table class="table table-striped">
+	  	<thead>
+		    <tr>
+		      <th scope="col">Id</th>
+		      <th scope="col">Login Name</th>
+		      <th scope="col">Name</th>
+		      <th scope="col">Role Type</th>
+		      <th scope="col">Currency</th>
+		      <th scope="col">TimeZone</th>
+		      <th scope="col">Locale</th>
+		    </tr>
+		</thead>
+	 	<tbody>
+			<% if @user_financial_data["user"].present? %>
+			    <tr>
+					<td><%= @user_financial_data["user"]["id"] rescue '' %> </td>
+					<td><%= @user_financial_data["user"]["loginName"] rescue '' %></td>
+					<td><%= @user_financial_data["user"]["name"]["first"] rescue '' %> <%= @user_financial_data["user"]["name"]["last"]  rescue '' %> </td>
+					<td><%= @user_financial_data["user"]["roleType"] rescue '' %></td>
+					<td><%= @user_financial_data["user"]["preferences"]["currency"] rescue '' %></td>
+					<td><%= @user_financial_data["user"]["preferences"]["timeZone"] rescue '' %></td>
+					<td><%= @user_financial_data["user"]["preferences"]["locale"] rescue '' %></td>
+			    </tr>
+			<% else %>
+				<tr><td colspan="7"> No user data </td></tr>
+			<% end %>
+	  	</tbody>
+	</table>
+
+	<h4> ACCOUNT INFORMATION <h4>
+	<table class="table table-striped">
+	  	<thead>
+		    <tr>
+		      <th scope="col">Name</th>
+		      <th scope="col">Number</th>
+		      <th scope="col">Type</th>
+		      <th scope="col">Available Cash</th>
+		      <th scope="col">Available Credit</th>
+		      <th scope="col">Account Status</th>
+		      <th scope="col">Created Date</th>
+		      <th scope="col">Balance</th>
+		      <th scope="col">Aggregation Source</th>
+		      <th scope="col">Total Cash Limit</th>
+		      <th scope="col">Total Credit Line</th>
+		      <th scope="col">Provider Name</th>
+		    </tr>
+		</thead>
+	 	<tbody>
+			<% if @user_financial_data["account"].present? %>
+				<% @user_financial_data["account"].each do |account| %>
+				    <tr>
+						<td><%= account["accountName"] rescue '' %> </td>
+						<td><%= account["accountNumber"] %></td>
+						<td><%= account["accountType"] %> </td>
+						<td>
+							<%= account["availableCash"]["amount"] rescue '' %>
+								<%= account["availableCash"]["currency"] rescue '' %> 
+						</td>
+						<td>
+							<%= account["availableCredit"]["amount"] rescue '' %>
+								<%= account["availableCredit"]["currency"] rescue '' %>
+						</td>
+						<td><%= account["accountStatus"] %></td>
+						<td><%= account["createdDate"] %></td>
+						<td>
+							<%= account["balance"]["amount"] rescue '' %>
+								<%= account["balance"]["currency"] rescue '' %>
+						</td>
+						<td><%= account["aggregationSource"] %></td>
+						<td>
+							<%= account["totalCashLimit"]["amount"] rescue '' %>
+								<%= account["totalCashLimit"]["currency"] rescue '' %>
+						</td>
+						<td>
+							<%= account["totalCreditLine"]["amount"] rescue '' %>
+								<%= account["totalCreditLine"]["currency"] rescue '' %>
+						</td>
+						<td><%= account["providerName"] %></td>
+				    </tr>
+				<% end %>
+			<% else %>
+				<tr><td colspan="9"> No account data </td></tr>
+			<% end %>
+	  	</tbody>
+	</table>
+
+
+	<h4> STATEMENTS INFORMATION <h4>
+	<table class="table table-striped">
+	  	<thead>
+		    <tr>
+		      <th scope="col">Id</th>
+		      <th scope="col">Account Id</th>
+		      <th scope="col">Statement Date</th>
+		      <th scope="col">Due Date</th>
+		      <th scope="col">Last Payment Date</th>
+		      <th scope="col">Amount Due</th>
+		      <th scope="col">Last Payment Amount</th>
+		      <th scope="col">Is Latest</th>
+		      <th scope="col">Last Updated</th>
+		    </tr>
+		</thead>
+	 	<tbody>
+			<% if @user_financial_data["statements"].present? %>
+				<% @user_financial_data["statements"].each do |statement| %>
+				    <tr>
+						<td><%= statement["id"] rescue '' %> </td>
+						<td><%= statement["accountId"] %></td>
+						<td><%= statement["statementDate"] %> </td>
+						<td><%= statement["dueDate"] %></td>
+						<td><%= statement["lastPaymentDate"]%></td>
+						<td><%= statement["amountDue"]["amount"] rescue '' %>
+							<%= statement["amountDue"]["currency"] rescue '' %>
+						</td>
+						<td>
+							<%= statement["lastPaymentAmount"]["amount"] rescue '' %>
+							<%= statement["lastPaymentAmount"]["currency"] rescue '' %>
+						</td>
+						<td><%= statement["isLatest"] %></td>
+						<td><%= statement["lastUpdated"] %></td>
+				    </tr>
+				<% end %>
+			<% else %>
+				<tr><td colspan="9"> No statement data </td></tr>
+			<% end %>
+	  	</tbody>
+	</table>
+
+	<h4> DOCUMENTS INFORMATION <h4>
+	<table class="table table-striped">
+	  	<thead>
+		    <tr>
+		      <th scope="col">Doc Type</th>
+		      <th scope="col">Id</th>
+		      <th scope="col">Account ID</th>
+		      <th scope="col">Name</th>
+		      <th scope="col">Source</th>
+		      <th scope="col">Last Updated</th>
+		      <th scope="col">Provider AccountID</th>
+		      <th scope="col">Status</th>
+		      <th scope="col">Form Type</th>
+		    </tr>
+		</thead>
+	 	<tbody>
+			<% if @user_financial_data["documents"].present? %>
+				<% @user_financial_data["documents"].each do |document| %>
+				    <tr>
+						<td><%= document["docType"] %> </td>
+						<td><%= document["id"] %></td>
+						<td><%= document["accountID"] %> </td>
+						<td><%= document["name"] %></td>
+						<td><%= document["source"]%></td>
+						<td><%= document["lastUpdated"] %></td>
+						<td><%= document["providerAccountID"] %></td>
+						<td><%= document["status"] %></td>
+						<td><%= document["formType"] %></td>
+				    </tr>
+				<% end %>
+			<% else %>
+				<tr><td colspan="9"> No document data </td></tr>
+			<% end %>
+	  	</tbody>
+	</table>
+
+	<h4> HOLDINGS INFORMATION <h4>
+	<table class="table table-striped">
+	  	<thead>
+		    <tr>
+		      <th scope="col">Id</th>
+		      <th scope="col">Account Id</th>
+		      <th scope="col">Cusip Number</th>
+		      <th scope="col">Security Type</th>
+		      <th scope="col">Match Status</th>
+		      <th scope="col">Description</th>
+		      <th scope="col">Holding Type</th>
+		      <th scope="col">Quantity</th>
+		      <th scope="col">Symbol</th>
+		      <th scope="col">Cost Basis</th>
+		      <th scope="col">Price</th>
+		      <th scope="col">Value</th>
+
+		    </tr>
+		</thead>
+	 	<tbody>
+			<% if @user_financial_data["holdings"].present? %>
+				<% @user_financial_data["holdings"].each do |holding| %>
+				    <tr>
+						<td><%= holding["id"] %> </td>
+						<td><%= holding["accountId"] %></td>
+						<td><%= holding["cusipNumber"] %> </td>
+						<td><%= holding["securityType"] %></td>
+						<td><%= holding["matchStatus"]%></td>
+						<td><%= holding["description"] %></td>
+						<td><%= holding["holdingType"] %></td>
+						<td><%= holding["quantity"] %></td>
+						<td><%= holding["symbol"] %></td>
+
+						<td><%= holding["costBasis"]["amount"] rescue ''%>
+							<%= holding["costBasis"]["currency"] rescue ''%>
+						</td>
+						<td><%= holding["price"]["amount"] rescue ''%>
+							<%= holding["price"]["currency"] rescue ''%>
+						</td>
+						<td><%= holding["value"]["amount"] rescue ''%>
+							<%= holding["value"]["currency"] rescue ''%>
+						</td>
+				    </tr>
+				<% end %>
+			<% else %>
+				<tr><td colspan="12"> No holding data </td></tr>
+			<% end %>
+	  	</tbody>
+	</table>
+
+	<h4> TRANSACTION INFORMATION <h4>
+	<table class="table table-striped">
+	  	<thead>
+		    <tr>
+		      <th scope="col">Container</th>
+		      <th scope="col">Id</th>
+		      <th scope="col">Amount</th>
+		      <th scope="col">Running Balance</th>
+		      <th scope="col">Base Type</th>
+		      <th scope="col">Category Type</th>
+		      <th scope="col">Category</th>
+		      <th scope="col">Category Source</th>
+		      <th scope="col">Transaction Date</th>
+		      <th scope="col">Created Date</th>
+		      <th scope="col">Status</th>
+		      <th scope="col">Account Id</th>
+		      <th scope="col">Type</th>
+		      <th scope="col">Sub Type</th>
+		      <th scope="col">Description</th>
+		    </tr>
+		</thead>
+	 	<tbody>
+			<% if @user_financial_data["transactions"].present? %>
+				<% @user_financial_data["transactions"].each do |transaction| %>
+				    <tr>
+						<td><%= transaction["CONTAINER"] %> </td>
+						<td><%= transaction["id"] %></td>
+						<td><%= transaction["amount"]["amount"] rescue ''%>
+							<%= transaction["amount"]["currency"] rescue ''%>
+						</td>
+						<td><%= transaction["runningBalance"]["amount"] rescue ''%>
+							<%= transaction["runningBalance"]["currency"] rescue ''%>
+						</td>
+						<td><%= transaction["baseType"] %> </td>
+						<td><%= transaction["categoryType"] %></td>
+						<td><%= transaction["category"]%></td>
+						<td><%= transaction["categorySource"] %></td>
+						<td><%= transaction["transactionDate"] %></td>
+						<td><%= transaction["createdDate"] %></td>
+						<td><%= transaction["status"] %></td>
+						<td><%= transaction["accountId"] %></td>
+						<td><%= transaction["type"] %></td>
+						<td><%= transaction["subType"] %></td>
+						<td><%= transaction["description"]["simple"] rescue '' %></td>
+				    </tr>
+				<% end %>
+			<% else %>
+				<tr><td colspan="15"> No transaction data </td></tr>
+			<% end %>
+	  	</tbody>
+	</table>
+
+</div>
