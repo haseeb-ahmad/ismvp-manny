@@ -1,6 +1,6 @@
 <% if @isSmoothSession %>
 	$("#yodleeModal").hide();
-	window.location.reload();
+	window.location.href = '/users/yodlee_data'
 <% else %>
 	$.toast("Unexpected Error occured!");
 <% end %>
