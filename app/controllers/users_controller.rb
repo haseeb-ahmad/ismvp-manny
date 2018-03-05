@@ -105,6 +105,10 @@ class UsersController < ApplicationController
 		redirect_to user_contacts_path
 	end
 
+	def track_motion
+		
+	end
+
 	private
 		def get_user
 			@user = current_user

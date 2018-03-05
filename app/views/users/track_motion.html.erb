@@ -1,0 +1,276 @@
+<script src="http://www.loganfranken.com/projects/cursometer/script/jquery.cursometer.1.0.0.min.js"></script>
+
+<div id="speedometer" style="display: none;"></div>
+<div id = "track_container">
+	<a  class="event_link achievements_link"> Achievements » </a>	
+	
+	<div id="containerz">
+	  <div id="navi">
+
+		<button class="btn btn-primary motion_btn" id="btn_motion" draggable="true" ondrag="myDragFunction(event)"> Button </button>
+
+	  </div>
+	  <div id="infoi">
+	  	<h2> Achivements </h2>
+
+	  	<ul id="achievements_list">
+	  		<li class="active_achivement">💊 You visited track motion.</li>
+	  		<li class="click_time_1">💊 You clicked the button.</li>
+	  		<li class="click_time_5">💊 You clicked the button 5 times.</li>
+	  		<li class="click_time_10">💊 You clicked the button 10 times.</li>
+	  		<li class="click_time_100">💊 You clicked the button 100 times.</li>
+	  		<li class="click_time_1000">💊 You clicked the button 1000 times.</li>
+
+	  		<li class="move_up">💊 You moved up.</li>
+	  		<li class="move_down">💊 You moved down.</li>
+	  		<li class="move_left">💊 You moved left.</li>
+	  		<li class="move_right">💊 You moved right.</li>
+
+	  		<li class="move_fast">💊 You moved fast.</li>
+	  		<li class="move_fast">💊 You moved very fast.</li>
+	  		<li class="move_slow">💊 You moved slow.</li>
+	  		<li class="move_slow">💊 You moved very slow.</li>
+
+	  		<li class="idle_10_sec">💊 You didn't move for 10 sec. </li>
+	  		<li class="idle_30_sec">💊 You didn't move for 30 sec. </li>
+	  		<li class="idle_1_min">💊 You didn't move for 1 min.  </li>
+	  		<li class="idle_10_min">💊 You didn't move for 10 min. </li>
+	  		<li class="idle_1_hour">💊 You didn't move for 1 hour. </li>
+
+	  		<li class="non_stop_5">💊 You moved non stop for 5 sec </li>
+	  		<li class="non_stop_10">💊 You moved non stop for 10 sec </li>
+	  		<li class="non_stop_1">💊 You moved non stop for 1 min </li>
+
+	  		<li class="entered_1">💊 You entered the button once. </li>
+	  		<li class="entered_5">💊 You entered the button 5 times. </li>
+	  		<li class="entered_10">💊 You entered the button 10 times. </li>
+	  		<li class="entered_100">💊 You entered the button 100 times. </li>
+
+	  		<li class="hovered_btn_5">💊 You hovered above the button 5 sec. </li>
+	  		<li class="hovered_btn_10_sec">💊 You hovered above the button 10 sec. </li>
+	  		<li class="hovered_btn_1">💊 You hovered above the button 1 min. </li>
+	  		<li class="hovered_btn_10">💊 You hovered above the button 10 min. </li>
+
+
+	  		<li class="button_outside_click">💊 You clicked outside the button. </li>
+	  		<li class="button_dragged">💊 You dragged the button. </li>
+
+
+
+
+
+
+	  	</ul>
+	  </div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var idleTime = 0;
+	var nonStopTime = 0;
+
+	$(document).ready(function(){
+		$("#infoi").hide();
+
+		var idleInterval = setInterval(timerIncrement, 1000); // 1 sec
+		//Zero the idle timer on mouse movement.
+		$(this).mousemove(function (e) {
+			idleTime = 0;
+		});
+		$(this).keypress(function (e) {
+			idleTime = 0;
+		});
+
+	});
+
+	$('body').on('click', '.achievements_link', function(){
+		$("#infoi").show();
+		$("#navi").hide();
+		$(".event_link").addClass("back_link");
+		$(".event_link").removeClass('achievements_link');
+		$(".event_link").text("<< Back");
+	});
+
+
+	$('body').on('click', '.back_link', function(){
+		$("#infoi").hide();
+		$("#navi").show();
+		$(".event_link").removeClass("back_link");
+		$(".event_link").addClass('achievements_link');
+		$(".event_link").text("Achievements »");
+	});
+
+	var btn_click_count = 0;
+	$('body').on('click', '.motion_btn', function(){
+		btn_click_count = btn_click_count + 1;
+
+		$(".click_time_" + btn_click_count).addClass("active_achivement");
+	});
+
+    var bodyElement = document.querySelector("body");
+	bodyElement.addEventListener("mousemove", getMouseDirection, false);
+	 
+	var xDirection = "";
+	var yDirection = "";
+	 
+	var oldX = 0;
+	var oldY = 0;
+	 
+	function getMouseDirection(e) {
+	    //deal with the horizontal case
+	    if (oldX < e.pageX) {
+	        // xDirection = "right";
+	        $(".move_right").addClass("active_achivement");
+	    } else {
+	        // xDirection = "left";
+	        $(".move_left").addClass("active_achivement");
+	    }
+	    //deal with the vertical case
+	    if (oldY < e.pageY) {
+	        // yDirection = "down";
+	        $(".move_down").addClass("active_achivement");
+	    } else {
+	        // yDirection = "top";
+	        $(".move_up").addClass("active_achivement");
+	    }
+
+	    oldX = e.pageX;
+	    oldY = e.pageY;
+	}
+
+
+    //checking cursor speed
+    var $speedometer = $('#speedometer');
+    
+    $('body').cursometer({
+        onUpdateSpeed: function(speed) {
+            $speedometer.text(speed);
+        },
+        updateSpeedRate: 20
+    });
+
+    $("body").mouseover(function(){
+
+        if($speedometer.text() > 5) {
+            console.log("Over 5");
+            $(".move_fast").addClass("active_achivement");
+        }
+        else {
+            console.log("Under 5");
+            $(".move_slow").addClass("active_achivement");
+        }
+    });
+
+
+    // check idle time
+    function timerIncrement() {
+	    idleTime = idleTime + 1000;
+	    nonStopTime = nonStopTime + 1000;
+	    if (idleTime == 10000) { // 10 sec
+	    	$(".idle_10_sec").addClass("active_achivement");
+	    	console.log("idle_10_sec");
+	    } 
+	    if(idleTime == 30000){
+	    	$(".idle_30_sec").addClass("active_achivement");
+	    	console.log("idle_30_sec");
+	    }
+	    if(idleTime == 60000){
+	    	$(".idle_1_min").addClass("active_achivement");
+	    	console.log("idle_1_min");
+	    }
+	    if(idleTime == (10*60000)){
+	    	$(".idle_10_min").addClass("active_achivement");
+	    	console.log("idle_10_min");
+	    }
+	    if(idleTime == (10*6*60000)){
+	    	$(".idle_1_hour").addClass("active_achivement");
+	    	console.log("idle_1_hour");
+	    }
+
+	    if (nonStopTime == 5000 && nonStopTime != idleTime){
+	    	// moved non stop for 5 second
+	    	$(".non_stop_5").addClass("active_achivement");
+	    	console.log("moved non stop for 5 second");
+	    }
+	    
+	    if (nonStopTime == 10000 && nonStopTime != idleTime){
+			// moved non stop for 10 second
+			$(".non_stop_10").addClass("active_achivement");
+	    	console.log("moved non stop for 10 second");
+
+	    }
+
+	    if (nonStopTime == 60000 && nonStopTime != idleTime){
+			// moved non stop for 1 min
+			$(".non_stop_1").addClass("active_achivement");
+	    	console.log("moved non stop for 1 min");
+
+	    }
+	}
+
+	// button enter key
+	mouseEnterCount = 0;
+	$( ".motion_btn" ).mouseover(function() {
+	    mouseEnterCount = mouseEnterCount + 1;
+
+	    if (mouseEnterCount == 1){
+	    	$(".entered_1").addClass("active_achivement");
+	    }
+	    if (mouseEnterCount == 5){
+	    	$(".entered_5").addClass("active_achivement");
+	    }
+	    if (mouseEnterCount == 10){
+	    	$(".entered_10").addClass("active_achivement");
+	    }
+	    if (mouseEnterCount == 100){
+	    	$(".entered_100").addClass("active_achivement");
+	    }
+	});
+
+	//button hover time counter
+	var timer;
+	var hoverCounter = 0;
+	$(".motion_btn").mouseenter(function() {
+		console.log("mouse entered");
+	    var that = this;
+	    timer = setInterval(function(){
+	    	hoverCounter = hoverCounter + 1000;
+	        console.log("hoverCounter" +  hoverCounter);
+	        if (hoverCounter == 5000){
+	        	console.log("button hover 5 seconds");
+	        	$(".hovered_btn_5").addClass("active_achivement");
+	        }
+	        if (hoverCounter == 10000){	
+	        	console.log("button hover 10 seconds");
+	        	$(".hovered_btn_10_sec").addClass("active_achivement");
+	        }
+	        if (hoverCounter == 60000){
+	        	console.log("button hover 1 min");
+	        	$(".hovered_btn_1").addClass("active_achivement");
+	        }
+	        if (hoverCounter == (60000*10)){
+	        	console.log("button hover 10 min");
+	        	$(".hovered_btn_10").addClass("active_achivement");
+	        }
+
+	    }, 1000);
+	}).mouseleave(function() {
+		console.log("mouse leaved");
+		hoverCounter = 0;
+	    clearInterval(timer);
+	});
+
+	// cliked outside the button
+	$(document).on('click', function(e){
+		if(e.target.id != "btn_motion"){
+			$(".button_outside_click").addClass("active_achivement");
+		}
+	});
+
+	//button drag function
+
+	function myDragFunction(e){
+		$(".button_dragged").addClass("active_achivement");
+	}
+
+</script>

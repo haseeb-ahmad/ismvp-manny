@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get :account
       post :fetch_yodlee_data
       get :yodlee_data
+      get :track_motion
     end
     get "update_contacts"
     resources :contacts do
