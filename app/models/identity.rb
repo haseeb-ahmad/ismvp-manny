@@ -4,7 +4,7 @@ class Identity < ActiveRecord::Base
 	has_many :contacts
 
 	validates :provider, presence: true
-	validates :uid, presence: true, uniqueness: {scope: :provider}
+	validates :uid, presence: true, uniqueness: {scope: [:provider, :user_id]}
 
 	attr_accessible :email, :expires_at, :provider, :refresh_token, :secret, :token, :uid, :user_id
 
