@@ -1,17 +1,29 @@
+<%= javascript_include_tag 'idle' %>
+<%= javascript_include_tag 'client.min' %>
+
 <script src="http://www.loganfranken.com/projects/cursometer/script/jquery.cursometer.1.0.0.min.js"></script>
 
 <div id="speedometer" style="display: none;"></div>
 <div id = "track_container">
-	<a  class="event_link achievements_link"> Achievements » </a>	
+	<a  class="event_link achievements_link"> Achievements » </a>
+	<br>
+	<br>
+	<a  class="achievements_percentage"> 0% </a>
 	
 	<div id="containerz">
 	  <div id="navi">
+	  	<div class="cursor_text_area">
+	  		<span class="blinking-cursor">|</span>
+	  		<div class="data typewriter"></div>
 
+	  	</div>
 		<button class="btn btn-primary motion_btn" id="btn_motion" draggable="true" ondrag="myDragFunction(event)"> Button </button>
 
 	  </div>
 	  <div id="infoi">
-	  	<h2> Achivements </h2>
+	  	<h3 class="achievements_header"> Achivements - 0% unlocked! </h3>
+	  	<h3 class="achievements_header"> Try to unlock them all. </h3>
+
 
 	  	<ul id="achievements_list">
 	  		<li class="active_achivement">💊 You visited track motion.</li>
@@ -50,15 +62,64 @@
 	  		<li class="hovered_btn_10_sec">💊 You hovered above the button 10 sec. </li>
 	  		<li class="hovered_btn_1">💊 You hovered above the button 1 min. </li>
 	  		<li class="hovered_btn_10">💊 You hovered above the button 10 min. </li>
-
-
 	  		<li class="button_outside_click">💊 You clicked outside the button. </li>
 	  		<li class="button_dragged">💊 You dragged the button. </li>
+	  		<li class="button_pressed_hold">💊 You held the button pressed for 10 min. </li>
+
+	  		<li class="window_visited_top_right">💊 You went to the top right area of the window. </li>
+	  		<li class="window_visited_bottom_right">💊 You went to the bottom right area of the window. </li>
+	  		<li class="window_visited_top_left">💊 You went to the top left area of the window. </li>
+	  		<li class="window_visited_bottom_left">💊 You went to the bottom left area of the window. </li>
+	  		<li class="window_visited_all_corners">💊 You visited all corners of the window. </li>
+
+	  		<li class="window_inactive_">💊 You made this window inactive. </li>
+	  		<li class="window_inactive_30s">💊 You made this window inactive for 30 sec. </li>
+	  		<li class="window_inactive_1min">💊 You made this window inactive for 1 min. </li>
+	  		<li class="window_inactive_10min">💊 You made this window inactive for 10 min. </li>
+	  		<li class="window_inactive_1hour">💊 You made this window inactive for 1 hour. </li>
+	  		<li class="window_inactive_1day">💊 You made this window inactive for 1 day. </li>
+	  		<li class="window_inactive_cameback">💊 You came back from inactive window. </li>
 
 
+	  		<li class="button_click_time_6sec">💊 You clicked on button 6 times in second. </li>
+	  		<li class="button_click_time_7sec">💊 You clicked on button 7 times in second. </li>
+	  		<li class="button_click_time_8sec">💊 You clicked on button 8 times in second. </li>
+	  		<li class="right_click_on_btn">💊 You rightclicked on button. </li>
+	  		<li class="right_click_outside_btn">💊 You rightclicked outside the button. </li>
+	  		<li class="right_click_nextto_btn">💊 You rightclicked next to button. </li>
 
+	  		<li class="window_scroll_down">💊 You scrolled down. </li>
+	  		<li class="window_scroll_up">💊 You scrolled up. </li>
 
+	  		<li class="away_for_an_min">💊 Yor were away for 10 min. </li>
+	  		<li class="away_for_an_hour">💊 Yor were away for an hour. </li>
+	  		<li class="away_for_an_day">💊 Yor were away for a day. </li>
+	  		<li class="away_for_an_week">💊 Yor were away for a week. </li>
 
+	  		<li class="active_achivement">💊 You were here for 30 sec. </li>
+	  		<li class="active_achivement">💊 You were here for 1 min. </li>
+	  		<li class="active_achivement">💊 You were here for 2 min. </li>
+	  		<li class="active_achivement">💊 You were here for 3 min. </li>
+
+	  		<li class="visited_time_2_5_wd">💊 You visited between 2 and 5 on working days. </li>
+	  		<li class="visited_time_9_5_wd">💊 You visited between 9 and 5 on working days. </li>
+	  		<li class="visited_time_9_5_wk">💊 You visited between 9 and 5 during weekend. </li>
+	  		<li class="visited_time_5_10">💊 You visited between 5 and 10. </li>
+	  		<li class="visited_time_10_2_wk">💊 You visited between 10 and 2 while weekend. </li>
+
+	  		<li class="active_achivement">💊 Your favorite screen area was analysed. </li>
+	  		<li class="active_achivement">💊 Your clicking speed was analysed. </li>
+	  		<li class="active_achivement">💊 50%. </li>
+	  		<li class="active_achivement">💊 80% </li>
+
+	  		<li class="internet_connected">💊 You connected to the internet.</li>
+	  		<li class="internet_disconnected">💊 You disconnected to the internet. </li>
+	  		<li class="internet_reconnected">💊 You reconnected to the internet. </li>
+
+	  		<li class="browser_name_chrome">💊 You opened in Chrome. </li>
+	  		<li class="browser_name_firefox">💊 You opened in Firefix </li>
+	  		<li class="browser_name_ie">💊 You opened in IE. </li>
+	  		<li class="browser_name_other">💊 You opened in other browser. </li>
 
 	  	</ul>
 	  </div>
@@ -76,9 +137,12 @@
 		//Zero the idle timer on mouse movement.
 		$(this).mousemove(function (e) {
 			idleTime = 0;
+			$(".window_inactive_cameback").addClass("active_achivement");
+
 		});
 		$(this).keypress(function (e) {
 			idleTime = 0;
+			$(".window_inactive_cameback").addClass("active_achivement");
 		});
 
 	});
@@ -105,6 +169,10 @@
 		btn_click_count = btn_click_count + 1;
 
 		$(".click_time_" + btn_click_count).addClass("active_achivement");
+		if (btn_click_count ==1 || btn_click_count ==5 || btn_click_count ==10 || btn_click_count ==100 || btn_click_count == 1000){
+			cursor_text_area("Subject clicked the button " + btn_click_count + " times");
+		}
+			
 	});
 
     var bodyElement = document.querySelector("body");
@@ -121,17 +189,28 @@
 	    if (oldX < e.pageX) {
 	        // xDirection = "right";
 	        $(".move_right").addClass("active_achivement");
+	        $(".window_visited_top_right").addClass("active_achivement");
+	        // cursor_text_area("Subject moved to right!");
+
 	    } else {
 	        // xDirection = "left";
 	        $(".move_left").addClass("active_achivement");
+	        $(".window_visited_top_left").addClass("active_achivement");
+	        // cursor_text_area("Subject moved to left!");
 	    }
 	    //deal with the vertical case
 	    if (oldY < e.pageY) {
 	        // yDirection = "down";
 	        $(".move_down").addClass("active_achivement");
+	        $(".window_visited_bottom_right").addClass("active_achivement");
+	        $('.window_visited_bottom_left').addClass("active_achivement");
+	        // cursor_text_area("Subject moved to down!");
 	    } else {
 	        // yDirection = "top";
 	        $(".move_up").addClass("active_achivement");
+	        $(".window_visited_all_corners").addClass("active_achivement");
+	        // cursor_text_area("Subject moved to up!");
+
 	    }
 
 	    oldX = e.pageX;
@@ -154,10 +233,13 @@
         if($speedometer.text() > 5) {
             console.log("Over 5");
             $(".move_fast").addClass("active_achivement");
+	        // cursor_text_area("Subject moved very fast!");
+
         }
         else {
             console.log("Under 5");
             $(".move_slow").addClass("active_achivement");
+	        // cursor_text_area("Subject moved very slow!");
         }
     });
 
@@ -168,43 +250,63 @@
 	    nonStopTime = nonStopTime + 1000;
 	    if (idleTime == 10000) { // 10 sec
 	    	$(".idle_10_sec").addClass("active_achivement");
+	        cursor_text_area("Subject remained idle for 10 sec!");
+	    	$(".window_inactive_").addClass("active_achivement");
 	    	console.log("idle_10_sec");
 	    } 
 	    if(idleTime == 30000){
 	    	$(".idle_30_sec").addClass("active_achivement");
 	    	console.log("idle_30_sec");
+	    	$(".window_inactive_30s").addClass("active_achivement");
+	        cursor_text_area("Subject remained idle for 30 sec!");
 	    }
 	    if(idleTime == 60000){
 	    	$(".idle_1_min").addClass("active_achivement");
+	    	$(".window_inactive_1min").addClass("active_achivement");
 	    	console.log("idle_1_min");
+	        cursor_text_area("Subject remained idle 1 min!");
+
 	    }
 	    if(idleTime == (10*60000)){
 	    	$(".idle_10_min").addClass("active_achivement");
 	    	console.log("idle_10_min");
+	    	$(".window_inactive_10min").addClass("active_achivement");
+	        cursor_text_area("Subject remained idle for 10 min!");
+
 	    }
 	    if(idleTime == (10*6*60000)){
 	    	$(".idle_1_hour").addClass("active_achivement");
 	    	console.log("idle_1_hour");
+	    	$(".window_inactive_1hour").addClass("active_achivement");
+	        cursor_text_area("Subject remained idle for 1 hour!");
+	    	
+	    }
+	    if (idleTime == (10*6*600000*24)){
+	    	$(".window_inactive_1day").addClass("active_achivement");
+	        cursor_text_area("Subject remained idle for 1 day!");
+	    	
 	    }
 
 	    if (nonStopTime == 5000 && nonStopTime != idleTime){
 	    	// moved non stop for 5 second
 	    	$(".non_stop_5").addClass("active_achivement");
 	    	console.log("moved non stop for 5 second");
+	        cursor_text_area("Subject moved non stop for 5 second!");
+
 	    }
 	    
 	    if (nonStopTime == 10000 && nonStopTime != idleTime){
 			// moved non stop for 10 second
 			$(".non_stop_10").addClass("active_achivement");
 	    	console.log("moved non stop for 10 second");
-
+	        cursor_text_area("Subject moved non stop for 10 second!");
 	    }
 
 	    if (nonStopTime == 60000 && nonStopTime != idleTime){
 			// moved non stop for 1 min
 			$(".non_stop_1").addClass("active_achivement");
 	    	console.log("moved non stop for 1 min");
-
+	        cursor_text_area("Subject moved non stop for 1 min!");
 	    }
 	}
 
@@ -215,15 +317,23 @@
 
 	    if (mouseEnterCount == 1){
 	    	$(".entered_1").addClass("active_achivement");
+	        cursor_text_area("Subject entered the button 1 times!");
+
 	    }
 	    if (mouseEnterCount == 5){
 	    	$(".entered_5").addClass("active_achivement");
+	        cursor_text_area("Subject entered the button 5 times!");
+
 	    }
 	    if (mouseEnterCount == 10){
 	    	$(".entered_10").addClass("active_achivement");
+	        cursor_text_area("Subject entered the button 10 times!");
+	    	
 	    }
 	    if (mouseEnterCount == 100){
 	    	$(".entered_100").addClass("active_achivement");
+	        cursor_text_area("Subject entered the button 100 times!");
+	    	
 	    }
 	});
 
@@ -239,18 +349,26 @@
 	        if (hoverCounter == 5000){
 	        	console.log("button hover 5 seconds");
 	        	$(".hovered_btn_5").addClass("active_achivement");
+	        	cursor_text_area("Subject hovered the button for 5 sec!");
+
 	        }
 	        if (hoverCounter == 10000){	
 	        	console.log("button hover 10 seconds");
 	        	$(".hovered_btn_10_sec").addClass("active_achivement");
+	        	cursor_text_area("Subject hovered the button for 10 sec!");
+
 	        }
 	        if (hoverCounter == 60000){
 	        	console.log("button hover 1 min");
 	        	$(".hovered_btn_1").addClass("active_achivement");
+	        	cursor_text_area("Subject hovered the button for 1 min!");
+
 	        }
 	        if (hoverCounter == (60000*10)){
 	        	console.log("button hover 10 min");
 	        	$(".hovered_btn_10").addClass("active_achivement");
+	        	cursor_text_area("Subject hovered the button for 10 min!");
+
 	        }
 
 	    }, 1000);
@@ -264,13 +382,260 @@
 	$(document).on('click', function(e){
 		if(e.target.id != "btn_motion"){
 			$(".button_outside_click").addClass("active_achivement");
+	        // cursor_text_area("Subject clicked outside the button!");
+
 		}
 	});
-
 	//button drag function
-
 	function myDragFunction(e){
 		$(".button_dragged").addClass("active_achivement");
+	    cursor_text_area("Subject dragged the button!");
+
 	}
+	// is hold button for 10 minutes
+	var timeoutId = 0;
+	var btnHoldTimer = 0;
+	$('#btn_motion').on('mousedown', function() {
+	    timeoutId = setInterval(function(){
+	    	btnHoldTimer =  btnHoldTimer + 1000;
+	    	if (btnHoldTimer == 10000){
+	    		$(".button_pressed_hold").addClass("active_achivement");
+	    		cursor_text_area("Subject hold the button pressed for 10 sec!");
+
+	    	}
+	    }, 1000);
+	}).on('mouseup mouseleave', function() {
+	    btnHoldTimer = 0;
+		console.log("LEAVE btnHoldTimer: " + btnHoldTimer);
+	    clearInterval(timeoutId);
+	});
+
+	// how many times click on button triggered
+	var btnClickTimeCounter = 0;
+	var btnClickCounter = 0;
+	
+	$('#btn_motion').on('click', function(){
+		btnClickCounter = btnClickCounter + 1;
+	});
+	
+	$('#btn_motion').mouseenter(function(){
+		 timeoutIdd = setInterval(function(){
+	    	btnClickTimeCounter =  btnClickTimeCounter + 1000;
+	    	if (btnClickTimeCounter == 1000){
+
+		 		if( btnClickCounter >= 6 ){
+		 			$(".button_click_time_6sec").addClass("active_achivement");
+	    			cursor_text_area("Subject clicked on button 6 time in sec!");
+
+		 		}
+		 		if( btnClickCounter >= 7 ){
+		 			$(".button_click_time_7sec").addClass("active_achivement");
+	    			cursor_text_area("Subject clicked on button 7 time in sec!");
+
+		 		}
+		 		if( btnClickCounter >= 8 ){
+		 			$(".button_click_time_8sec").addClass("active_achivement");
+	    			cursor_text_area("Subject clicked on button 8 time in sec!");
+
+		 		}
+		 		clearInterval(timeoutIdd);
+		 		btnClickTimeCounter = 0;
+		 		btnClickCounter = 0;
+	    	}
+	    }, 1000);
+	});
+
+	//right button clicked event 
+	$('body').mousedown(function(e){ 
+    	if( e.button == 2 && e.target.id == "btn_motion" ) { 
+      		$(".right_click_on_btn").addClass("active_achivement");
+	    	cursor_text_area("Subject right clicked on button!");
+
+    	}
+    	if( e.button == 2 && e.target.id != "btn_motion" ) { 
+      		$(".right_click_outside_btn").addClass("active_achivement");
+      		$(".right_click_nextto_btn").addClass("active_achivement");
+	    	cursor_text_area("Subject right clicked outside button!");
+	    	cursor_text_area("Subject right clicked next to button!");
+    	}  
+  	}); 
+
+
+  	//detect scrool events
+  	$(window).scroll(function(){
+  		var scrollTo = $(window).scrollTop(),
+		docHeight = $(document).height(),
+		windowHeight = $(window).height();
+		scrollPercent = (scrollTo / (docHeight-windowHeight)) * 100;
+		scrollPercent = scrollPercent.toFixed(1);
+
+		if(scrollPercent >= 50){
+			$(".window_scroll_down").addClass("active_achivement");
+	    	// cursor_text_area("Subject scroll the window down!");
+
+		}else{
+			$(".window_scroll_up").addClass("active_achivement");
+	    	// cursor_text_area("Subject scroll the window up!");
+		}
+  	});
+
+  	// user away time
+  	var awayTime;
+  	var backTime;
+
+  	var awayCallback = function(){
+		console.log(new Date().toTimeString() + ": away");
+	};
+	
+	var awayBackCallback = function(){
+		console.log(new Date().toTimeString() + ": back");
+	};
+
+	var onVisibleCallback = function(){
+		console.log(new Date().toTimeString() + ": now looking at page");
+		backTime = new Date();
+
+		var diffMs = (backTime - awayTime); // milliseconds between now & Christmas
+		var diffDays = Math.floor(diffMs / 86400000); // days
+		var diffWeeks = Math.floor(diffDays / 7);
+		var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+		var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+
+		if(diffMins >= 10){
+			$(".away_for_an_min").addClass("active_achivement");
+	    	cursor_text_area("Subject remanined away for min!");
+
+		}
+
+		if(diffHrs >= 1){
+			$(".away_for_an_hour").addClass("active_achivement");
+	    	cursor_text_area("Subject remanined away for an hour!");
+
+		}
+
+		if(diffDays >= 1){
+			$(".away_for_an_day").addClass("active_achivement");
+	    	cursor_text_area("Subject remanined away for a day!");
+
+		}
+
+		if(diffWeeks >= 1){
+			$(".away_for_an_week").addClass("active_achivement");
+	    	cursor_text_area("Subject remanined away for a week!");
+
+		}
+	};
+	
+	var onHiddenCallback = function(){
+		console.log(new Date().toTimeString() + ": not looking at page");
+  		awayTime = new Date();
+	};
+
+	var idle = new Idle({
+		onHidden: onHiddenCallback,
+		onVisible: onVisibleCallback,
+		onAway: awayCallback,
+		onAwayBack: awayBackCallback,
+		awayTimeout: 5000 //away with 5 seconds of inactivity
+	}).start();
+
+
+	//visited time schedules
+	var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+	var toDate = new Date();
+	var to_day  = weekday[toDate.getDay()]
+	var hours = toDate.getHours();
+	hours = hours % 12;
+  	hours = hours ? hours : 12;
+
+  	if(hours >= 2 && hours <= 5 && to_day != "Saturday" && to_day != "Sunday"  ){
+  		$(".visited_time_2_5_wd").addClass("active_achivement");
+	    cursor_text_area("Subject visited between 2 and 5 in working days!");
+
+  	}
+  	if(hours >= 9 && hours <= 5 && to_day != "Saturday" && to_day != "Sunday"  ){
+  		$(".visited_time_9_5_wd").addClass("active_achivement");
+	    cursor_text_area("Subject visited between 9 and 5 in working days!");
+
+  	}
+
+  	if(hours >= 9 && hours <= 5 && (to_day == "Saturday" || to_day == "Sunday" ) ){
+  		$(".visited_time_9_5_wk").addClass("active_achivement");
+	    cursor_text_area("Subject visited between 9 and 5 on weekend!");
+
+  	}
+
+  	if( hours >= 5 && hours <= 10 ){
+  		$(".visited_time_5_10").addClass("active_achivement");
+	    cursor_text_area("Subject visited between 5 and 10!");
+
+  	}
+
+  	if(hours >= 10 && hours <= 2 && (to_day == "Saturday" || to_day == "Sunday" ) ){
+  		$(".visited_time_10_2_wk").addClass("active_achivement");
+	    cursor_text_area("Subject visited between 10 and 2 in weekday!");
+
+  	}
+
+  	//internet connectivity listners
+	if (navigator.onLine) {
+	  $(".internet_connected").addClass("active_achivement");
+	}
+	window.addEventListener('offline', function(e) { $(".internet_disconnected").addClass("active_achivement"); });
+	window.addEventListener('online', function(e) { $(".internet_reconnected").addClass("active_achivement"); });
+
+	// browser info
+	var client = new ClientJS();
+
+	if(client.isChrome()){
+		$(".browser_name_chrome").addClass("active_achivement");
+	    cursor_text_area("Subject opened in chrome!");
+
+	}else if(client.isFirefox()){
+		$(".browser_name_firefox").addClass("active_achivement");
+	    cursor_text_area("Subject opened in firefox!");
+
+	}else if(client.isIE()){
+		$(".browser_name_ie").addClass("active_achivement");
+	    cursor_text_area("Subject opened in ie!");
+	}else{
+		$(".browser_name_other").addClass("active_achivement");
+	}
+
+	//event listener for achivements unlocked
+	function achievements_listener(){
+		var total_achivements = $("#achievements_list li").length
+		var active_achivements = $("#achievements_list .active_achivement").length
+		var inactive_achivements = total_achivements - active_achivements
+		var active_achivements_percentage = Math.round((active_achivements/total_achivements)*100);
+
+		$(".achievements_header:first").text("Achivements - " + active_achivements_percentage +"% unlocked!");
+		$(".achievements_header:last").text("Try to unlock them all. Only "+ inactive_achivements + " to go. ");
+		$(".achievements_percentage").text(active_achivements_percentage + "%");
+	}
+	achivements_listener = setInterval(function(){
+    	achievements_listener();
+    }, 5000);
+
+    function cursor_text_area(str){
+    	$(".cursor_text_area .data").prepend("<h3>" + str + "</h3>");
+    	soundEffect(str);
+    }
+    function soundEffect(str){
+	  if ('speechSynthesis' in window) {
+	      var text = str;
+	      var msg = new SpeechSynthesisUtterance();
+	      var voices = window.speechSynthesis.getVoices();
+	      msg.voice = voices[0];
+	      msg.rate = 10 / 10;
+	      msg.pitch = 1;
+	      msg.text = text;
+
+	      msg.onend = function(e) {
+	        console.log('Finished in ' + event.elapsedTime + ' seconds.');
+	      };
+	      speechSynthesis.speak(msg);
+	  }
+    }
 
 </script>

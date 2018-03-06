@@ -7623,8 +7623,8 @@ header .head, header .searcher {
 /* line 125, ../sass/styles.scss */
 header .logo {
   float: left;
-  margin-left: 3.4545%;
-  margin-right: 2.8108%;
+ /* margin-left: 3.4545%;
+  margin-right: 2.8108%;*/
   max-width: 26%;
 }
 /* line 131, ../sass/styles.scss */
